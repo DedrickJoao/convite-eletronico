@@ -1,0 +1,6 @@
+{
+  "name": "Benedita & Dionísio | O Casamento de 2026",
+  "description": "Convite digital luxuoso e interativo para o casamento de Benedita e Dionísio em 12 de Dezembro de 2026. RSVP digital com QR Code, Check-in NFC, playlist exclusiva e mapa interativo.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
