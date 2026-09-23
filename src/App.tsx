@@ -59,7 +59,7 @@ export default function App() {
   };
 
   return (
-    <div className="relative min-h-screen bg-[#07080b] text-[#f3f4f6] selection:bg-[#d4af37]/30 selection:text-[#fef9e7] font-montserrat antialiased">
+    <div className="relative min-h-screen bg-[#dfe6ec] text-[#162842] selection:bg-[#c69c4e]/30 selection:text-[#162842] font-montserrat antialiased bg-watercolor-luxury">
       {/* Interactive Royal Envelope Intro */}
       {!isEnvelopeOpened && (
         <EnvelopeIntro

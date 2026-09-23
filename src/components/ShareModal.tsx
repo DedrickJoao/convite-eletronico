@@ -24,7 +24,7 @@ export default function ShareModal({ isOpen, onClose }: ShareModalProps) {
 
   const getShareMessage = () => {
     const guestGreeting = customGuest.trim() ? `Olá ${customGuest.trim()}!` : 'Prezado(a) Convidado(a),';
-    return `${guestGreeting}\n\nÉ com imensa honra e alegria que convidamos você para o Casamento Real de Benedita & Dionísio, no dia 12 de Dezembro de 2026.\n\nAcesse o convite digital luxuoso e confirme sua presença pelo link:\n${getShareUrl()}`;
+    return `${guestGreeting}\n\nÉ com imensa honra e alegria que convidamos você para o Casamento de Dionísio & Benedita, no dia 12 de Dezembro de 2026 em Maputo, Moçambique.\n\n"Que falte tudo menos Deus..."\n\nAcesse o convite digital luxuoso e confirme sua presença pelo link:\n${getShareUrl()}`;
   };
 
   const handleCopy = () => {
@@ -44,7 +44,7 @@ export default function ShareModal({ isOpen, onClose }: ShareModalProps) {
   };
 
   const handleEmailShare = () => {
-    const subject = encodeURIComponent(`Convite Real: Casamento de Benedita & Dionísio 2026`);
+    const subject = encodeURIComponent(`Convite Oficial: Casamento de Dionísio & Benedita 2026`);
     const body = encodeURIComponent(getShareMessage());
     window.open(`mailto:?subject=${subject}&body=${body}`, '_blank');
   };

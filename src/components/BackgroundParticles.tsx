@@ -37,11 +37,11 @@ export default function BackgroundParticles() {
     const particles: Particle[] = [];
 
     const goldColors = [
-      'rgba(212, 175, 55, ',
-      'rgba(245, 215, 127, ',
-      'rgba(254, 249, 231, ',
+      'rgba(198, 156, 78, ',
+      'rgba(217, 180, 108, ',
+      'rgba(168, 126, 51, ',
       'rgba(255, 255, 255, ',
-      'rgba(184, 134, 11, '
+      'rgba(22, 40, 66, '
     ];
 
     for (let i = 0; i < particleCount; i++) {

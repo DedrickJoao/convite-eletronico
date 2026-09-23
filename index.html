@@ -3,17 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Benedita & Dionísio | O Casamento de 2026</title>
-    <meta name="description" content="Convite digital luxuoso e interativo para o casamento de Benedita e Dionísio em 12 de Dezembro de 2026. RSVP digital com QR Code, Check-in NFC, playlist exclusiva e mapa interativo." />
-    <meta property="og:title" content="Benedita & Dionísio | O Casamento de 2026" />
-    <meta property="og:description" content="Você é nosso convidado de honra para o evento mais inesquecível do ano. 12 de Dezembro de 2026." />
+    <script>
+      (function() {
+        try {
+          var _fetch = (typeof window !== 'undefined' && window.fetch) ? window.fetch.bind(window) : (typeof fetch !== 'undefined' ? fetch : null);
+          
+          function patch(obj) {
+            if (!obj) return;
+            try {
+              Object.defineProperty(obj, 'fetch', {
+                get: function() { return _fetch; },
+                set: function(v) { _fetch = v; },
+                configurable: true,
+                enumerable: true
+              });
+            } catch (_) {}
+          }
+
+          if (typeof Window !== 'undefined' && Window.prototype) {
+            patch(Window.prototype);
+          }
+          if (typeof window !== 'undefined') {
+            patch(window);
+          }
+          if (typeof globalThis !== 'undefined') {
+            patch(globalThis);
+          }
+          if (typeof self !== 'undefined') {
+            patch(self);
+          }
+        } catch (_) {}
+      })();
+    </script>
+    <title>Dionísio & Benedita | O Casamento de 2026</title>
+    <meta name="description" content="Convite digital luxuoso e interativo para o casamento de Dionísio e Benedita em 12 de Dezembro de 2026 em Maputo, Moçambique. RSVP digital com QR Code, Check-in NFC, playlist exclusiva e mapa interativo." />
+    <meta property="og:title" content="Dionísio & Benedita | O Casamento de 2026" />
+    <meta property="og:description" content="Você é nosso convidado de honra para o evento mais inesquecível do ano. 12 de Dezembro de 2026 em Maputo, Moçambique." />
     <meta property="og:type" content="website" />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Cinzel:wght@400;500;600;700;800;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,600&family=Montserrat:wght@200;300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-[#0b0c10] text-[#f3f4f6] selection:bg-[#d4af37]/30 selection:text-[#fef9e7] overflow-x-hidden antialiased">
+  <body class="bg-[#dfe6ec] text-[#162842] selection:bg-[#c69c4e]/30 selection:text-[#162842] overflow-x-hidden antialiased">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

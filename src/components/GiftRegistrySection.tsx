@@ -152,26 +152,26 @@ export default function GiftRegistrySection() {
               </button>
             </div>
 
-            {/* Multicaixa Express (Angola / Luanda) */}
+            {/* M-Pesa (Moçambique) */}
             <div className="p-5 rounded-2xl bg-[#090b10] border border-white/10 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-2 text-xs font-montserrat uppercase tracking-wider text-[#d4af37] font-semibold mb-2">
                   <Smartphone className="w-4 h-4" />
-                  <span>Multicaixa Express (AO)</span>
+                  <span>M-Pesa (Moçambique)</span>
                 </div>
                 <p className="font-mono text-xs sm:text-sm text-white font-bold tracking-wider break-all mb-1">
                   {WEDDING_DETAILS.bankingDetails.multicaixaExpress}
                 </p>
                 <p className="text-[10px] font-montserrat text-gray-400">
-                  Envio instantâneo por número telefónico
+                  Envio móvel instantâneo (Vodacom M-Pesa MZ)
                 </p>
               </div>
 
               <button
-                onClick={() => copyToClipboard(WEDDING_DETAILS.bankingDetails.multicaixaExpress, 'mcx')}
+                onClick={() => copyToClipboard(WEDDING_DETAILS.bankingDetails.multicaixaExpress, 'mpesa')}
                 className="mt-4 w-full py-2 px-3 rounded-xl crystal-card border border-[#d4af37]/30 hover:border-[#d4af37] text-xs font-montserrat font-semibold text-[#f5d77f] flex items-center justify-center gap-1.5 transition-colors"
               >
-                {copiedType === 'mcx' ? (
+                {copiedType === 'mpesa' ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Copiado com Sucesso!</span>
@@ -179,32 +179,32 @@ export default function GiftRegistrySection() {
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    <span>Copiar Telefone MCX</span>
+                    <span>Copiar M-Pesa</span>
                   </>
                 )}
               </button>
             </div>
 
-            {/* PIX / Email Transfer */}
+            {/* E-Mola (Moçambique) */}
             <div className="p-5 rounded-2xl bg-[#090b10] border border-white/10 flex flex-col justify-between">
               <div>
                 <div className="flex items-center gap-2 text-xs font-montserrat uppercase tracking-wider text-[#d4af37] font-semibold mb-2">
                   <CreditCard className="w-4 h-4" />
-                  <span>Chave PIX / E-mail</span>
+                  <span>E-Mola (Moçambique)</span>
                 </div>
                 <p className="font-mono text-xs sm:text-sm text-white font-bold tracking-wider break-all mb-1">
                   {WEDDING_DETAILS.bankingDetails.pixKey}
                 </p>
                 <p className="text-[10px] font-montserrat text-gray-400">
-                  Chave direta de confirmação instantânea
+                  Transferência móvel direta (Movitel E-Mola)
                 </p>
               </div>
 
               <button
-                onClick={() => copyToClipboard(WEDDING_DETAILS.bankingDetails.pixKey, 'pix')}
+                onClick={() => copyToClipboard(WEDDING_DETAILS.bankingDetails.pixKey, 'emola')}
                 className="mt-4 w-full py-2 px-3 rounded-xl crystal-card border border-[#d4af37]/30 hover:border-[#d4af37] text-xs font-montserrat font-semibold text-[#f5d77f] flex items-center justify-center gap-1.5 transition-colors"
               >
-                {copiedType === 'pix' ? (
+                {copiedType === 'emola' ? (
                   <>
                     <Check className="w-3.5 h-3.5 text-emerald-400" />
                     <span>Copiado com Sucesso!</span>
@@ -212,7 +212,7 @@ export default function GiftRegistrySection() {
                 ) : (
                   <>
                     <Copy className="w-3.5 h-3.5" />
-                    <span>Copiar Chave PIX</span>
+                    <span>Copiar E-Mola</span>
                   </>
                 )}
               </button>

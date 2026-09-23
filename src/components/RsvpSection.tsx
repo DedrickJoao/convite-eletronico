@@ -74,7 +74,7 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
     e.preventDefault();
     setIsSubmitting(true);
 
-    const generatedId = `BD-${Math.floor(1000 + Math.random() * 9000)}-VIP`;
+    const generatedId = `DB-${Math.floor(1000 + Math.random() * 9000)}-VIP`;
 
     setTimeout(() => {
       setIsSubmitting(false);
@@ -234,7 +234,7 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
                           required
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="+351 912 345 678 / +244 923 000 000"
+                          placeholder="+258 84 123 4567 / +258 87 000 0000"
                           className="w-full bg-[#090b10] border border-white/15 focus:border-[#d4af37] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-white focus:outline-none transition-colors"
                         />
                       </div>
@@ -322,7 +322,7 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
                   {/* Message to Couple */}
                   <div className="space-y-1.5">
                     <label className="block text-xs font-montserrat text-gray-300">
-                      Mensagem de Carinho para Benedita & Dionísio
+                      Mensagem de Carinho para Dionísio & Benedita
                     </label>
                     <div className="relative">
                       <MessageSquareHeart className="w-4 h-4 absolute left-3.5 top-3 text-[#d4af37]" />

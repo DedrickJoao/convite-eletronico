@@ -56,7 +56,7 @@ export default function LocationAndMapSection() {
 
               {/* Coordinates Pill */}
               <div className="absolute bottom-3 left-3 px-3 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono text-gray-300">
-                GPS: 38°47&apos;50.4&quot;N 9°23&apos;25.8&quot;W
+                GPS: 25°58&apos;18.0&quot;S 32°35&apos;42.0&quot;E (Maputo, Moçambique)
               </div>
             </div>
 
@@ -107,7 +107,7 @@ export default function LocationAndMapSection() {
                   className="py-2.5 px-3 rounded-xl bg-black border border-[#d4af37]/60 text-xs font-montserrat font-semibold text-[#f5d77f] flex items-center justify-center gap-1.5 transition-all text-center"
                 >
                   <Car className="w-3.5 h-3.5" />
-                  <span>Pedir Uber</span>
+                  <span>Pedir Táxi / Uber</span>
                 </a>
               </div>
             </div>
@@ -135,13 +135,13 @@ export default function LocationAndMapSection() {
 
               <div className="space-y-3 text-xs font-montserrat text-gray-300">
                 <div className="p-3 rounded-xl bg-[#080a10]/80 border border-white/5">
-                  <p className="font-bold text-white">Tivoli Palácio de Seteais Hotel</p>
-                  <p className="text-gray-400 text-[11px]">A 5 minutos do evento • Código VIP: <strong className="text-[#f5d77f]">ROYAL-BD26</strong></p>
+                  <p className="font-bold text-white">Hotel Polana Serena (Maputo)</p>
+                  <p className="text-gray-400 text-[11px]">A 3 minutos do local • Código VIP: <strong className="text-[#f5d77f]">ROYAL-DB26</strong></p>
                 </div>
 
                 <div className="p-3 rounded-xl bg-[#080a10]/80 border border-white/5">
-                  <p className="font-bold text-white">Penha Longa Resort & Spa</p>
-                  <p className="text-gray-400 text-[11px]">A 10 minutos com transfer VIP incluído</p>
+                  <p className="font-bold text-white">Radisson Blu Hotel & Residence Maputo</p>
+                  <p className="text-gray-400 text-[11px]">Orla marítima da Marginal com transfer VIP incluso</p>
                 </div>
               </div>
             </div>
@@ -157,13 +157,13 @@ export default function LocationAndMapSection() {
                     Convidados Internacionais
                   </h4>
                   <span className="text-[10px] font-montserrat text-[#d4af37] uppercase tracking-wider">
-                    Recepção no Aeroporto
+                    Aeroporto de Maputo (MPM)
                   </span>
                 </div>
               </div>
 
               <p className="text-xs font-montserrat text-gray-300 leading-relaxed font-light">
-                Para convidados vindos de Angola, Brasil ou outros países, nossa equipe de cerimonial poderá organizar transfers executivos privativos.
+                Para convidados vindos de Moçambique, África do Sul, Portugal ou outros países, nossa equipe de cerimonial providenciará transfers executivos privativos a partir do Aeroporto Internacional de Maputo.
               </p>
 
               <div className="flex items-center gap-2 text-xs font-montserrat text-[#f5d77f]">

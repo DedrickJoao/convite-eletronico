@@ -9,7 +9,7 @@ interface NfcPassSectionProps {
   ticketId?: string;
 }
 
-export default function NfcPassSection({ guestName = "Convidado de Honra", ticketId = "BD-2026-VIP-889" }: NfcPassSectionProps) {
+export default function NfcPassSection({ guestName = "Convidado de Honra", ticketId = "DB-2026-VIP-889" }: NfcPassSectionProps) {
   const [qrDataUrl, setQrDataUrl] = useState<string>('');
   const [isNfcScanning, setIsNfcScanning] = useState<boolean>(false);
   const [nfcCheckedIn, setNfcCheckedIn] = useState<boolean>(false);
@@ -20,11 +20,11 @@ export default function NfcPassSection({ guestName = "Convidado de Honra", ticke
   useEffect(() => {
     // Generate high resolution Gold-accented QR Code
     const passPayload = JSON.stringify({
-      event: "Casamento Benedita & Dionisio 2026",
+      event: "Casamento Dionísio & Benedita 2026",
       guest: guestName,
       ticketId: ticketId,
       date: "2026-12-12",
-      access: "VIP All-Access Lounge & Banquet",
+      access: "VIP All-Access Lounge & Banquet - Maputo",
       nfcId: `NFC-${ticketId}`
     });
 
@@ -104,7 +104,7 @@ export default function NfcPassSection({ guestName = "Convidado de Honra", ticke
                 {/* Holographic Watermark Monogram */}
                 <div className="absolute -right-8 -bottom-8 w-56 h-56 rounded-full bg-gradient-to-br from-[#d4af37]/10 to-transparent blur-xl pointer-events-none" />
                 <div className="absolute top-0 right-0 p-8 opacity-10 font-cinzel text-8xl font-black text-[#d4af37] pointer-events-none select-none">
-                  BD
+                  DB
                 </div>
 
                 {/* Card Top: Crown & Event Name */}
@@ -115,10 +115,10 @@ export default function NfcPassSection({ guestName = "Convidado de Honra", ticke
                     </div>
                     <div>
                       <span className="font-cinzel text-xs font-bold gold-gradient-text tracking-widest block uppercase">
-                        {WEDDING_DETAILS.bride} & {WEDDING_DETAILS.groom}
+                        {WEDDING_DETAILS.groom} & {WEDDING_DETAILS.bride}
                       </span>
                       <span className="text-[10px] font-montserrat tracking-widest text-gray-400 uppercase">
-                        Edição Imperial 2026
+                        Edição Imperial 2026 • Maputo
                       </span>
                     </div>
                   </div>

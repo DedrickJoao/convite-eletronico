@@ -87,20 +87,20 @@ export default function LoveStorySection() {
           <Quote className="w-12 h-12 text-[#d4af37]/20 mx-auto mb-4" />
           
           <h3 className="font-alex text-3xl sm:text-5xl text-[#fcedc5] mb-4">
-            A Promessa de Benedita & Dionísio
+            A Promessa de Dionísio & Benedita
           </h3>
           
           <p className="font-cormorant text-xl sm:text-2xl text-gray-100 max-w-3xl mx-auto leading-relaxed italic">
-            &ldquo;Diante de Deus e das pessoas mais preciosas de nossas vidas, selaremos um juramento inabalável. O dia 12 de Dezembro de 2026 será a celebração definitiva da honra, lealdade e do amor mais sublime.&rdquo;
+            &ldquo;Que falte tudo menos Deus... Diante do Criador e das pessoas mais preciosas de nossas vidas, selaremos um juramento inabalável em Maputo. O dia 12 de Dezembro de 2026 será a celebração definitiva da honra, lealdade e do amor mais sublime.&rdquo;
           </p>
           
           <div className="mt-6 flex items-center justify-center gap-3">
             <span className="font-cinzel text-sm sm:text-base font-bold gold-gradient-text tracking-widest uppercase">
-              Benedita & Dionísio
+              Dionísio & Benedita
             </span>
             <span className="text-[#d4af37]">•</span>
             <span className="font-montserrat text-xs tracking-widest text-gray-400 uppercase">
-              2026
+              Maputo 2026
             </span>
           </div>
         </motion.div>

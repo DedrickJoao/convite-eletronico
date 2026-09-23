@@ -28,17 +28,17 @@ export default function Footer({ onReopenEnvelope, onOpenRsvp }: FooterProps) {
           </div>
 
           <h3 className="font-cinzel text-2xl sm:text-3xl font-black gold-gradient-text tracking-widest">
-            {WEDDING_DETAILS.bride} & {WEDDING_DETAILS.groom}
+            {WEDDING_DETAILS.groom} & {WEDDING_DETAILS.bride}
           </h3>
           
           <p className="font-alex text-2xl sm:text-3xl text-gray-300 mt-1">
-            Para todo o sempre, um só coração
+            Que falte tudo menos Deus... Para todo o sempre.
           </p>
         </div>
 
         {/* Date and Hashtag */}
         <div className="space-y-1 text-xs font-montserrat text-gray-400 uppercase tracking-widest">
-          <p className="text-[#d4af37] font-semibold">{WEDDING_DETAILS.dateText}</p>
+          <p className="text-[#d4af37] font-semibold">{WEDDING_DETAILS.dateText} • Maputo, Moçambique</p>
           <p className="text-gray-500 font-mono tracking-wider">{WEDDING_DETAILS.hashtag}</p>
         </div>
 
