@@ -6,20 +6,22 @@ import HeroSection from './components/HeroSection';
 import LoveStorySection from './components/LoveStorySection';
 import EventDetailsSection from './components/EventDetailsSection';
 import TimelineSection from './components/TimelineSection';
-import NfcPassSection from './components/NfcPassSection';
+import GuestbookSection from './components/GuestbookSection';
 import RsvpSection from './components/RsvpSection';
 import PlaylistSection from './components/PlaylistSection';
 import DressCodeSection from './components/DressCodeSection';
 import LocationAndMapSection from './components/LocationAndMapSection';
 import GiftRegistrySection from './components/GiftRegistrySection';
 import ShareModal from './components/ShareModal';
+import WeddingTrailerModal from './components/WeddingTrailerModal';
 import Footer from './components/Footer';
 
 export default function App() {
   const [isEnvelopeOpened, setIsEnvelopeOpened] = useState(false);
   const [guestName, setGuestName] = useState<string>('');
-  const [ticketId, setTicketId] = useState<string>('BD-2026-VIP-889');
+  const [ticketId, setTicketId] = useState<string>('DB-2026-VIP-889');
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
+  const [isTrailerModalOpen, setIsTrailerModalOpen] = useState(false);
 
   useEffect(() => {
     // Parse guest parameter from URL if provided (e.g. ?guest=Família+Sousa)
@@ -36,13 +38,6 @@ export default function App() {
 
   const handleOpenRsvp = () => {
     const el = document.getElementById('rsvp');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-  };
-
-  const handleOpenNfcPass = () => {
-    const el = document.getElementById('nfc-pass');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
     }
@@ -78,16 +73,16 @@ export default function App() {
         <Navbar
           onOpenRsvp={handleOpenRsvp}
           onOpenShare={() => setIsShareModalOpen(true)}
-          onOpenNfcPass={handleOpenNfcPass}
+          onOpenTrailer={() => setIsTrailerModalOpen(true)}
           onReopenEnvelope={handleReopenEnvelope}
         />
 
         <main className="relative z-10">
-          {/* Hero Section */}
+          {/* Hero Section with Official Save The Date Card & Trailer CTA */}
           <HeroSection
             guestName={guestName}
             onOpenRsvp={handleOpenRsvp}
-            onOpenNfcPass={handleOpenNfcPass}
+            onOpenTrailer={() => setIsTrailerModalOpen(true)}
           />
 
           {/* Love Story & Romantic Journey */}
@@ -99,13 +94,10 @@ export default function App() {
           {/* Timeline of the Day */}
           <TimelineSection />
 
-          {/* VIP Smart Pass & NFC Check-in Card */}
-          <NfcPassSection
-            guestName={guestName || "Convidado(a) de Honra"}
-            ticketId={ticketId}
-          />
+          {/* Interactive Guestbook & Message Wall */}
+          <GuestbookSection />
 
-          {/* RSVP Section with Dynamic QR & Form */}
+          {/* RSVP Section with Dynamic QR, WhatsApp & In-App Form */}
           <RsvpSection
             initialGuestName={guestName}
             onSuccessSubmit={handleRsvpSuccess}
@@ -120,7 +112,7 @@ export default function App() {
           {/* Location, Palace Details & GPS Navigation */}
           <LocationAndMapSection />
 
-          {/* Gift Registry & Instant Bank Transfer */}
+          {/* Gift Registry & Instant Mobile / Bank Transfer */}
           <GiftRegistrySection />
         </main>
 
@@ -134,6 +126,13 @@ export default function App() {
         <ShareModal
           isOpen={isShareModalOpen}
           onClose={() => setIsShareModalOpen(false)}
+        />
+
+        {/* Cinematic Wedding Trailer Experience Modal */}
+        <WeddingTrailerModal
+          isOpen={isTrailerModalOpen}
+          onClose={() => setIsTrailerModalOpen(false)}
+          onOpenRsvp={handleOpenRsvp}
         />
       </div>
     </div>

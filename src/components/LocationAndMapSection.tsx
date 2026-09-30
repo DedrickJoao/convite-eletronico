@@ -1,5 +1,5 @@
 import { motion } from 'motion/react';
-import { MapPin, Navigation, Compass, Car, Plane, Hotel, Sparkles, ExternalLink, Shield } from 'lucide-react';
+import { MapPin, Navigation, Compass, Car, Plane, Hotel, ExternalLink, Shield } from 'lucide-react';
 import { WEDDING_DETAILS } from '../data/weddingData';
 
 export default function LocationAndMapSection() {
@@ -7,65 +7,65 @@ export default function LocationAndMapSection() {
     <section id="localizacao" className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
       
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(212,175,55,0.06)_0%,transparent_70%)] pointer-events-none blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(198,156,78,0.12)_0%,transparent_70%)] pointer-events-none blur-3xl" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#d4af37]/30 bg-[#d4af37]/10 mb-4">
-            <MapPin className="w-3.5 h-3.5 text-[#d4af37]" />
-            <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-[#f5d77f] font-semibold">
-              O Castelo dos Sonhos
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#c69c4e]/50 bg-white/80 mb-4 shadow-sm">
+            <MapPin className="w-3.5 h-3.5 text-[#c69c4e]" />
+            <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-[#162842] font-bold">
+              O Palácio dos Sonhos
             </span>
           </div>
           
-          <h2 className="font-cinzel text-3xl sm:text-5xl font-bold tracking-wide gold-gradient-text mb-4">
+          <h2 className="font-cinzel text-3xl sm:text-5xl font-extrabold tracking-wide text-[#162842] mb-4">
             Localização & Acesso Exclusivo
           </h2>
           
-          <p className="font-montserrat text-sm sm:text-base text-gray-300 max-w-xl mx-auto font-light">
-            Um refúgio aristocrático rodeado por jardins exuberantes, fontes de água e arquitetura de contos de fadas.
+          <p className="font-montserrat text-sm sm:text-base text-[#162842]/90 max-w-xl mx-auto font-medium">
+            Um refúgio aristocrático rodeado por jardins exuberantes, fontes de água e arquitetura nobre em Maputo.
           </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Left Column: Interactive Visual Map Card */}
-          <div className="lg:col-span-7 rounded-3xl crystal-card p-6 sm:p-8 border border-white/10 flex flex-col justify-between space-y-6">
+          <div className="lg:col-span-7 rounded-3xl bg-white/95 backdrop-blur-md p-6 sm:p-8 border border-[#c69c4e]/40 shadow-xl flex flex-col justify-between space-y-6">
             
             {/* Visual Estate Map Mockup */}
-            <div className="relative w-full h-80 rounded-2xl overflow-hidden border border-white/15 group">
+            <div className="relative w-full h-80 rounded-2xl overflow-hidden border border-[#c69c4e]/40 shadow-inner group">
               <img
                 src="https://images.unsplash.com/photo-1544971587-b842c27f8e14?w=1000&q=80"
                 alt="Palácio Imperial das Esmeraldas"
-                className="w-full h-full object-cover filter brightness-75 contrast-110 group-hover:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover filter brightness-85 contrast-105 group-hover:scale-105 transition-transform duration-700"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-[#0b0c10] via-transparent to-black/40" />
+              <div className="absolute inset-0 bg-gradient-to-t from-[#162842]/80 via-transparent to-black/30" />
 
               {/* Central Gold Pin Badge */}
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
-                <div className="w-12 h-12 rounded-full bg-[#d4af37] border-2 border-white shadow-[0_0_25px_rgba(212,175,55,0.8)] flex items-center justify-center animate-bounce">
-                  <MapPin className="w-6 h-6 text-black fill-black" />
+                <div className="w-12 h-12 rounded-full bg-[#c69c4e] border-2 border-white shadow-[0_0_25px_rgba(198,156,78,0.8)] flex items-center justify-center animate-bounce">
+                  <MapPin className="w-6 h-6 text-[#162842] fill-[#162842]" />
                 </div>
-                <div className="mt-2 px-3 py-1 rounded-full bg-[#0b0c10]/90 backdrop-blur-md border border-[#d4af37]/60 text-[11px] font-cinzel font-bold text-[#f5d77f] whitespace-nowrap shadow-xl">
+                <div className="mt-2 px-3.5 py-1 rounded-full bg-[#162842] border border-[#c69c4e] text-xs font-cinzel font-bold text-[#c69c4e] whitespace-nowrap shadow-xl">
                   {WEDDING_DETAILS.venueName}
                 </div>
               </div>
 
               {/* Coordinates Pill */}
-              <div className="absolute bottom-3 left-3 px-3 py-1 rounded-lg bg-black/70 backdrop-blur-md border border-white/10 text-[10px] font-mono text-gray-300">
-                GPS: 25°58&apos;18.0&quot;S 32°35&apos;42.0&quot;E (Maputo, Moçambique)
+              <div className="absolute bottom-3 left-3 px-3 py-1 rounded-lg bg-[#162842]/90 backdrop-blur-md border border-[#c69c4e]/40 text-[11px] font-mono text-white font-semibold">
+                GPS: Maputo • Moçambique
               </div>
             </div>
 
             {/* Address & Quick Directions Buttons */}
             <div>
-              <h3 className="font-cinzel text-xl font-bold text-white mb-1">
+              <h3 className="font-cinzel text-xl font-bold text-[#162842] mb-1">
                 {WEDDING_DETAILS.venueName}
               </h3>
-              <p className="font-montserrat text-xs sm:text-sm text-gray-300 mb-4 font-light">
+              <p className="font-montserrat text-xs sm:text-sm text-[#162842]/90 mb-4 font-semibold">
                 {WEDDING_DETAILS.venueAddress} • {WEDDING_DETAILS.cityCountry}
               </p>
 
@@ -74,7 +74,7 @@ export default function LocationAndMapSection() {
                   href={WEDDING_DETAILS.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2.5 px-3 rounded-xl crystal-card border border-[#d4af37]/40 hover:bg-[#d4af37]/20 text-xs font-montserrat font-semibold text-[#f5d77f] flex items-center justify-center gap-1.5 transition-all text-center"
+                  className="py-2.5 px-3 rounded-xl gold-button text-xs font-montserrat font-bold flex items-center justify-center gap-1.5 shadow-sm text-center"
                 >
                   <Navigation className="w-3.5 h-3.5" />
                   <span>Google Maps</span>
@@ -84,9 +84,9 @@ export default function LocationAndMapSection() {
                   href={WEDDING_DETAILS.appleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2.5 px-3 rounded-xl crystal-card border border-white/10 hover:border-white/30 text-xs font-montserrat font-medium text-gray-200 flex items-center justify-center gap-1.5 transition-all text-center"
+                  className="py-2.5 px-3 rounded-xl bg-[#dfe6ec] border border-[#c69c4e]/40 hover:border-[#c69c4e] text-xs font-montserrat font-bold text-[#162842] flex items-center justify-center gap-1.5 transition-all text-center shadow-sm"
                 >
-                  <ExternalLink className="w-3.5 h-3.5 text-[#d4af37]" />
+                  <ExternalLink className="w-3.5 h-3.5 text-[#c69c4e]" />
                   <span>Apple Maps</span>
                 </a>
 
@@ -94,9 +94,9 @@ export default function LocationAndMapSection() {
                   href={WEDDING_DETAILS.wazeUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2.5 px-3 rounded-xl crystal-card border border-white/10 hover:border-white/30 text-xs font-montserrat font-medium text-gray-200 flex items-center justify-center gap-1.5 transition-all text-center"
+                  className="py-2.5 px-3 rounded-xl bg-[#dfe6ec] border border-[#c69c4e]/40 hover:border-[#c69c4e] text-xs font-montserrat font-bold text-[#162842] flex items-center justify-center gap-1.5 transition-all text-center shadow-sm"
                 >
-                  <Compass className="w-3.5 h-3.5 text-[#d4af37]" />
+                  <Compass className="w-3.5 h-3.5 text-[#c69c4e]" />
                   <span>Waze</span>
                 </a>
 
@@ -104,71 +104,71 @@ export default function LocationAndMapSection() {
                   href={WEDDING_DETAILS.uberRideUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="py-2.5 px-3 rounded-xl bg-black border border-[#d4af37]/60 text-xs font-montserrat font-semibold text-[#f5d77f] flex items-center justify-center gap-1.5 transition-all text-center"
+                  className="py-2.5 px-3 rounded-xl bg-[#162842] text-xs font-montserrat font-bold text-[#c69c4e] flex items-center justify-center gap-1.5 shadow-sm text-center"
                 >
                   <Car className="w-3.5 h-3.5" />
-                  <span>Pedir Táxi / Uber</span>
+                  <span>Pedir Uber</span>
                 </a>
               </div>
             </div>
 
           </div>
 
-          {/* Right Column: Guest Concierge & Accommodations */}
+          {/* Right Column: Accommodations & Concierge */}
           <div className="lg:col-span-5 space-y-6">
             
             {/* Hotels Recommendation */}
-            <div className="rounded-3xl crystal-card p-6 sm:p-7 border border-white/10 space-y-4">
+            <div className="rounded-3xl bg-white/95 backdrop-blur-md p-6 sm:p-7 border border-[#c69c4e]/40 shadow-xl space-y-4">
               <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-xl bg-[#d4af37]/20 border border-[#d4af37]/40 flex items-center justify-center">
-                  <Hotel className="w-5 h-5 text-[#f5d77f]" />
+                <div className="w-10 h-10 rounded-xl bg-[#dfe6ec] border border-[#c69c4e]/50 flex items-center justify-center shadow-sm">
+                  <Hotel className="w-5 h-5 text-[#c69c4e]" />
                 </div>
                 <div>
-                  <h4 className="font-cinzel text-base font-bold text-white">
-                    Hospedagem Recomendada (5 Estrelas)
+                  <h4 className="font-cinzel text-base font-bold text-[#162842]">
+                    Hospedagem Recomendada
                   </h4>
-                  <span className="text-[10px] font-montserrat text-[#d4af37] uppercase tracking-wider">
-                    Tarifa Especial com o Código dos Noivos
+                  <span className="text-[11px] font-montserrat text-[#c69c4e] uppercase tracking-wider font-bold">
+                    Tarifa Especial com os Noivos
                   </span>
                 </div>
               </div>
 
-              <div className="space-y-3 text-xs font-montserrat text-gray-300">
-                <div className="p-3 rounded-xl bg-[#080a10]/80 border border-white/5">
-                  <p className="font-bold text-white">Hotel Polana Serena (Maputo)</p>
-                  <p className="text-gray-400 text-[11px]">A 3 minutos do local • Código VIP: <strong className="text-[#f5d77f]">ROYAL-DB26</strong></p>
+              <div className="space-y-3 text-xs font-montserrat text-[#162842]">
+                <div className="p-3.5 rounded-xl bg-[#dfe6ec]/50 border border-[#c69c4e]/30">
+                  <p className="font-bold text-[#162842] text-sm">Hotel Polana Serena (Maputo)</p>
+                  <p className="text-[#162842]/80 text-[11px] font-medium mt-0.5">A 3 minutos do local • Código Especial: <strong className="text-[#c69c4e] font-bold">ROYAL-DB26</strong></p>
                 </div>
 
-                <div className="p-3 rounded-xl bg-[#080a10]/80 border border-white/5">
-                  <p className="font-bold text-white">Radisson Blu Hotel & Residence Maputo</p>
-                  <p className="text-gray-400 text-[11px]">Orla marítima da Marginal com transfer VIP incluso</p>
+                <div className="p-3.5 rounded-xl bg-[#dfe6ec]/50 border border-[#c69c4e]/30">
+                  <p className="font-bold text-[#162842] text-sm">Radisson Blu Hotel Maputo</p>
+                  <p className="text-[#162842]/80 text-[11px] font-medium mt-0.5">Orla marítima da Marginal com transfer privativo</p>
                 </div>
               </div>
             </div>
 
-            {/* Airport & Transfer Concierge */}
-            <div className="rounded-3xl crystal-card p-6 sm:p-7 border border-white/10 space-y-4">
+            {/* Airport & Concierge */}
+            <div className="rounded-3xl bg-white/95 backdrop-blur-md p-6 sm:p-7 border border-[#c69c4e]/40 shadow-xl space-y-4">
               <div className="flex items-center gap-2.5">
-                <div className="w-10 h-10 rounded-xl bg-[#d4af37]/20 border border-[#d4af37]/40 flex items-center justify-center">
-                  <Plane className="w-5 h-5 text-[#f5d77f]" />
+                <div className="w-10 h-10 rounded-xl bg-[#dfe6ec] border border-[#c69c4e]/50 flex items-center justify-center shadow-sm">
+                  <Plane className="w-5 h-5 text-[#c69c4e]" />
                 </div>
                 <div>
-                  <h4 className="font-cinzel text-base font-bold text-white">
-                    Convidados Internacionais
+                  <h4 className="font-cinzel text-base font-bold text-[#162842]">
+                    Convidados de Outras Cidades & Países
                   </h4>
-                  <span className="text-[10px] font-montserrat text-[#d4af37] uppercase tracking-wider">
-                    Aeroporto de Maputo (MPM)
+                  <span className="text-[11px] font-montserrat text-[#c69c4e] uppercase tracking-wider font-bold">
+                    Aeroporto Internacional de Maputo (MPM)
                   </span>
                 </div>
               </div>
 
-              <p className="text-xs font-montserrat text-gray-300 leading-relaxed font-light">
-                Para convidados vindos de Moçambique, África do Sul, Portugal ou outros países, nossa equipe de cerimonial providenciará transfers executivos privativos a partir do Aeroporto Internacional de Maputo.
+              <p className="text-xs font-montserrat text-[#162842]/90 leading-relaxed font-medium">
+                Para convidados vindos de outras províncias ou do exterior, nossa equipe de cerimonial providenciará suporte e transfers privativos a partir do aeroporto.
               </p>
 
-              <div className="flex items-center gap-2 text-xs font-montserrat text-[#f5d77f]">
-                <Shield className="w-4 h-4" />
-                <span>Assessoria VIP: {WEDDING_DETAILS.organizerContact}</span>
+              <div className="flex items-center gap-2 text-xs font-montserrat text-[#162842] font-bold">
+                <Shield className="w-4 h-4 text-[#c69c4e]" />
+                <span>Assessoria: {WEDDING_DETAILS.organizerContact}</span>
               </div>
             </div>
 

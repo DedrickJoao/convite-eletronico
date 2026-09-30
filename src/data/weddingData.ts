@@ -23,7 +23,6 @@ export const WEDDING_DETAILS = {
   organizerContact: "+258 84 123 4567 / +258 82 987 6543",
   organizerEmail: "rsvp@dionisioebenedita2026.com",
   rsvpDeadline: "15 de Outubro de 2026",
-  nfcCardIdPrefix: "VIP-DB-2026-",
   bankingDetails: {
     iban: "MZ59 0001 0000 1234 5678 9012 3",
     swift: "BIMMMZM0",
@@ -39,7 +38,7 @@ export const TIMELINE_EVENTS: WeddingEvent[] = [
     time: "15:30",
     location: "Jardim das Palmeiras Imperiais",
     address: "Pátio Principal com Valet Parking e Tapete Azul & Dourado",
-    description: "Recepção com harpa ao vivo, flute de boas-vindas com Champagne Dom Pérignon e check-in VIP com leitura NFC.",
+    description: "Recepção com harpa ao vivo, flute de boas-vindas com Champagne Dom Pérignon e acolhimento caloroso dos convidados.",
     iconName: "Sparkles"
   },
   {
