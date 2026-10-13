@@ -12,10 +12,10 @@ export default function Footer({ onReopenEnvelope, onOpenRsvp }: FooterProps) {
   };
 
   return (
-    <footer className="relative pt-20 pb-12 px-4 sm:px-6 lg:px-8 border-t border-[#c69c4e]/30 bg-[#dfe6ec] overflow-hidden text-center">
+    <footer className="relative pt-20 pb-12 px-4 sm:px-6 lg:px-8 border-t border-[#c69c4e]/30 bg-gradient-to-b from-[#e4ecf3] via-[#dce5ed] to-[#d0dbe4] overflow-hidden text-center">
       
       {/* Background Ornament */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-[radial-gradient(circle,rgba(198,156,78,0.15)_0%,transparent_70%)] pointer-events-none blur-xl" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-96 h-32 bg-[radial-gradient(circle,rgba(198,156,78,0.2)_0%,transparent_70%)] pointer-events-none blur-xl" />
 
       <div className="max-w-4xl mx-auto relative z-10 space-y-8">
         

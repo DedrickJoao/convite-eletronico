@@ -104,10 +104,13 @@ export default function GuestbookSection() {
   };
 
   return (
-    <section id="mural" className="relative py-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      
+    <section 
+      id="mural" 
+      className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[#ebf1f6] via-[#e2eaf0] to-[#dae4ed] border-b border-[#c69c4e]/30 shadow-inner"
+    >
       {/* Background Decor */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(198,156,78,0.12)_0%,transparent_70%)] pointer-events-none blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(198,156,78,0.15)_0%,transparent_70%)] pointer-events-none blur-3xl" />
+      <div className="absolute top-10 right-10 w-80 h-80 bg-[radial-gradient(circle,rgba(255,255,255,0.6)_0%,transparent_60%)] pointer-events-none blur-2xl" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         

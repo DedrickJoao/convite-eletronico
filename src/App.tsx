@@ -1,17 +1,19 @@
 import { useState, useEffect } from 'react';
 import BackgroundParticles from './components/BackgroundParticles';
 import EnvelopeIntro from './components/EnvelopeIntro';
-import Navbar from './components/Navbar';
 import HeroSection from './components/HeroSection';
+import BlessingSection from './components/BlessingSection';
+import CountdownSection from './components/CountdownSection';
 import LoveStorySection from './components/LoveStorySection';
 import EventDetailsSection from './components/EventDetailsSection';
-import TimelineSection from './components/TimelineSection';
+import CopoDeAguaSection from './components/CopoDeAguaSection';
 import GuestbookSection from './components/GuestbookSection';
 import RsvpSection from './components/RsvpSection';
 import PlaylistSection from './components/PlaylistSection';
 import DressCodeSection from './components/DressCodeSection';
 import LocationAndMapSection from './components/LocationAndMapSection';
 import GiftRegistrySection from './components/GiftRegistrySection';
+import FloatingMusicPlayer from './components/FloatingMusicPlayer';
 import ShareModal from './components/ShareModal';
 import WeddingTrailerModal from './components/WeddingTrailerModal';
 import Footer from './components/Footer';
@@ -69,14 +71,6 @@ export default function App() {
       {/* Main Luxury Invitation Container */}
       <div className={`transition-opacity duration-1000 ${isEnvelopeOpened ? 'opacity-100' : 'opacity-0'}`}>
         
-        {/* Navigation Bar */}
-        <Navbar
-          onOpenRsvp={handleOpenRsvp}
-          onOpenShare={() => setIsShareModalOpen(true)}
-          onOpenTrailer={() => setIsTrailerModalOpen(true)}
-          onReopenEnvelope={handleReopenEnvelope}
-        />
-
         <main className="relative z-10">
           {/* Hero Section with Official Save The Date Card & Trailer CTA */}
           <HeroSection
@@ -85,14 +79,20 @@ export default function App() {
             onOpenTrailer={() => setIsTrailerModalOpen(true)}
           />
 
+          {/* Parents' Blessing Section */}
+          <BlessingSection />
+
+          {/* Official Wedding Countdown Clock */}
+          <CountdownSection />
+
           {/* Love Story & Romantic Journey */}
           <LoveStorySection />
 
           {/* Ceremony & Banquet Details */}
           <EventDetailsSection />
 
-          {/* Timeline of the Day */}
-          <TimelineSection />
+          {/* Copo de Água */}
+          <CopoDeAguaSection />
 
           {/* Interactive Guestbook & Message Wall */}
           <GuestbookSection />
@@ -121,6 +121,9 @@ export default function App() {
           onReopenEnvelope={handleReopenEnvelope}
           onOpenRsvp={handleOpenRsvp}
         />
+
+        {/* Floating Sound Controller (Mute / Unmute Shania Twain - From This Moment On) */}
+        <FloatingMusicPlayer />
 
         {/* Share & Personalized Link Generator Modal */}
         <ShareModal

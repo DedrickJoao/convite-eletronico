@@ -1,0 +1,152 @@
+import { useState, useEffect } from 'react';
+import { motion } from 'motion/react';
+import { Clock, Heart, CalendarDays, ArrowDown } from 'lucide-react';
+import { WEDDING_DETAILS } from '../data/weddingData';
+
+export default function CountdownSection() {
+  const [timeLeft, setTimeLeft] = useState({
+    days: 0,
+    hours: 0,
+    minutes: 0,
+    seconds: 0
+  });
+
+  useEffect(() => {
+    const target = new Date(WEDDING_DETAILS.targetDate).getTime();
+
+    const updateCountdown = () => {
+      const now = new Date().getTime();
+      const difference = target - now;
+
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        setTimeLeft({ days, hours, minutes, seconds });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    updateCountdown();
+    const interval = setInterval(updateCountdown, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <section
+      id="contagem"
+      className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 text-center overflow-hidden bg-gradient-to-b from-[#dee6ee] via-[#e8eff5] to-[#dee6ee] border-b border-[#c69c4e]/35 shadow-inner"
+    >
+      {/* Background Ambient Radiance */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[650px] bg-[radial-gradient(circle,rgba(198,156,78,0.14)_0%,transparent_70%)] pointer-events-none blur-3xl" />
+      <div className="absolute top-0 right-1/4 w-80 h-80 bg-[radial-gradient(circle,rgba(93,107,56,0.1)_0%,transparent_60%)] pointer-events-none blur-2xl" />
+
+      <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
+        
+        {/* Subtle Decorative Badge */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-[#5d6b38]/40 bg-white/90 shadow-sm mb-4"
+        >
+          <Clock className="w-3.5 h-3.5 text-[#5d6b38]" />
+          <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-[#162842] font-bold">
+            O Grande Dia se Aproxima
+          </span>
+          <CalendarDays className="w-3.5 h-3.5 text-[#c69c4e]" />
+        </motion.div>
+
+        {/* Section Title */}
+        <motion.h2
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.1, duration: 0.7 }}
+          className="font-cinzel text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#162842] tracking-wide mb-3"
+        >
+          Contagem Regressiva
+        </motion.h2>
+
+        {/* Date and Spiritual Subtitle */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.7 }}
+          className="font-montserrat text-sm sm:text-base text-[#162842]/85 font-medium max-w-xl mx-auto mb-8"
+        >
+          Sábado, 12 de Dezembro de 2026 • Sé Catedral de Maputo & Matola Rio
+        </motion.p>
+
+        {/* Ornate Divider with Heart */}
+        <div className="flex items-center justify-center gap-3 w-56 sm:w-72 mb-10 text-[#5d6b38]">
+          <div className="h-[1.5px] flex-1 bg-gradient-to-r from-transparent via-[#5d6b38] to-[#5d6b38]" />
+          <Heart className="w-4 h-4 text-[#c69c4e] fill-[#c69c4e]" />
+          <div className="h-[1.5px] flex-1 bg-gradient-to-l from-transparent via-[#5d6b38] to-[#5d6b38]" />
+        </div>
+
+        {/* 4 Countdown Units in Luxury Cards */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.3, duration: 0.8 }}
+          className="w-full max-w-2xl bg-white/95 backdrop-blur-md rounded-3xl p-6 sm:p-8 border border-[#5d6b38]/30 shadow-[0_15px_45px_rgba(22,40,66,0.12)] relative overflow-hidden"
+        >
+          <div className="absolute top-0 right-0 w-32 h-32 bg-[#c69c4e]/10 rounded-full blur-2xl pointer-events-none" />
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-[#5d6b38]/10 rounded-full blur-2xl pointer-events-none" />
+
+          <div className="grid grid-cols-4 gap-2.5 sm:gap-5 text-center relative z-10">
+            {[
+              { value: timeLeft.days, label: 'Dias' },
+              { value: timeLeft.hours, label: 'Horas' },
+              { value: timeLeft.minutes, label: 'Minutos' },
+              { value: timeLeft.seconds, label: 'Segundos' },
+            ].map((unit, idx) => (
+              <div
+                key={idx}
+                className="py-4 sm:py-6 px-2 sm:px-4 rounded-2xl bg-[#dfe6ec]/40 border border-[#5d6b38]/30 flex flex-col items-center justify-center shadow-sm hover:shadow-md transition-shadow"
+              >
+                <span className="font-cinzel text-2xl sm:text-4xl md:text-5xl font-black text-[#5d6b38] tabular-nums tracking-tight">
+                  {String(unit.value).padStart(2, '0')}
+                </span>
+                <span className="text-[11px] sm:text-xs font-montserrat uppercase tracking-wider text-[#162842] font-bold mt-2">
+                  {unit.label}
+                </span>
+              </div>
+            ))}
+          </div>
+
+          <p className="mt-6 font-alex text-2xl sm:text-3xl text-[#5d6b38] font-bold">
+            "Que falte tudo, menos Deus..."
+          </p>
+        </motion.div>
+
+        {/* Scroll Indicator toward Love Story */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5, duration: 0.8 }}
+          className="mt-10 flex flex-col items-center gap-2 text-[#162842]"
+        >
+          <span className="font-montserrat text-[11px] uppercase tracking-[0.25em] text-[#162842]/85 font-bold">
+            Conheça a Nossa História de Amor
+          </span>
+          <a
+            href="#historia"
+            aria-label="Ir para Nossa História"
+            className="p-2.5 rounded-full border border-[#5d6b38]/50 bg-white/90 hover:bg-white text-[#162842] hover:text-[#5d6b38] transition-all animate-bounce shadow-sm"
+          >
+            <ArrowDown className="w-4 h-4" />
+          </a>
+        </motion.div>
+
+      </div>
+    </section>
+  );
+}

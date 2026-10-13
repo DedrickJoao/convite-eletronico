@@ -25,10 +25,14 @@ export default function GiftRegistrySection() {
   };
 
   return (
-    <section id="presentes" className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section 
+      id="presentes" 
+      className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[#dbe4ee] via-[#edf2f7] to-[#e4ecf3] border-b border-[#c69c4e]/30 shadow-inner"
+    >
       
       {/* Background Radial Lights */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-[radial-gradient(circle,rgba(198,156,78,0.12)_0%,transparent_70%)] pointer-events-none blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-[radial-gradient(circle,rgba(198,156,78,0.16)_0%,transparent_70%)] pointer-events-none blur-3xl" />
+      <div className="absolute top-0 right-10 w-96 h-96 bg-[radial-gradient(circle,rgba(255,255,255,0.7)_0%,transparent_60%)] pointer-events-none blur-2xl" />
 
       <div className="max-w-6xl mx-auto relative z-10">
         

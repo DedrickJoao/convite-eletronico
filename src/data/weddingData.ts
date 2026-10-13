@@ -5,19 +5,20 @@ export const WEDDING_DETAILS = {
   bride: "Benedita",
   monogram: "D & B",
   hashtag: "#DionisioEBenedita2026",
-  tagline: "Save the Date • O Grande Casamento de 2026",
+  tagline: "O Grande Casamento de 2026",
   subTagline: "Que falte tudo menos Deus...",
   impactPhrase: "Dois corações unidos pelo amor e pelo propósito divino. É com imensa honra e alegria que convidamos você para celebrar o nosso matrimónio na majestosa cidade de Maputo, Moçambique.",
   dateText: "Sábado, 12 de Dezembro de 2026",
   targetDate: "2026-12-12T16:00:00",
-  ceremonyTime: "16:00",
+  ceremonyTime: "09:30",
+  civilCeremonyTime: "11:00",
   receptionTime: "18:30",
-  venueName: "Palácio dos Sonhos & Jardins do Índico",
-  venueAddress: "Avenida Julius Nyerere, Polana Cimento",
+  venueName: "Sé Catedral de Maputo",
+  venueAddress: "Praça da Independência, Centro",
   cityCountry: "Maputo, Moçambique",
-  googleMapsUrl: "https://maps.google.com/?q=Hotel+Polana+Maputo+Mozambique",
-  appleMapsUrl: "https://maps.apple.com/?q=Hotel+Polana+Maputo+Mozambique",
-  wazeUrl: "https://waze.com/ul?q=Hotel+Polana+Maputo+Mozambique",
+  googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=S%C3%A9+Catedral+de+Maputo",
+  appleMapsUrl: "https://maps.apple.com/?q=Se+Catedral+de+Maputo",
+  wazeUrl: "https://waze.com/ul?q=Se+Catedral+de+Maputo",
   uberRideUrl: "https://m.uber.com/ul/?action=setPickup&pickup=my_location",
   spotifyPlaylistUrl: "https://open.spotify.com/playlist/37i9dQZF1DX4sWSpwq3LiO",
   organizerContact: "+258 84 123 4567 / +258 82 987 6543",
@@ -86,10 +87,10 @@ export const TIMELINE_EVENTS: WeddingEvent[] = [
 export const PLAYLIST_ITEMS: PlaylistItem[] = [
   {
     id: "1",
-    title: "A Thousand Years (Royal Orchestra Version)",
-    artist: "The Royal Symphony Strings",
-    duration: "4:45",
-    vibe: "Entrada Nupcial & Emoção Pura",
+    title: "From This Moment On",
+    artist: "Shania Twain & Bryan White",
+    duration: "4:41",
+    vibe: "Música Oficial do Convite Nupcial",
     coverArt: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=400&q=80"
   },
   {
@@ -210,7 +211,7 @@ export const LOVE_STORY_MILESTONES = [
     image: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?w=800&q=80"
   },
   {
-    year: "A Jornada",
+    year: "O Nosso Caminho",
     title: "Construindo um Império de Amor",
     description: "Viagens inesquecíveis, conquistas partilhadas, gargalhadas infinitas e a certeza diária de que a vida só faz sentido lado a lado.",
     image: "https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?w=800&q=80"

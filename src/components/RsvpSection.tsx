@@ -101,10 +101,14 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
   };
 
   return (
-    <section id="rsvp" className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section 
+      id="rsvp" 
+      className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[#dae4ed] via-[#e8eff5] to-[#f4f7fa] border-b border-[#c69c4e]/35 shadow-inner"
+    >
       
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(198,156,78,0.12)_0%,transparent_70%)] pointer-events-none blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(198,156,78,0.15)_0%,transparent_70%)] pointer-events-none blur-3xl" />
+      <div className="absolute bottom-10 right-10 w-72 h-72 bg-[radial-gradient(circle,rgba(22,40,66,0.08)_0%,transparent_70%)] pointer-events-none blur-2xl" />
 
       <div className="max-w-5xl mx-auto relative z-10">
         

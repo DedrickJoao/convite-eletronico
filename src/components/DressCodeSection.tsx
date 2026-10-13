@@ -4,10 +4,14 @@ import { DRESS_CODE_PALETTE } from '../data/weddingData';
 
 export default function DressCodeSection() {
   return (
-    <section id="dress-code" className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden">
+    <section 
+      id="dress-code" 
+      className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[#d6e0ea] via-[#eaf0f6] to-[#f5f8fb] border-b border-[#c69c4e]/30 shadow-inner"
+    >
       
       {/* Background Radiance */}
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(198,156,78,0.1)_0%,transparent_60%)] pointer-events-none" />
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom,rgba(198,156,78,0.18)_0%,transparent_60%)] pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(255,255,255,0.7)_0%,transparent_60%)] pointer-events-none blur-2xl" />
 
       <div className="max-w-5xl mx-auto relative z-10">
         
