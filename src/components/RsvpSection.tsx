@@ -1,8 +1,7 @@
-import { useState, useEffect, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Heart, QrCode, CheckCircle2, Send, Sparkles, User, Mail, Phone, Users, Utensils, Music2, MessageSquareHeart, Check, CalendarCheck, MessageCircle } from 'lucide-react';
+import { Heart, CheckCircle2, Send, Sparkles, User, Phone, Users, MessageSquareHeart, Check, CalendarCheck, MessageCircle } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import QRCode from 'qrcode';
 import { WEDDING_DETAILS } from '../data/weddingData';
 import { RsvpData } from '../types';
 
@@ -14,34 +13,15 @@ interface RsvpSectionProps {
 export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: RsvpSectionProps) {
   const [formData, setFormData] = useState<RsvpData>({
     guestName: initialGuestName,
-    email: '',
     phone: '',
     attending: 'yes',
     plusOneCount: 0,
-    dietaryRestrictions: 'Nenhuma restrição',
-    specialSongRequest: '',
     messageToCouple: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [ticketId, setTicketId] = useState('');
-  const [rsvpQrUrl, setRsvpQrUrl] = useState('');
-
-  useEffect(() => {
-    // Generate RSVP quick link QR Code
-    const rsvpDirectUrl = window.location.href;
-    QRCode.toDataURL(rsvpDirectUrl, {
-      width: 260,
-      margin: 1,
-      color: {
-        dark: '#162842',
-        light: '#ffffff'
-      }
-    })
-      .then((url) => setRsvpQrUrl(url))
-      .catch((err) => console.error(err));
-  }, []);
 
   const triggerLuxuryConfetti = () => {
     const end = Date.now() + 2.5 * 1000;
@@ -92,9 +72,7 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
       `📱 *Contacto:* ${formData.phone || 'N/D'}\n` +
       `✨ *Presença:* ${statusText}\n` +
       `👥 *Acompanhantes:* ${formData.plusOneCount}\n` +
-      `🍽️ *Restrição Alimentar:* ${formData.dietaryRestrictions}\n` +
-      `🎵 *Música Sugerida:* ${formData.specialSongRequest || 'Livre'}\n` +
-      `💌 *Mensagem:* ${formData.messageToCouple || 'Felicidades aos Noivos!'}\n\n` +
+      (formData.messageToCouple ? `💌 *Mensagem:* ${formData.messageToCouple}\n\n` : '\n') +
       `_Que falte tudo menos Deus..._`
     );
     window.open(`https://api.whatsapp.com/send?phone=258841234567&text=${text}`, '_blank');
@@ -103,7 +81,7 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
   return (
     <section 
       id="rsvp" 
-      className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[#dae4ed] via-[#e8eff5] to-[#f4f7fa] border-b border-[#c69c4e]/35 shadow-inner"
+      className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[#ebf1f6] via-[#e5eef7] to-[#f4f7fa] border-b border-[#c69c4e]/35 shadow-inner"
     >
       
       {/* Background Glow */}
@@ -130,45 +108,8 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-          
-          {/* Left Column: QR Code & Quick Scan Info */}
-          <div className="lg:col-span-4 rounded-3xl bg-white/95 backdrop-blur-md p-6 sm:p-8 border border-[#c69c4e]/40 shadow-xl flex flex-col items-center text-center space-y-6">
-            <div className="w-12 h-12 rounded-full bg-[#dfe6ec] border border-[#c69c4e]/50 flex items-center justify-center shadow-sm">
-              <QrCode className="w-6 h-6 text-[#c69c4e]" />
-            </div>
-
-            <div>
-              <h3 className="font-cinzel text-lg sm:text-xl font-bold text-[#162842]">
-                QR Code do Convite
-              </h3>
-              <p className="font-montserrat text-xs text-[#162842]/80 mt-1 font-medium">
-                Escaneie para abrir o convite no seu telemóvel e compartilhar com a família.
-              </p>
-            </div>
-
-            {/* QR Box with Luxury Gold Frame */}
-            <div className="p-3.5 rounded-2xl bg-gradient-to-br from-[#c69c4e] via-[#ab8237] to-[#8c6622] shadow-[0_10px_25px_rgba(198,156,78,0.3)]">
-              <div className="w-44 h-44 bg-white p-2 rounded-xl flex items-center justify-center shadow-inner">
-                {rsvpQrUrl ? (
-                  <img src={rsvpQrUrl} alt="RSVP QR Code" className="w-full h-full object-contain" />
-                ) : (
-                  <div className="w-full h-full bg-gray-100 flex items-center justify-center text-xs text-black">
-                    Gerando QR...
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div className="text-xs font-montserrat text-[#162842] space-y-1 font-medium">
-              <p className="font-bold text-[#162842]">Dúvidas ou Assessoria:</p>
-              <p className="text-[#c69c4e] font-bold">{WEDDING_DETAILS.organizerContact}</p>
-              <p className="text-[#162842]/80">{WEDDING_DETAILS.organizerEmail}</p>
-            </div>
-          </div>
-
-          {/* Right Column: RSVP Interactive Form */}
-          <div className="lg:col-span-8 rounded-3xl bg-white/95 backdrop-blur-md p-6 sm:p-10 border-2 border-[#c69c4e]/50 shadow-2xl relative overflow-hidden">
+        {/* RSVP Interactive Form Container */}
+        <div className="max-w-3xl mx-auto rounded-3xl bg-white/95 backdrop-blur-md p-6 sm:p-10 border-2 border-[#c69c4e]/50 shadow-2xl relative overflow-hidden">
             
             <AnimatePresence mode="wait">
               {!isSubmitted ? (
@@ -223,25 +164,26 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
                     </div>
                   </div>
 
-                  {/* Name & Contact */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-montserrat font-bold text-[#162842]">
-                        Nome Completo *
-                      </label>
-                      <div className="relative">
-                        <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#c69c4e]" />
-                        <input
-                          type="text"
-                          required
-                          value={formData.guestName}
-                          onChange={(e) => setFormData({ ...formData, guestName: e.target.value })}
-                          placeholder="Ex: Família Silva ou Seu Nome"
-                          className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-semibold focus:outline-none transition-colors"
-                        />
-                      </div>
+                  {/* Name */}
+                  <div className="space-y-1.5">
+                    <label className="block text-xs font-montserrat font-bold text-[#162842]">
+                      Nome Completo *
+                    </label>
+                    <div className="relative">
+                      <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#c69c4e]" />
+                      <input
+                        type="text"
+                        required
+                        value={formData.guestName}
+                        onChange={(e) => setFormData({ ...formData, guestName: e.target.value })}
+                        placeholder="Ex: Família Silva ou Seu Nome"
+                        className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-semibold focus:outline-none transition-colors"
+                      />
                     </div>
+                  </div>
 
+                  {/* Phone & Acompanhantes */}
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div className="space-y-1.5">
                       <label className="block text-xs font-montserrat font-bold text-[#162842]">
                         WhatsApp / Telefone *
@@ -254,24 +196,6 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
                           value={formData.phone}
                           onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                           placeholder="+258 84 123 4567"
-                          className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-semibold focus:outline-none transition-colors"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-montserrat font-bold text-[#162842]">
-                        E-mail
-                      </label>
-                      <div className="relative">
-                        <Mail className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#c69c4e]" />
-                        <input
-                          type="email"
-                          value={formData.email}
-                          onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                          placeholder="seu.email@exemplo.com"
                           className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-semibold focus:outline-none transition-colors"
                         />
                       </div>
@@ -298,58 +222,23 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
                     </div>
                   </div>
 
-                  {/* Dietary & Music Dedication */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-montserrat font-bold text-[#162842]">
-                        Preferência Alimentar
-                      </label>
-                      <div className="relative">
-                        <Utensils className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#c69c4e]" />
-                        <select
-                          value={formData.dietaryRestrictions}
-                          onChange={(e) => setFormData({ ...formData, dietaryRestrictions: e.target.value })}
-                          className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-semibold focus:outline-none transition-colors"
-                        >
-                          <option value="Nenhuma restrição">Sem Restrições (Menu Completo)</option>
-                          <option value="Vegetariano">Vegetariano</option>
-                          <option value="Vegano">Vegano</option>
-                          <option value="Sem Glúten">Sem Glúten (Celíaco)</option>
-                          <option value="Sem Lactose">Sem Lactose</option>
-                          <option value="Halal / Kosher">Halal / Kosher</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-montserrat font-bold text-[#162842]">
-                        Música favorita para a pista
-                      </label>
-                      <div className="relative">
-                        <Music2 className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#c69c4e]" />
-                        <input
-                          type="text"
-                          value={formData.specialSongRequest}
-                          onChange={(e) => setFormData({ ...formData, specialSongRequest: e.target.value })}
-                          placeholder="Nome da música / Artista"
-                          className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-semibold focus:outline-none transition-colors"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
                   {/* Message to Couple */}
                   <div className="space-y-1.5">
-                    <label className="block text-xs font-montserrat font-bold text-[#162842]">
-                      Mensagem de Carinho para Dionísio & Benedita
-                    </label>
+                    <div className="flex items-center justify-between">
+                      <label className="block text-xs font-montserrat font-bold text-[#162842]">
+                        Mensagem de Felicitações & Carinho aos Noivos
+                      </label>
+                      <span className="text-[10px] text-[#c69c4e] font-montserrat font-semibold">
+                        Opcional
+                      </span>
+                    </div>
                     <div className="relative">
                       <MessageSquareHeart className="w-4 h-4 absolute left-3.5 top-3 text-[#c69c4e]" />
                       <textarea
-                        rows={3}
+                        rows={4}
                         value={formData.messageToCouple}
                         onChange={(e) => setFormData({ ...formData, messageToCouple: e.target.value })}
-                        placeholder="Deixe seus votos de amor, bênçãos e carinho para os noivos..."
+                        placeholder="Deixe os seus votos de amor, bênçãos e felicitações para Dionísio & Benedita..."
                         className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-medium focus:outline-none transition-colors resize-none"
                       />
                     </div>
@@ -437,12 +326,15 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
                 </motion.div>
               )}
             </AnimatePresence>
+          </div>
 
+          {/* Organizer Assistance Info */}
+          <div className="mt-8 text-center text-xs font-montserrat text-[#162842] space-y-1 font-medium">
+            <p className="font-bold text-[#162842]">Dúvidas ou Assessoria do Casamento:</p>
+            <p className="text-[#c69c4e] font-bold">{WEDDING_DETAILS.organizerContact} • {WEDDING_DETAILS.organizerEmail}</p>
           </div>
 
         </div>
-
-      </div>
-    </section>
+      </section>
   );
 }

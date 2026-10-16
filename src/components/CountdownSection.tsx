@@ -1,32 +1,29 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'motion/react';
-import { Clock, Heart, CalendarDays, ArrowDown } from 'lucide-react';
+import { Heart, ArrowDown } from 'lucide-react';
 import { WEDDING_DETAILS } from '../data/weddingData';
 
+function getTimeRemaining() {
+  const target = new Date(WEDDING_DETAILS.targetDate).getTime();
+  const now = Date.now();
+  const difference = target - now;
+
+  if (difference > 0) {
+    const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+    return { days, hours, minutes, seconds };
+  }
+  return { days: 0, hours: 0, minutes: 0, seconds: 0 };
+}
+
 export default function CountdownSection() {
-  const [timeLeft, setTimeLeft] = useState({
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  });
+  const [timeLeft, setTimeLeft] = useState(getTimeRemaining);
 
   useEffect(() => {
-    const target = new Date(WEDDING_DETAILS.targetDate).getTime();
-
     const updateCountdown = () => {
-      const now = new Date().getTime();
-      const difference = target - now;
-
-      if (difference > 0) {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
-        setTimeLeft({ days, hours, minutes, seconds });
-      } else {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-      }
+      setTimeLeft(getTimeRemaining());
     };
 
     updateCountdown();
@@ -51,25 +48,12 @@ export default function CountdownSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-5 py-1.5 rounded-full border border-[#5d6b38]/40 bg-white/90 shadow-sm mb-4"
+          className="inline-flex items-center px-6 py-1.5 rounded-full border border-[#5d6b38]/40 bg-white/90 shadow-sm mb-4"
         >
-          <Clock className="w-3.5 h-3.5 text-[#5d6b38]" />
-          <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-[#162842] font-bold">
+          <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-[#162842] font-bold text-center">
             O Grande Dia se Aproxima
           </span>
-          <CalendarDays className="w-3.5 h-3.5 text-[#c69c4e]" />
         </motion.div>
-
-        {/* Section Title */}
-        <motion.h2
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.1, duration: 0.7 }}
-          className="font-cinzel text-3xl sm:text-4xl md:text-5xl font-extrabold text-[#162842] tracking-wide mb-3"
-        >
-          Contagem Regressiva
-        </motion.h2>
 
         {/* Date and Spiritual Subtitle */}
         <motion.p

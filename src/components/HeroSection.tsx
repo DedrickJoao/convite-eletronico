@@ -1,13 +1,13 @@
 import { motion } from 'motion/react';
-import { Sparkles, Clapperboard, ArrowDown } from 'lucide-react';
+import { Sparkles, ArrowDown } from 'lucide-react';
 
 interface HeroSectionProps {
   onOpenRsvp?: () => void;
-  onOpenTrailer: () => void;
+  onOpenTrailer?: () => void;
   guestName?: string;
 }
 
-export default function HeroSection({ onOpenTrailer, guestName }: HeroSectionProps) {
+export default function HeroSection({ guestName }: HeroSectionProps) {
   return (
     <section
       id="inicio"
@@ -33,27 +33,6 @@ export default function HeroSection({ onOpenTrailer, guestName }: HeroSectionPro
             </span>
           </motion.div>
         )}
-
-        {/* Cinematic Trailer Action Teaser Banner */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.1, duration: 0.6 }}
-          className="mb-6"
-        >
-          <button
-            onClick={onOpenTrailer}
-            className="group px-6 py-2.5 rounded-full bg-[#162842] text-white hover:bg-[#162842]/90 border border-[#5d6b38] flex items-center gap-2.5 shadow-[0_4px_20px_rgba(22,40,66,0.25)] transition-all cursor-pointer transform hover:scale-105"
-          >
-            <Clapperboard className="w-4 h-4 text-[#c69c4e] animate-pulse" />
-            <span className="font-montserrat text-xs sm:text-sm font-bold tracking-widest uppercase text-[#c69c4e] group-hover:text-white transition-colors">
-              Assistir ao Trailer Oficial do Casamento
-            </span>
-            <span className="px-2 py-0.5 rounded-full bg-[#5d6b38] text-white text-[10px] font-bold">
-              HD 4K
-            </span>
-          </button>
-        </motion.div>
 
         {/* ========================================================= */}
         {/* THE OFFICIAL WEDDING INVITATION CARD                      */}

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, type ChangeEvent } from 'react';
 import { motion } from 'motion/react';
-import { Crown, Heart, Upload, Image as ImageIcon, CheckCircle2, RefreshCw } from 'lucide-react';
+import { Heart, Upload, Image as ImageIcon, CheckCircle2, RefreshCw } from 'lucide-react';
 
 interface PhotoSlot {
   id: number;
@@ -12,8 +12,8 @@ interface PhotoSlot {
 const DEFAULT_SLOTS: PhotoSlot[] = [
   {
     id: 0,
-    title: 'O Primeiro Olhar',
-    subtitle: 'Dionísio & Benedita',
+    title: 'Dionísio & Benedita',
+    subtitle: 'Momentos Especiais',
     defaultUrl: '/uploads/couple_photo_1.jpg',
   },
   {
@@ -149,16 +149,11 @@ export default function LoveStorySection() {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#c69c4e]/50 bg-white/80 mb-4 shadow-sm">
-            <Crown className="w-3.5 h-3.5 text-[#c69c4e]" />
+          <div className="inline-flex items-center px-6 py-1.5 rounded-full border border-[#c69c4e]/50 bg-white/80 mb-5 shadow-sm">
             <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-[#162842] font-bold">
               Nossa História de Amor
             </span>
           </div>
-
-          <h2 className="font-cinzel text-3xl sm:text-5xl font-extrabold tracking-wide text-[#162842] mb-3">
-            O Primeiro Olhar
-          </h2>
 
           <p className="font-cormorant text-xl sm:text-2xl text-[#162842] italic font-semibold">
             &ldquo;Em uma noite iluminada, dois olhares se cruzaram e o mundo pareceu parar. Naquele instante, nasceu uma cumplicidade que desafia o tempo.&rdquo;

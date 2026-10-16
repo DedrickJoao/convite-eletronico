@@ -9,7 +9,7 @@ export const WEDDING_DETAILS = {
   subTagline: "Que falte tudo menos Deus...",
   impactPhrase: "Dois corações unidos pelo amor e pelo propósito divino. É com imensa honra e alegria que convidamos você para celebrar o nosso matrimónio na majestosa cidade de Maputo, Moçambique.",
   dateText: "Sábado, 12 de Dezembro de 2026",
-  targetDate: "2026-12-12T16:00:00",
+  targetDate: "2026-12-12T09:30:00+02:00",
   ceremonyTime: "09:30",
   civilCeremonyTime: "11:00",
   receptionTime: "18:30",
@@ -25,11 +25,18 @@ export const WEDDING_DETAILS = {
   organizerEmail: "rsvp@dionisioebenedita2026.com",
   rsvpDeadline: "15 de Outubro de 2026",
   bankingDetails: {
-    iban: "MZ59 0001 0000 1234 5678 9012 3",
-    swift: "BIMMMZM0",
-    holder: "Dionísio & Benedita Wedding Fund",
-    pixKey: "E-Mola: +258 86 555 7788",
-    multicaixaExpress: "M-Pesa: +258 84 555 7788 (Dionísio / Benedita)"
+    iban: "",
+    swift: "",
+    holder: "Dionísio & Benedita",
+    pixKey: "877002266",
+    multicaixaExpress: "877002266"
+  },
+  giftStoreDetails: {
+    storeName: "Casa das Loiças",
+    address: "Avenida Karl Marx, próxima às bombas Petromoc",
+    city: "Maputo, Moçambique",
+    googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Casa+das+Loi%C3%A7as+Avenida+Karl+Marx+Maputo",
+    emolaNumber: "877002266"
   }
 };
 

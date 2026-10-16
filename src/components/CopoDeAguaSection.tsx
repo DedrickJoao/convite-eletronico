@@ -14,26 +14,6 @@ export default function CopoDeAguaSection() {
       <div className="absolute bottom-0 left-1/4 w-[450px] h-[450px] bg-[radial-gradient(circle,rgba(22,40,66,0.06)_0%,transparent_70%)] pointer-events-none blur-3xl" />
 
       <div className="max-w-4xl mx-auto relative z-10">
-        
-        {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-12 sm:mb-14">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#c69c4e]/50 bg-white shadow-sm mb-4">
-            <GlassWater className="w-3.5 h-3.5 text-[#c69c4e]" />
-            <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-[#162842] font-bold">
-              Celebração & Confraternização
-            </span>
-          </div>
-          
-          <h2 className="font-cinzel text-3xl sm:text-5xl font-extrabold tracking-wide text-[#162842] mb-3">
-            Copo de Água
-          </h2>
-          
-          <div className="w-24 h-0.5 bg-gradient-to-r from-transparent via-[#c69c4e] to-transparent mx-auto mt-2 mb-4" />
-          
-          <p className="font-montserrat text-sm sm:text-base text-[#162842]/90 font-medium">
-            O brinde comemorativo com familiares e amigos queridos.
-          </p>
-        </div>
 
         {/* Main Card: Copo de Água */}
         <motion.div

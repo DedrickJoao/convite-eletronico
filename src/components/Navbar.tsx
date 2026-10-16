@@ -36,10 +36,7 @@ export default function Navbar({
     { name: 'Nossa História', href: '#historia' },
     { name: 'Programa', href: '#detalhes' },
     { name: 'Copo de Água', href: '#copo-de-agua' },
-    { name: 'Mural de Votos', href: '#mural' },
-    { name: 'Traje', href: '#dress-code' },
-    { name: 'Música', href: '#playlist' },
-    { name: 'Localização', href: '#localizacao' },
+    { name: 'Presença', href: '#rsvp' },
     { name: 'Presentes', href: '#presentes' },
   ];
 

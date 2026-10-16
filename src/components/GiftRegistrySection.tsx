@@ -1,19 +1,18 @@
-import { useState, type ElementType } from 'react';
+import { useState } from 'react';
 import { motion } from 'motion/react';
-import { Gift, Copy, Check, Palmtree, Utensils, Wine, Sparkles, Building2, Smartphone, CreditCard } from 'lucide-react';
-import { GIFT_OPTIONS, WEDDING_DETAILS } from '../data/weddingData';
-import { GiftOption } from '../types';
-
-const giftIconMap: Record<string, ElementType> = {
-  Palmtree,
-  Utensils,
-  Wine,
-  Sparkles,
-  Gift
-};
+import { 
+  Gift, 
+  Copy, 
+  Check, 
+  Store, 
+  MapPin, 
+  Smartphone, 
+  ExternalLink, 
+  Heart
+} from 'lucide-react';
+import { WEDDING_DETAILS } from '../data/weddingData';
 
 export default function GiftRegistrySection() {
-  const [selectedGift, setSelectedGift] = useState<GiftOption | null>(null);
   const [copiedType, setCopiedType] = useState<string | null>(null);
 
   const copyToClipboard = (text: string, type: string) => {
@@ -24,206 +23,196 @@ export default function GiftRegistrySection() {
     }, 2500);
   };
 
+  const giftStore = WEDDING_DETAILS.giftStoreDetails || {
+    storeName: "Casa das Loiças",
+    address: "Avenida Karl Marx, próxima às bombas Petromoc",
+    city: "Maputo, Moçambique",
+    googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Casa+das+Loi%C3%A7as+Avenida+Karl+Marx+Maputo",
+    emolaNumber: "877002266"
+  };
+
   return (
     <section 
       id="presentes" 
-      className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[#dbe4ee] via-[#edf2f7] to-[#e4ecf3] border-b border-[#c69c4e]/30 shadow-inner"
+      className="relative py-20 sm:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[#f2f6fa] via-[#e5eef7] to-[#d8e3ed] border-b border-[#c69c4e]/30 shadow-inner"
     >
-      
-      {/* Background Radial Lights */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-[radial-gradient(circle,rgba(198,156,78,0.16)_0%,transparent_70%)] pointer-events-none blur-3xl" />
-      <div className="absolute top-0 right-10 w-96 h-96 bg-[radial-gradient(circle,rgba(255,255,255,0.7)_0%,transparent_60%)] pointer-events-none blur-2xl" />
+      {/* Background Radial Glows */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(198,156,78,0.12)_0%,transparent_70%)] pointer-events-none blur-3xl" />
+      <div className="absolute top-0 right-10 w-80 h-80 bg-[radial-gradient(circle,rgba(255,255,255,0.7)_0%,transparent_60%)] pointer-events-none blur-2xl" />
 
-      <div className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-3xl mx-auto relative z-10">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#c69c4e]/50 bg-white/80 mb-4 shadow-sm">
-            <Gift className="w-3.5 h-3.5 text-[#c69c4e]" />
-            <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-[#162842] font-bold">
-              Lista de Presentes & Cotas
-            </span>
+        {/* Main Framed Container */}
+        <motion.div
+          initial={{ opacity: 0, y: 25 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="relative rounded-3xl bg-white/95 backdrop-blur-xl border-2 border-[#c69c4e]/60 shadow-[0_15px_40px_rgba(22,40,66,0.12)] p-6 sm:p-10 lg:p-12 overflow-hidden"
+        >
+          {/* Decorative Corner Filigrees */}
+          <div className="absolute top-3 left-3 w-6 h-6 border-t-2 border-l-2 border-[#c69c4e]/60 rounded-tl-lg pointer-events-none" />
+          <div className="absolute top-3 right-3 w-6 h-6 border-t-2 border-r-2 border-[#c69c4e]/60 rounded-tr-lg pointer-events-none" />
+          <div className="absolute bottom-3 left-3 w-6 h-6 border-b-2 border-l-2 border-[#c69c4e]/60 rounded-bl-lg pointer-events-none" />
+          <div className="absolute bottom-3 right-3 w-6 h-6 border-b-2 border-r-2 border-[#c69c4e]/60 rounded-br-lg pointer-events-none" />
+
+          {/* Header */}
+          <div className="text-center mb-8">
+            <div className="inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-tr from-[#997316] via-[#c69c4e] to-[#e0be7a] p-0.5 shadow-md mb-3">
+              <div className="w-full h-full rounded-full bg-[#162842] flex items-center justify-center">
+                <Gift className="w-5 h-5 text-[#c69c4e]" />
+              </div>
+            </div>
+
+            <h2 className="font-cinzel text-2xl sm:text-4xl font-extrabold tracking-wide text-[#162842]">
+              Sugestão de Presente
+            </h2>
+            
+            <div className="flex items-center justify-center gap-3 mt-3">
+              <span className="h-px w-12 bg-gradient-to-r from-transparent to-[#c69c4e]/60" />
+              <span className="text-[#c69c4e] text-xs">◆</span>
+              <span className="h-px w-12 bg-gradient-to-l from-transparent to-[#c69c4e]/60" />
+            </div>
           </div>
-          
-          <h2 className="font-cinzel text-3xl sm:text-5xl font-extrabold tracking-wide text-[#162842] mb-4">
-            Abençoando a Vida a Dois
-          </h2>
-          
-          <p className="font-montserrat text-sm sm:text-base text-[#162842]/90 max-w-2xl mx-auto font-medium leading-relaxed">
-            A sua presença e o seu carinho são nossos maiores tesouros. Caso deseje nos presentear, disponibilizamos cotas simbólicas para nossa lua-de-mel e transferências diretas.
-          </p>
-        </div>
 
-        {/* Gift Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-          {GIFT_OPTIONS.map((gift, idx) => {
-            const Icon = giftIconMap[gift.iconName] || Gift;
+          {/* Letter / Mensagem aos Convidados */}
+          <div className="text-center space-y-3 mb-9 px-2 sm:px-6">
+            <p className="font-cinzel text-base sm:text-lg font-bold text-[#c69c4e] tracking-wide">
+              Querido(a) Convidado(a),
+            </p>
 
-            return (
-              <motion.div
-                key={gift.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1, duration: 0.6 }}
-                onClick={() => setSelectedGift(gift)}
-                className="group rounded-3xl bg-white/95 backdrop-blur-md p-6 sm:p-7 border border-[#c69c4e]/40 hover:border-[#c69c4e] shadow-xl hover:shadow-2xl transition-all flex flex-col justify-between cursor-pointer relative overflow-hidden"
-              >
-                {gift.popular && (
-                  <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[#c69c4e] text-[10px] font-montserrat font-bold text-white uppercase tracking-wider shadow-sm">
-                    Destaque
-                  </div>
-                )}
+            <p className="font-montserrat text-sm sm:text-base font-semibold text-[#162842] leading-relaxed">
+              A sua presença será, sem dúvida, o nosso maior presente!
+            </p>
 
-                <div>
-                  <div className="w-12 h-12 rounded-2xl bg-[#dfe6ec] border border-[#c69c4e]/50 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform shadow-sm">
-                    <Icon className="w-6 h-6 text-[#c69c4e]" />
-                  </div>
-
-                  <span className="text-[11px] font-montserrat uppercase tracking-widest text-[#c69c4e] font-bold block mb-1">
-                    {gift.category}
-                  </span>
-
-                  <h3 className="font-cinzel text-lg font-bold text-[#162842] mb-2 group-hover:text-[#c69c4e] transition-colors">
-                    {gift.title}
-                  </h3>
-
-                  <p className="font-montserrat text-xs text-[#162842]/90 leading-relaxed font-medium mb-4">
-                    {gift.description}
-                  </p>
-                </div>
-
-                <div className="pt-4 border-t border-[#dfe6ec] flex items-center justify-between">
-                  <span className="font-cinzel text-sm sm:text-base font-bold text-[#162842]">
-                    {gift.amount}
-                  </span>
-                  
-                  <button className="px-4 py-1.5 rounded-full gold-button text-xs font-montserrat font-bold shadow-sm">
-                    Presentear
-                  </button>
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
-        {/* Bank & Digital Transfer Card */}
-        <div className="rounded-3xl bg-white/95 backdrop-blur-md p-8 sm:p-10 border-2 border-[#c69c4e]/50 shadow-2xl">
-          <div className="text-center max-w-xl mx-auto mb-8">
-            <h3 className="font-cinzel text-2xl sm:text-3xl font-bold text-[#162842] mb-2">
-              Dados para Transferência Direta
-            </h3>
-            <p className="font-montserrat text-xs sm:text-sm text-[#162842]/90 font-medium">
-              Transferência bancária e pagamentos móveis seguros com cópia rápida para sua comodidade.
+            <p className="font-montserrat text-xs sm:text-sm text-[#162842]/85 font-medium leading-relaxed">
+              Mas, se desejar presentear-nos e tornar este momento ainda mais especial, queira encontrar 👇🏽:
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* 2 Clear, Balanced Cards: Localização da Loja & Dados Bancários */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
             
-            {/* IBAN Internacional */}
-            <div className="p-5 rounded-2xl bg-[#dfe6ec]/50 border border-[#c69c4e]/40 flex flex-col justify-between shadow-sm">
+            {/* Opção 1: Localização da Loja */}
+            <div className="rounded-2xl bg-[#f4f7fa] p-5 sm:p-6 border border-[#c69c4e]/40 shadow-sm flex flex-col justify-between hover:border-[#c69c4e] transition-colors">
               <div>
-                <div className="flex items-center gap-2 text-xs font-montserrat uppercase tracking-wider text-[#162842] font-bold mb-2">
-                  <Building2 className="w-4 h-4 text-[#c69c4e]" />
-                  <span>IBAN Internacional (Millennium BIM)</span>
+                <div className="flex items-center gap-2 mb-2 text-[#c69c4e]">
+                  <Store className="w-5 h-5" />
+                  <span className="font-montserrat text-[11px] font-bold uppercase tracking-wider text-[#162842]">
+                    Localização da Loja
+                  </span>
                 </div>
-                <p className="font-mono text-xs sm:text-sm text-[#162842] font-bold tracking-wider break-all mb-1">
-                  {WEDDING_DETAILS.bankingDetails.iban}
-                </p>
-                <p className="text-[11px] font-montserrat text-[#162842]/80 font-semibold">
-                  Titular: {WEDDING_DETAILS.bankingDetails.holder}
-                </p>
-                <p className="text-[11px] font-montserrat text-[#162842]/80 font-semibold">
-                  SWIFT/BIC: {WEDDING_DETAILS.bankingDetails.swift}
-                </p>
+
+                <h3 className="font-cinzel text-lg sm:text-xl font-bold text-[#162842] mb-1.5">
+                  {giftStore.storeName}
+                </h3>
+
+                <div className="flex items-start gap-2 text-[#162842]/90 text-xs sm:text-sm mb-4">
+                  <MapPin className="w-4 h-4 text-[#c69c4e] shrink-0 mt-0.5" />
+                  <p className="font-medium">
+                    {giftStore.address}
+                  </p>
+                </div>
               </div>
 
-              <button
-                onClick={() => copyToClipboard(WEDDING_DETAILS.bankingDetails.iban, 'iban')}
-                className="mt-4 w-full py-2 px-3 rounded-xl bg-white border border-[#c69c4e]/60 hover:border-[#c69c4e] text-xs font-montserrat font-bold text-[#162842] flex items-center justify-center gap-1.5 transition-colors shadow-sm"
-              >
-                {copiedType === 'iban' ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span className="text-emerald-700">IBAN Copiado!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5 text-[#c69c4e]" />
-                    <span>Copiar IBAN</span>
-                  </>
-                )}
-              </button>
+              <div className="space-y-2 pt-3 border-t border-[#dfe6ec]">
+                <a
+                  href={giftStore.googleMapsUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full py-2.5 px-3 rounded-xl gold-button text-xs font-montserrat font-bold shadow-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                >
+                  <span>Abrir no Google Maps</span>
+                  <ExternalLink className="w-3.5 h-3.5" />
+                </a>
+
+                <button
+                  onClick={() => copyToClipboard(`${giftStore.storeName} - ${giftStore.address}`, 'store')}
+                  className="w-full py-2 px-3 rounded-xl bg-white hover:bg-slate-50 border border-[#c69c4e]/40 text-xs font-montserrat font-bold text-[#162842] flex items-center justify-center gap-1.5 transition-colors shadow-xs cursor-pointer"
+                >
+                  {copiedType === 'store' ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <span className="text-emerald-700">Endereço Copiado!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5 text-[#c69c4e]" />
+                      <span>Copiar Endereço</span>
+                    </>
+                  )}
+                </button>
+              </div>
             </div>
 
-            {/* M-Pesa (Moçambique) */}
-            <div className="p-5 rounded-2xl bg-[#dfe6ec]/50 border border-[#c69c4e]/40 flex flex-col justify-between shadow-sm">
+            {/* Opção 2: Dados Bancários - E-Mola */}
+            <div className="rounded-2xl bg-[#f4f7fa] p-5 sm:p-6 border border-[#c69c4e]/40 shadow-sm flex flex-col justify-between hover:border-[#c69c4e] transition-colors">
               <div>
-                <div className="flex items-center gap-2 text-xs font-montserrat uppercase tracking-wider text-[#162842] font-bold mb-2">
-                  <Smartphone className="w-4 h-4 text-[#c69c4e]" />
-                  <span>M-Pesa (Moçambique)</span>
+                <div className="flex items-center gap-2 mb-2 text-[#c69c4e]">
+                  <Smartphone className="w-5 h-5" />
+                  <span className="font-montserrat text-[11px] font-bold uppercase tracking-wider text-[#162842]">
+                    Dados Bancários
+                  </span>
                 </div>
-                <p className="font-mono text-xs sm:text-sm text-[#162842] font-bold tracking-wider break-all mb-1">
-                  {WEDDING_DETAILS.bankingDetails.multicaixaExpress}
-                </p>
-                <p className="text-[11px] font-montserrat text-[#162842]/80 font-semibold">
-                  Envio móvel direto (Vodacom M-Pesa MZ)
-                </p>
+
+                <h3 className="font-cinzel text-lg sm:text-xl font-bold text-[#162842] mb-1.5">
+                  E-Mola (Moçambique)
+                </h3>
+
+                <div className="p-3 rounded-xl bg-white border border-[#c69c4e]/30 text-center mb-4">
+                  <span className="text-[10px] font-montserrat uppercase tracking-wider text-[#162842]/70 font-semibold block mb-0.5">
+                    Número E-Mola
+                  </span>
+                  <span className="font-mono text-xl sm:text-2xl font-black text-[#162842] tracking-wider block">
+                    877002266
+                  </span>
+                </div>
               </div>
 
-              <button
-                onClick={() => copyToClipboard(WEDDING_DETAILS.bankingDetails.multicaixaExpress, 'mpesa')}
-                className="mt-4 w-full py-2 px-3 rounded-xl bg-white border border-[#c69c4e]/60 hover:border-[#c69c4e] text-xs font-montserrat font-bold text-[#162842] flex items-center justify-center gap-1.5 transition-colors shadow-sm"
-              >
-                {copiedType === 'mpesa' ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span className="text-emerald-700">M-Pesa Copiado!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5 text-[#c69c4e]" />
-                    <span>Copiar M-Pesa</span>
-                  </>
-                )}
-              </button>
-            </div>
+              <div className="space-y-2 pt-3 border-t border-[#dfe6ec]">
+                <button
+                  onClick={() => copyToClipboard('877002266', 'emola')}
+                  className="w-full py-2.5 px-3 rounded-xl gold-button text-xs font-montserrat font-bold shadow-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                >
+                  {copiedType === 'emola' ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-900" />
+                      <span className="text-emerald-950 font-black">877002266 Copiado!</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Copiar Número (877002266)</span>
+                    </>
+                  )}
+                </button>
 
-            {/* E-Mola (Moçambique) */}
-            <div className="p-5 rounded-2xl bg-[#dfe6ec]/50 border border-[#c69c4e]/40 flex flex-col justify-between shadow-sm">
-              <div>
-                <div className="flex items-center gap-2 text-xs font-montserrat uppercase tracking-wider text-[#162842] font-bold mb-2">
-                  <CreditCard className="w-4 h-4 text-[#c69c4e]" />
-                  <span>E-Mola (Moçambique)</span>
-                </div>
-                <p className="font-mono text-xs sm:text-sm text-[#162842] font-bold tracking-wider break-all mb-1">
-                  {WEDDING_DETAILS.bankingDetails.pixKey}
-                </p>
-                <p className="text-[11px] font-montserrat text-[#162842]/80 font-semibold">
-                  Transferência móvel direta (Movitel E-Mola)
-                </p>
+                <a
+                  href="tel:877002266"
+                  className="w-full py-2 px-3 rounded-xl bg-white hover:bg-slate-50 border border-[#c69c4e]/40 text-xs font-montserrat font-bold text-[#162842] flex items-center justify-center gap-1.5 transition-colors shadow-xs cursor-pointer"
+                >
+                  <Smartphone className="w-3.5 h-3.5 text-[#c69c4e]" />
+                  <span>Transferir / Ligar</span>
+                </a>
               </div>
-
-              <button
-                onClick={() => copyToClipboard(WEDDING_DETAILS.bankingDetails.pixKey, 'emola')}
-                className="mt-4 w-full py-2 px-3 rounded-xl bg-white border border-[#c69c4e]/60 hover:border-[#c69c4e] text-xs font-montserrat font-bold text-[#162842] flex items-center justify-center gap-1.5 transition-colors shadow-sm"
-              >
-                {copiedType === 'emola' ? (
-                  <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
-                    <span className="text-emerald-700">E-Mola Copiado!</span>
-                  </>
-                ) : (
-                  <>
-                    <Copy className="w-3.5 h-3.5 text-[#c69c4e]" />
-                    <span>Copiar E-Mola</span>
-                  </>
-                )}
-              </button>
             </div>
 
           </div>
-        </div>
+
+          {/* Agradecimento Final Enquadrado */}
+          <div className="pt-6 border-t border-[#c69c4e]/30 text-center">
+            <div className="inline-flex items-center gap-1.5 text-[#c69c4e] mb-1">
+              <Heart className="w-4 h-4 fill-[#c69c4e]/30" />
+            </div>
+            <p className="font-cinzel text-xs sm:text-sm font-bold text-[#162842] italic">
+              &ldquo;Cada presente/ valor será recebido com enorme gratidão e carinho.&rdquo;
+            </p>
+            <p className="font-montserrat text-[11px] text-[#c69c4e] uppercase tracking-widest font-bold mt-1.5">
+              Dionísio & Benedita
+            </p>
+          </div>
+
+        </motion.div>
 
       </div>
     </section>

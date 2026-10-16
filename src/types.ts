@@ -20,12 +20,12 @@ export interface PlaylistItem {
 
 export interface RsvpData {
   guestName: string;
-  email: string;
+  email?: string;
   phone: string;
   attending: 'yes' | 'no';
   plusOneCount: number;
-  dietaryRestrictions: string;
-  specialSongRequest: string;
+  dietaryRestrictions?: string;
+  specialSongRequest?: string;
   messageToCouple: string;
   confirmedAt?: string;
   ticketId?: string;

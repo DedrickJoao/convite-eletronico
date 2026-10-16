@@ -7,11 +7,7 @@ import CountdownSection from './components/CountdownSection';
 import LoveStorySection from './components/LoveStorySection';
 import EventDetailsSection from './components/EventDetailsSection';
 import CopoDeAguaSection from './components/CopoDeAguaSection';
-import GuestbookSection from './components/GuestbookSection';
 import RsvpSection from './components/RsvpSection';
-import PlaylistSection from './components/PlaylistSection';
-import DressCodeSection from './components/DressCodeSection';
-import LocationAndMapSection from './components/LocationAndMapSection';
 import GiftRegistrySection from './components/GiftRegistrySection';
 import FloatingMusicPlayer from './components/FloatingMusicPlayer';
 import ShareModal from './components/ShareModal';
@@ -94,23 +90,11 @@ export default function App() {
           {/* Copo de Água */}
           <CopoDeAguaSection />
 
-          {/* Interactive Guestbook & Message Wall */}
-          <GuestbookSection />
-
-          {/* RSVP Section with Dynamic QR, WhatsApp & In-App Form */}
+          {/* RSVP Section with WhatsApp & In-App Form */}
           <RsvpSection
             initialGuestName={guestName}
             onSuccessSubmit={handleRsvpSuccess}
           />
-
-          {/* Custom Curated Wedding Playlist */}
-          <PlaylistSection />
-
-          {/* Dress Code & Style Guide */}
-          <DressCodeSection />
-
-          {/* Location, Palace Details & GPS Navigation */}
-          <LocationAndMapSection />
 
           {/* Gift Registry & Instant Mobile / Bank Transfer */}
           <GiftRegistrySection />
