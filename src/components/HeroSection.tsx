@@ -13,9 +13,16 @@ export default function HeroSection({ guestName }: HeroSectionProps) {
       id="inicio"
       className="relative min-h-screen flex flex-col items-center justify-center pt-12 sm:pt-16 pb-20 px-4 sm:px-6 lg:px-8 text-center overflow-hidden"
     >
-      {/* Ambient Watercolor & Subtle Olive/Gold Glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[750px] h-[750px] bg-[radial-gradient(circle,rgba(93,107,56,0.12)_0%,rgba(223,230,236,0)_70%)] pointer-events-none blur-3xl" />
-      <div className="absolute bottom-1/4 right-10 w-[500px] h-[500px] bg-[radial-gradient(circle,rgba(198,156,78,0.12)_0%,transparent_70%)] pointer-events-none blur-3xl" />
+      {/* Foto de Fundo Oficial Dionísio & Benedita (ocupando 100% da secção) */}
+      <img
+        src="/assets/aistudio/WhatsApp_Image_2026-10-06_at_3.32.14_PM__1__87c71be1.jpeg"
+        alt="Foto Oficial Dionísio & Benedita"
+        className="absolute inset-0 w-full h-full object-cover object-[center_15%] sm:object-center select-none pointer-events-none"
+        referrerPolicy="no-referrer"
+      />
+
+      {/* Camada suave semitransparente para manter perfeita legibilidade do conteúdo sobre o fundo */}
+      <div className="absolute inset-0 bg-[#dfe6ec]/65 pointer-events-none" />
 
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center w-full">
         
@@ -41,44 +48,8 @@ export default function HeroSection({ guestName }: HeroSectionProps) {
           initial={{ scale: 0.94, opacity: 0, y: 20 }}
           animate={{ scale: 1, opacity: 1, y: 0 }}
           transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-xl mx-auto rounded-3xl save-the-date-card p-8 sm:p-12 overflow-hidden text-center select-none shadow-[0_25px_60px_rgba(22,40,66,0.18)]"
+          className="relative w-full max-w-xl mx-auto p-4 sm:p-8 text-center select-none"
         >
-          {/* Subtle Watercolor & Marble Vein Overlays */}
-          <div className="absolute -top-24 -left-24 w-80 h-80 bg-[radial-gradient(circle,rgba(93,107,56,0.18)_0%,transparent_70%)] blur-2xl pointer-events-none" />
-          <div className="absolute -bottom-24 -right-24 w-80 h-80 bg-[radial-gradient(circle,rgba(198,156,78,0.15)_0%,transparent_70%)] blur-2xl pointer-events-none" />
-
-          {/* Botanical Olive / Wheat Leaves Silhouette - Left Side */}
-          <svg
-            className="absolute left-2 top-8 w-16 sm:w-24 h-64 sm:h-80 text-[#5d6b38]/30 pointer-events-none"
-            viewBox="0 0 100 300"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.2"
-          >
-            <path d="M20 280 Q 40 180 30 20" />
-            <path d="M28 220 Q 55 200 48 185 Q 35 195 27 210" />
-            <path d="M25 170 Q 60 150 50 135 Q 33 145 24 160" />
-            <path d="M25 120 Q 58 100 50 85 Q 35 95 26 110" />
-            <path d="M28 70 Q 55 50 48 35 Q 33 45 28 65" />
-            <path d="M30 20 Q 38 10 32 0" />
-          </svg>
-
-          {/* Botanical Olive Leaves Silhouette - Right Side */}
-          <svg
-            className="absolute right-2 top-8 w-16 sm:w-24 h-64 sm:h-80 text-[#5d6b38]/30 pointer-events-none scale-x-[-1]"
-            viewBox="0 0 100 300"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="1.2"
-          >
-            <path d="M20 280 Q 40 180 30 20" />
-            <path d="M28 220 Q 55 200 48 185 Q 35 195 27 210" />
-            <path d="M25 170 Q 60 150 50 135 Q 33 145 24 160" />
-            <path d="M25 120 Q 58 100 50 85 Q 35 95 26 110" />
-            <path d="M28 70 Q 55 50 48 35 Q 33 45 28 65" />
-            <path d="M30 20 Q 38 10 32 0" />
-          </svg>
-
           <div className="relative z-10 flex flex-col items-center">
             
             {/* Top Heart */}
@@ -96,23 +67,19 @@ export default function HeroSection({ guestName }: HeroSectionProps) {
               </h1>
             </div>
 
-            {/* Ornate Divider with Diamond Rosette */}
-            <div className="flex items-center justify-center gap-3 w-48 sm:w-64 my-3 text-[#5d6b38]">
-              <div className="h-[1.5px] flex-1 bg-gradient-to-r from-transparent via-[#5d6b38] to-[#5d6b38]" />
-              <span className="text-xs">❖</span>
-              <div className="h-[1.5px] flex-1 bg-gradient-to-l from-transparent via-[#5d6b38] to-[#5d6b38]" />
+            {/* Ornate Divider */}
+            <div className="my-2 text-[#5d6b38] text-xs">
+              ❖
             </div>
 
             {/* Couple Names (DIONÍSIO & BENEDITA) */}
-            <div className="my-3 flex flex-col items-center">
+            <div className="my-2 flex flex-col items-center">
               <h2 className="font-cinzel text-2xl sm:text-4xl font-extrabold tracking-[0.2em] text-[#162842]">
                 DIONÍSIO
               </h2>
               
-              <div className="flex items-center justify-center gap-3 my-1 text-[#5d6b38]">
-                <div className="h-[1px] w-8 sm:w-12 bg-[#5d6b38]" />
+              <div className="flex items-center justify-center my-1 text-[#5d6b38]">
                 <span className="font-alex text-2xl sm:text-4xl text-[#5d6b38] font-bold">&amp;</span>
-                <div className="h-[1px] w-8 sm:w-12 bg-[#5d6b38]" />
               </div>
 
               <h2 className="font-cinzel text-2xl sm:text-4xl font-extrabold tracking-[0.2em] text-[#162842]">
@@ -121,27 +88,23 @@ export default function HeroSection({ guestName }: HeroSectionProps) {
             </div>
 
             {/* Ornate Divider */}
-            <div className="flex items-center justify-center gap-3 w-48 sm:w-64 my-3 text-[#5d6b38]">
-              <div className="h-[1.5px] flex-1 bg-gradient-to-r from-transparent via-[#5d6b38] to-[#5d6b38]" />
-              <span className="text-xs">❖</span>
-              <div className="h-[1.5px] flex-1 bg-gradient-to-l from-transparent via-[#5d6b38] to-[#5d6b38]" />
+            <div className="my-2 text-[#5d6b38] text-xs">
+              ❖
             </div>
 
-            {/* Date Block: DEZEMBRO / SÁBADO | 12 | 2026 */}
+            {/* Date Block: DEZEMBRO / SÁBADO 12 2026 */}
             <div className="my-2 flex flex-col items-center">
               <span className="font-montserrat text-xs sm:text-sm uppercase tracking-[0.25em] text-[#162842] font-extrabold mb-1">
                 DEZEMBRO
               </span>
 
-              <div className="flex items-center justify-center gap-3 sm:gap-5 py-1.5 border-y-2 border-[#5d6b38]/60 my-1 w-56 sm:w-72">
+              <div className="flex items-center justify-center gap-4 sm:gap-6 py-1 my-1">
                 <span className="font-montserrat text-xs sm:text-sm uppercase tracking-widest text-[#162842] font-bold">
                   SÁBADO
                 </span>
-                <div className="h-6 w-[1.5px] bg-[#5d6b38]" />
                 <span className="font-cinzel text-3xl sm:text-4xl font-black text-[#5d6b38]">
                   12
                 </span>
-                <div className="h-6 w-[1.5px] bg-[#5d6b38]" />
                 <span className="font-montserrat text-xs sm:text-sm uppercase tracking-widest text-[#162842] font-bold">
                   2026
                 </span>
@@ -163,10 +126,8 @@ export default function HeroSection({ guestName }: HeroSectionProps) {
               <span className="text-[#5d6b38] text-xs">♥</span>
             </div>
 
-            <div className="flex items-center justify-center gap-3 w-40 sm:w-52 my-1 text-[#5d6b38]">
-              <div className="h-[1px] flex-1 bg-[#5d6b38]" />
-              <span className="text-[10px]">❖</span>
-              <div className="h-[1px] flex-1 bg-[#5d6b38]" />
+            <div className="my-1 text-[#5d6b38] text-[10px]">
+              ❖
             </div>
 
           </div>

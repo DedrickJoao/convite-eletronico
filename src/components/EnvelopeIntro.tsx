@@ -72,6 +72,13 @@ export default function EnvelopeIntro({ onOpen }: EnvelopeIntroProps) {
             {/* Subtle realistic lighting and paper depth vignette */}
             <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-black/10 via-transparent to-black/25" />
             <div className="absolute inset-0 pointer-events-none shadow-[inset_0_0_100px_rgba(0,0,0,0.2)]" />
+
+            {/* Aviso no Convite Fechado: NÃO EXTENSIVO A CRIANÇAS */}
+            <div className="absolute bottom-10 sm:bottom-16 left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center w-full max-w-md px-4 flex flex-col items-center">
+              <p className="font-montserrat text-xs sm:text-sm md:text-base font-extrabold tracking-[0.25em] text-[#162842] uppercase drop-shadow-[0_1px_4px_rgba(255,255,255,0.95)] select-none">
+                NÃO EXTENSIVO A CRIANÇAS
+              </p>
+            </div>
           </motion.div>
         </div>
       </motion.div>

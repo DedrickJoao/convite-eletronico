@@ -5,11 +5,18 @@ export default function BlessingSection() {
   return (
     <section 
       id="bencao" 
-      className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 text-center bg-gradient-to-b from-[#e3e9ef] via-[#edf2f6] to-[#dee6ee] border-b border-[#c69c4e]/30 shadow-sm"
+      className="relative py-20 sm:py-28 px-4 sm:px-6 lg:px-8 text-center overflow-hidden border-b border-[#c69c4e]/30 shadow-sm"
     >
-      {/* Background Subtle Luxury Light */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(198,156,78,0.18)_0%,transparent_65%)] pointer-events-none" />
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-[#c69c4e]/60 to-transparent pointer-events-none" />
+      {/* Foto de Fundo Oficial Dionísio & Benedita (ocupando 100% da secção) */}
+      <img
+        src="/assets/aistudio/WhatsApp_Image_2026-10-06_at_3.31.28_PM__1__5273d562.jpeg"
+        alt="Foto Dionísio & Benedita - Bênção dos Pais"
+        className="absolute inset-0 w-full h-full object-cover object-[center_15%] sm:object-center select-none pointer-events-none"
+        referrerPolicy="no-referrer"
+      />
+
+      {/* Camada suave semitransparente para manter perfeita legibilidade do conteúdo sobre o fundo */}
+      <div className="absolute inset-0 bg-[#dfe6ec]/65 pointer-events-none" />
 
       <div className="max-w-3xl mx-auto relative z-10">
         <motion.div
