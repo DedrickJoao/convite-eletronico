@@ -71,7 +71,7 @@ export default function FloatingMusicPlayer() {
                       duration: 0.6 + i * 0.15,
                       ease: 'easeInOut'
                     }}
-                    className="w-1 bg-[#5d6b38] rounded-full"
+                    className="w-1 bg-[#c69c4e] rounded-full"
                   />
                 ))}
               </div>
@@ -92,7 +92,7 @@ export default function FloatingMusicPlayer() {
         className={`relative group w-14 h-14 rounded-full flex items-center justify-center shadow-[0_8px_30px_rgba(22,40,66,0.25)] border-2 transition-all cursor-pointer ${
           isSoundActive
             ? 'bg-gradient-to-tr from-[#162842] via-[#233f65] to-[#162842] border-[#c69c4e] text-white shadow-[#c69c4e]/30'
-            : 'bg-white/95 backdrop-blur-md border-[#5d6b38]/50 text-[#162842] hover:border-[#c69c4e]'
+            : 'bg-white/95 backdrop-blur-md border-[#c69c4e]/50 text-[#162842] hover:border-[#c69c4e]'
         }`}
       >
         {/* Pulsing Aura Ring when Music is Playing */}

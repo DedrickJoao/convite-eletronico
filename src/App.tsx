@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import BackgroundParticles from './components/BackgroundParticles';
 import EnvelopeIntro from './components/EnvelopeIntro';
+import WelcomeScreen from './components/WelcomeScreen';
 import HeroSection from './components/HeroSection';
 import BlessingSection from './components/BlessingSection';
 import CountdownSection from './components/CountdownSection';
@@ -16,6 +17,7 @@ import Footer from './components/Footer';
 
 export default function App() {
   const [isEnvelopeOpened, setIsEnvelopeOpened] = useState(false);
+  const [hasEnteredInvitation, setHasEnteredInvitation] = useState(false);
   const [guestName, setGuestName] = useState<string>('');
   const [ticketId, setTicketId] = useState<string>('DB-2026-VIP-889');
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
@@ -48,12 +50,13 @@ export default function App() {
 
   const handleReopenEnvelope = () => {
     setIsEnvelopeOpened(false);
+    setHasEnteredInvitation(false);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <div className="relative min-h-screen bg-[#dfe6ec] text-[#162842] selection:bg-[#c69c4e]/30 selection:text-[#162842] font-montserrat antialiased bg-watercolor-luxury">
-      {/* Interactive Royal Envelope Intro */}
+      {/* 1. Envelope Inicial Fechado */}
       {!isEnvelopeOpened && (
         <EnvelopeIntro
           guestName={guestName}
@@ -61,11 +64,18 @@ export default function App() {
         />
       )}
 
+      {/* 2. Página de Transição com Monograma dos Noivos, Citação Bíblica e Botão 'VER CONVITE' */}
+      {isEnvelopeOpened && !hasEnteredInvitation && (
+        <WelcomeScreen
+          onEnterInvitation={() => setHasEnteredInvitation(true)}
+        />
+      )}
+
       {/* Floating Gold & Crystal Ambient Particle Canvas */}
       <BackgroundParticles />
 
-      {/* Main Luxury Invitation Container */}
-      <div className={`transition-opacity duration-1000 ${isEnvelopeOpened ? 'opacity-100' : 'opacity-0'}`}>
+      {/* 3. Convite Completo Oficial */}
+      <div className={`transition-opacity duration-1000 ${hasEnteredInvitation ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
         
         <main className="relative z-10">
           {/* Hero Section with Official Save The Date Card & Trailer CTA */}
