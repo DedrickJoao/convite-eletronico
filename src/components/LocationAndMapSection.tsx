@@ -81,7 +81,7 @@ export default function LocationAndMapSection() {
                   className="py-2.5 px-3 rounded-xl gold-button text-xs font-montserrat font-bold flex items-center justify-center gap-1.5 shadow-sm text-center"
                 >
                   <Navigation className="w-3.5 h-3.5" />
-                  <span>Google Maps</span>
+                  <span>Localização no mapa</span>
                 </a>
 
                 <a

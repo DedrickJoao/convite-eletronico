@@ -202,21 +202,23 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
                     </div>
 
                     <div className="space-y-1.5">
-                      <label className="block text-xs font-montserrat font-bold text-[#162842]">
-                        Número de Acompanhantes
-                      </label>
+                      <div className="flex items-center justify-between">
+                        <label className="block text-xs font-montserrat font-bold text-[#162842]">
+                          Número de Convidados *
+                        </label>
+                        <span className="text-[10px] text-[#c69c4e] font-montserrat font-bold uppercase tracking-wider">
+                          Máx. 2 pessoas
+                        </span>
+                      </div>
                       <div className="relative">
                         <Users className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#c69c4e]" />
                         <select
                           value={formData.plusOneCount}
-                          onChange={(e) => setFormData({ ...formData, plusOneCount: Number(e.target.value) })}
+                          onChange={(e) => setFormData({ ...formData, plusOneCount: Math.min(1, Number(e.target.value)) })}
                           className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-semibold focus:outline-none transition-colors"
                         >
-                          <option value={0}>Apenas eu (1 pessoa)</option>
-                          <option value={1}>+ 1 Acompanhante (2 pessoas)</option>
-                          <option value={2}>+ 2 Acompanhantes (3 pessoas)</option>
-                          <option value={3}>+ 3 Acompanhantes (4 pessoas)</option>
-                          <option value={4}>Família (5+ pessoas)</option>
+                          <option value={0}>1 Pessoa (Apenas eu)</option>
+                          <option value={1}>2 Pessoas (Eu + 1 Acompanhante - Máximo)</option>
                         </select>
                       </div>
                     </div>
@@ -260,7 +262,7 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
                       ) : (
                         <>
                           <Send className="w-4 h-4" />
-                          <span>Confirmar Presença no Convite</span>
+                          <span>Enviar Confirmação</span>
                         </>
                       )}
                     </button>

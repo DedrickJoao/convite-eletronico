@@ -75,7 +75,7 @@ export default function CopoDeAguaSection() {
               className="inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full gold-button font-montserrat text-xs sm:text-sm uppercase tracking-widest font-bold text-white shadow-xl hover:shadow-2xl transition-all cursor-pointer group"
             >
               <Navigation className="w-4 h-4 text-white group-hover:rotate-45 transition-transform" />
-              <span>Ver Localização no Google Maps</span>
+              <span>Localização no mapa</span>
               <Sparkles className="w-4 h-4 text-white/80" />
             </a>
           </div>

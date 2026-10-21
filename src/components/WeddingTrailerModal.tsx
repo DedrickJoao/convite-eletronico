@@ -329,19 +329,11 @@ export default function WeddingTrailerModal({ isOpen, onClose, onOpenRsvp }: Wed
             </button>
           </div>
 
-          {/* Direct RSVP Action Button */}
-          <div className="flex items-center gap-3 w-full sm:w-auto">
-            <button
-              onClick={handleRsvpClick}
-              className="flex-1 sm:flex-none px-6 py-3 rounded-full gold-button font-montserrat text-xs sm:text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-[0_0_25px_rgba(198,156,78,0.4)] cursor-pointer"
-            >
-              <CheckCircle2 className="w-4 h-4" />
-              <span>Garantir Meu Lugar (RSVP)</span>
-            </button>
-
+          {/* Action Button */}
+          <div className="flex items-center justify-end w-full sm:w-auto">
             <button
               onClick={onClose}
-              className="px-5 py-3 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-montserrat font-semibold transition-colors cursor-pointer"
+              className="w-full sm:w-auto px-6 py-3 rounded-full bg-white/10 hover:bg-white/20 border border-white/20 text-white text-xs font-montserrat font-semibold transition-colors cursor-pointer"
             >
               Explorar Convite
             </button>

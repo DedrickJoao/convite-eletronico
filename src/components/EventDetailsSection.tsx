@@ -93,7 +93,7 @@ export default function EventDetailsSection() {
                 className="w-full py-3.5 px-6 rounded-xl gold-button font-montserrat text-xs sm:text-sm font-bold text-center flex items-center justify-center gap-2.5 shadow-md transition-all hover:scale-[1.01]"
               >
                 <Navigation className="w-4 h-4" />
-                <span>Google Maps</span>
+                <span>Localização no mapa</span>
               </a>
             </div>
           </motion.div>
@@ -155,7 +155,7 @@ export default function EventDetailsSection() {
                 className="w-full py-3.5 px-6 rounded-xl gold-button font-montserrat text-xs sm:text-sm font-bold text-center flex items-center justify-center gap-2.5 shadow-md transition-all hover:scale-[1.01]"
               >
                 <Navigation className="w-4 h-4" />
-                <span>Google Maps</span>
+                <span>Localização no mapa</span>
               </a>
             </div>
           </motion.div>

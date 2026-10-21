@@ -6,6 +6,7 @@ import {
   Check, 
   Store, 
   MapPin, 
+  Navigation,
   Smartphone, 
   ExternalLink, 
   Heart
@@ -122,8 +123,8 @@ export default function GiftRegistrySection() {
                   rel="noopener noreferrer"
                   className="w-full py-2.5 px-3 rounded-xl gold-button text-xs font-montserrat font-bold shadow-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer"
                 >
-                  <span>Abrir no Google Maps</span>
-                  <ExternalLink className="w-3.5 h-3.5" />
+                  <Navigation className="w-3.5 h-3.5" />
+                  <span>Localização no mapa</span>
                 </a>
 
                 <button

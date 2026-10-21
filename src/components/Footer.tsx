@@ -45,12 +45,6 @@ export default function Footer({ onReopenEnvelope, onOpenRsvp }: FooterProps) {
         {/* Action Links */}
         <div className="flex flex-wrap items-center justify-center gap-4 pt-4 border-t border-[#c69c4e]/30 text-xs font-montserrat">
           <button
-            onClick={onOpenRsvp}
-            className="px-5 py-2.5 rounded-full gold-button font-bold uppercase tracking-wider text-white shadow-md cursor-pointer"
-          >
-            Confirmar Presença (RSVP)
-          </button>
-          <button
             onClick={onReopenEnvelope}
             className="px-5 py-2.5 rounded-full bg-white border border-[#c69c4e]/50 hover:border-[#c69c4e] text-[#162842] font-bold transition-colors shadow-sm cursor-pointer"
           >
