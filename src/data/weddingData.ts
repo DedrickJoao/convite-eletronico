@@ -31,6 +31,10 @@ export const WEDDING_DETAILS = {
   organizerPhone2: "+258 86 756 1010",
   organizerEmail: "bhelena.nhantumbo76@gmail.com",
   rsvpsNotificationEmail: "bhelena.nhantumbo76@gmail.com",
+  notificationEmails: [
+    "bhelena.nhantumbo76@gmail.com",
+    "joaodedrick@gmail.com"
+  ],
   rsvpDeadline: "18 de Novembro de 2026",
   bankingDetails: {
     iban: "",

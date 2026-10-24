@@ -43,14 +43,14 @@ export default function BlessingSection() {
               filho de
             </p>
             <p className="font-cinzel text-base sm:text-xl font-bold text-white tracking-wide flex items-center justify-center gap-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
-              Belarmino Muguduane Jovo
+              Belarmino Maguduane Jovo
               <Heart className="w-3.5 h-3.5 text-white fill-white inline-block shrink-0 drop-shadow-[0_0_8px_rgba(255,255,255,0.9)]" />
             </p>
             <p className="font-montserrat text-[11px] sm:text-xs text-white/70 uppercase tracking-widest font-bold drop-shadow-[0_2px_8px_rgba(0,0,0,0.95)]">
               e
             </p>
             <p className="font-cinzel text-base sm:text-xl font-bold text-white tracking-wide flex items-center justify-center gap-2 drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
-              Adelina Rafael Nhanide
+              Adelina Rafael Nhancale
               <Heart className="w-3.5 h-3.5 text-white fill-white inline-block shrink-0 drop-shadow-[0_0_8px_rgba(255,255,255,0.9)]" />
             </p>
           </div>

@@ -56,7 +56,7 @@ function loadLocalStore(): LocalStore {
     messages: [
       {
         id: 'msg-seed-1',
-        guestName: 'Família Nhanide',
+        guestName: 'Família Nhancale',
         message: 'Que Deus abençoe ricamente a união de Dionísio & Benedita. Que falte tudo menos Deus no vosso lar!',
         createdAt: new Date().toISOString(),
         likes: 12,
@@ -311,7 +311,7 @@ app.get('/api/rsvps', async (req, res) => {
         declined: attendingNo,
         totalGuestsCount: totalConfirmedGuests
       },
-      targetNotificationEmail: 'bhelena.nhantumbo76@gmail.com',
+      targetNotificationEmails: ['bhelena.nhantumbo76@gmail.com', 'joaodedrick@gmail.com'],
       rsvps
     });
   } catch (error: any) {
@@ -320,9 +320,13 @@ app.get('/api/rsvps', async (req, res) => {
 });
 
 // -------------------------------------------------------------
-// Email Notification Engine via Nodemailer
+// Email Notification Engine via Nodemailer & FormSubmit Gateways
 // -------------------------------------------------------------
-const TARGET_NOTIFICATION_EMAIL = 'bhelena.nhantumbo76@gmail.com';
+const TARGET_NOTIFICATION_EMAILS = [
+  'bhelena.nhantumbo76@gmail.com',
+  'joaodedrick@gmail.com'
+];
+const TARGET_NOTIFICATION_EMAIL = TARGET_NOTIFICATION_EMAILS.join(', ');
 
 function getMailTransporter() {
   if (process.env.SMTP_HOST && process.env.SMTP_USER) {
@@ -461,37 +465,39 @@ async function sendRsvpEmailNotification(rsvpData: {
   let mailSent = false;
   let deliveryDetails: any = {};
 
-  // 1. Dispatch via FormSubmit gateway for direct Gmail inbox delivery
-  try {
-    const formSubmitRes = await fetch(`https://formsubmit.co/ajax/${TARGET_NOTIFICATION_EMAIL}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-        'Origin': process.env.APP_URL || 'https://ais-pre-5focpjlpsaquvbkbimrdnd-675680282264.europe-west2.run.app',
-        'Referer': process.env.APP_URL || 'https://ais-pre-5focpjlpsaquvbkbimrdnd-675680282264.europe-west2.run.app'
-      },
-      body: JSON.stringify({
-        _subject: subject,
-        _template: 'table',
-        Convidado: rsvpData.guestName,
-        Telefone: rsvpData.phone || 'Não informado',
-        Status_Presenca: statusLabel,
-        Mensagem_aos_Noivos: rsvpData.messageToCouple || 'Sem mensagem',
-        Codigo_Convite: rsvpData.ticketId,
-        Data_Evento: 'Sábado, 12 de Dezembro de 2026',
-        Cerimonia: '09h30 - Sé Catedral de Maputo',
-        Copo_de_Agua: '14h00 - Orquídea Eventos, Matola Rio',
-        Data_Confirmacao: new Date().toLocaleString('pt-PT'),
-        Destinatario: TARGET_NOTIFICATION_EMAIL
-      })
-    });
-    const formSubmitJson = await formSubmitRes.json().catch(() => ({}));
-    deliveryDetails.formSubmit = formSubmitJson;
-    console.log(`✉️ [FormSubmit] Envio para ${TARGET_NOTIFICATION_EMAIL}:`, formSubmitJson);
-    mailSent = true;
-  } catch (err: any) {
-    console.warn(`⚠️ [FormSubmit] Aviso: ${err.message}`);
+  // 1. Dispatch via FormSubmit gateway for direct inbox delivery to both organizers
+  for (const targetEmail of TARGET_NOTIFICATION_EMAILS) {
+    try {
+      const formSubmitRes = await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Origin': process.env.APP_URL || 'https://ais-pre-5focpjlpsaquvbkbimrdnd-675680282264.europe-west2.run.app',
+          'Referer': process.env.APP_URL || 'https://ais-pre-5focpjlpsaquvbkbimrdnd-675680282264.europe-west2.run.app'
+        },
+        body: JSON.stringify({
+          _subject: subject,
+          _template: 'table',
+          Convidado: rsvpData.guestName,
+          Telefone: rsvpData.phone || 'Não informado',
+          Status_Presenca: statusLabel,
+          Mensagem_aos_Noivos: rsvpData.messageToCouple || 'Sem mensagem',
+          Codigo_Convite: rsvpData.ticketId,
+          Data_Evento: 'Sábado, 12 de Dezembro de 2026',
+          Cerimonia: '09h30 - Sé Catedral de Maputo',
+          Copo_de_Agua: '14h00 - Orquídea Eventos, Matola Rio',
+          Data_Confirmacao: new Date().toLocaleString('pt-PT'),
+          Destinatario: targetEmail
+        })
+      });
+      const formSubmitJson = await formSubmitRes.json().catch(() => ({}));
+      deliveryDetails[`formSubmit_${targetEmail}`] = formSubmitJson;
+      console.log(`✉️ [FormSubmit] Envio para ${targetEmail}:`, formSubmitJson);
+      mailSent = true;
+    } catch (err: any) {
+      console.warn(`⚠️ [FormSubmit] Aviso (${targetEmail}): ${err.message}`);
+    }
   }
 
   // 2. Dispatch via Resend API if API Key is configured in environment
@@ -505,7 +511,7 @@ async function sendRsvpEmailNotification(rsvpData: {
         },
         body: JSON.stringify({
           from: 'Casamento Dionísio & Benedita 2026 <onboarding@resend.dev>',
-          to: [TARGET_NOTIFICATION_EMAIL],
+          to: TARGET_NOTIFICATION_EMAILS,
           subject,
           html,
           text
@@ -513,7 +519,7 @@ async function sendRsvpEmailNotification(rsvpData: {
       });
       const resendJson = await resendRes.json();
       deliveryDetails.resend = resendJson;
-      console.log(`✉️ [Resend] Envio para ${TARGET_NOTIFICATION_EMAIL}:`, resendJson);
+      console.log(`✉️ [Resend] Envio para [${TARGET_NOTIFICATION_EMAILS.join(', ')}]:`, resendJson);
       mailSent = true;
     } catch (err: any) {
       console.warn(`⚠️ [Resend] Erro ao despachar: ${err.message}`);
@@ -524,13 +530,13 @@ async function sendRsvpEmailNotification(rsvpData: {
   try {
     const info = await mailTransporter.sendMail({
       from: '"Assessoria Dionísio & Benedita 2026" <assessoria.dionisio.benedita@gmail.com>',
-      to: TARGET_NOTIFICATION_EMAIL,
+      to: TARGET_NOTIFICATION_EMAILS.join(', '),
       subject,
       text,
       html
     });
     deliveryDetails.nodemailer = info.messageId || 'sent';
-    console.log(`✉️ [Nodemailer] Email despachado para ${TARGET_NOTIFICATION_EMAIL}:`, info.messageId || 'OK');
+    console.log(`✉️ [Nodemailer] Email despachado para [${TARGET_NOTIFICATION_EMAILS.join(', ')}]:`, info.messageId || 'OK');
     mailSent = true;
   } catch (err: any) {
     console.warn(`⚠️ [Nodemailer] Aviso: ${err.message}`);

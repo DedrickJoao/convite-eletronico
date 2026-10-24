@@ -14,7 +14,10 @@ import {
 import { WEDDING_DETAILS } from '../data/weddingData';
 import { submitRsvp, trackActivity } from '../services/api';
 
-const TARGET_EMAIL = "bhelena.nhantumbo76@gmail.com";
+const TARGET_EMAILS = [
+  "bhelena.nhantumbo76@gmail.com",
+  "joaodedrick@gmail.com"
+];
 
 interface RsvpSectionProps {
   onSuccessSubmit: (guestName: string, ticketId: string) => void;
@@ -38,39 +41,42 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
 
     const generatedFallbackId = `DB-${Math.floor(1000 + Math.random() * 9000)}-CONVITE`;
 
-    // 1. Direct browser dispatch to FormSubmit for bhelena.nhantumbo76@gmail.com
-    try {
-      fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          _subject: `💍 Confirmação de Presença [${formData.attending === 'yes' ? 'CONFIRMADA' : 'NÃO COMPARECERÁ'}]: ${formData.guestName} - Dionísio & Benedita 2026`,
-          _template: 'table',
-          Convidado: formData.guestName,
-          Contacto_Telefone: formData.phone || 'Não informado',
-          Presenca: formData.attending === 'yes' ? 'CONFIRMADA' : 'NÃO COMPARECERÁ',
-          Mensagem_aos_Noivos: formData.messageToCouple || 'Sem mensagem adicional',
-          Data_Evento: 'Sábado, 12 de Dezembro de 2026',
-          Cerimonia: '09h30 - Sé Catedral de Maputo',
-          Copo_de_Agua: '14h00 - Orquídea Eventos, Matola Rio',
-          Prazo_Limite: WEDDING_DETAILS.rsvpDeadline
-        })
-      }).catch((err) => console.warn('Direct FormSubmit browser dispatch:', err));
-    } catch {
-      // Non-blocking
-    }
+    // 1. Direct browser dispatch to FormSubmit for both email recipients
+    TARGET_EMAILS.forEach((targetEmail) => {
+      try {
+        fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            _subject: `💍 Confirmação de Presença [${formData.attending === 'yes' ? 'CONFIRMADA' : 'NÃO COMPARECERÁ'}]: ${formData.guestName} - Dionísio & Benedita 2026`,
+            _template: 'table',
+            Convidado: formData.guestName,
+            Contacto_Telefone: formData.phone || 'Não informado',
+            Presenca: formData.attending === 'yes' ? 'CONFIRMADA' : 'NÃO COMPARECERÁ',
+            Mensagem_aos_Noivos: formData.messageToCouple || 'Sem mensagem adicional',
+            Data_Evento: 'Sábado, 12 de Dezembro de 2026',
+            Cerimonia: '09h30 - Sé Catedral de Maputo',
+            Copo_de_Agua: '14h00 - Orquídea Eventos, Matola Rio',
+            Prazo_Limite: WEDDING_DETAILS.rsvpDeadline,
+            Destinatario: targetEmail
+          })
+        }).catch((err) => console.warn(`Direct FormSubmit browser dispatch (${targetEmail}):`, err));
+      } catch {
+        // Non-blocking
+      }
+    });
 
-    // 2. Submit to backend API (stores in database & executes server-side email dispatcher)
+    // 2. Submit to backend API (stores in database & executes server-side email dispatcher for both emails)
     try {
       const result = await submitRsvp({
         guestName: formData.guestName,
         phone: formData.phone,
         attending: formData.attending,
         messageToCouple: formData.messageToCouple,
-        notificationTarget: TARGET_EMAIL
+        notificationTarget: TARGET_EMAILS.join(', ')
       });
 
       const confirmedId = result.ticketId || generatedFallbackId;
