@@ -109,6 +109,19 @@
   ],
   "activities": [
     {
+      "id": "act-1792863410859",
+      "type": "rsvp_submitted",
+      "description": "Teste Verificacao confirmou presença na celebração.",
+      "metadata": {
+        "ticketId": "DB-9795-CONVITE",
+        "attending": "yes",
+        "targetEmail": "bhelena.nhantumbo76@gmail.com"
+      },
+      "ip": "127.0.0.1",
+      "userAgent": "curl/7.88.1",
+      "createdAt": "2026-10-24T17:36:50.834Z"
+    },
+    {
       "id": "act-1792845700012",
       "type": "rsvp_submitted",
       "description": "Amélia Macamo confirmou presença na celebração.",
@@ -232,6 +245,24 @@
       "previousHash": "007f47dc87f92a36edc755ba742422db2c33ffafd0e36af75122f527c6d044cd",
       "hash": "009eaa1b572eb80b12811cc66ceb4b0a4dc73145d0b60b626f47410081a41bf7",
       "nonce": 86,
+      "validator": "DIONISIO_BENEDITA_SMART_TICKET_VALIDATOR_V1"
+    },
+    {
+      "index": 4,
+      "timestamp": "2026-10-24T17:36:50.835Z",
+      "data": {
+        "type": "RSVP_CONFIRMATION",
+        "ticketId": "DB-9795-CONVITE",
+        "guestName": "Teste Verificacao",
+        "phone": "+258***",
+        "attending": "yes",
+        "notificationEmail": "bhelena.nhantumbo76@gmail.com",
+        "hasMessage": true,
+        "confirmedAt": "2026-10-24T17:36:50.834Z"
+      },
+      "previousHash": "009eaa1b572eb80b12811cc66ceb4b0a4dc73145d0b60b626f47410081a41bf7",
+      "hash": "00325d39f0b914516250ac4b293b9f605d76d59ca5900bfa1c7e6b619217d5d5",
+      "nonce": 217,
       "validator": "DIONISIO_BENEDITA_SMART_TICKET_VALIDATOR_V1"
     }
   ]

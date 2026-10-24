@@ -209,9 +209,12 @@ export default function LocationAndMapSection() {
                 Para convidados vindos de outras províncias ou do exterior, nossa equipe de cerimonial providenciará suporte e transfers privativos a partir do aeroporto.
               </p>
 
-              <div className="flex items-center gap-2 text-xs font-montserrat text-[#162842] font-bold">
-                <Shield className="w-4 h-4 text-[#c69c4e]" />
-                <span>Assessoria: {WEDDING_DETAILS.organizerContact}</span>
+              <div className="flex flex-wrap items-center gap-2 text-xs font-montserrat text-[#162842] font-bold">
+                <Shield className="w-4 h-4 text-[#c69c4e] shrink-0" />
+                <span>Assessoria:</span>
+                <a href="tel:+258877002267" className="text-[#c69c4e] hover:underline font-bold">+258 87 700 2267</a>
+                <span>/</span>
+                <a href="tel:+258867561010" className="text-[#c69c4e] hover:underline font-bold">+258 86 756 1010</a>
               </div>
             </div>
 

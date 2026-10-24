@@ -458,6 +458,69 @@ async function sendRsvpEmailNotification(rsvpData: {
     "Que falte tudo menos Deus..."
   `;
 
+  let mailSent = false;
+  let deliveryDetails: any = {};
+
+  // 1. Dispatch via FormSubmit gateway for direct Gmail inbox delivery
+  try {
+    const formSubmitRes = await fetch(`https://formsubmit.co/ajax/${TARGET_NOTIFICATION_EMAIL}`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Origin': process.env.APP_URL || 'https://ais-pre-5focpjlpsaquvbkbimrdnd-675680282264.europe-west2.run.app',
+        'Referer': process.env.APP_URL || 'https://ais-pre-5focpjlpsaquvbkbimrdnd-675680282264.europe-west2.run.app'
+      },
+      body: JSON.stringify({
+        _subject: subject,
+        _template: 'table',
+        Convidado: rsvpData.guestName,
+        Telefone: rsvpData.phone || 'Não informado',
+        Status_Presenca: statusLabel,
+        Mensagem_aos_Noivos: rsvpData.messageToCouple || 'Sem mensagem',
+        Codigo_Convite: rsvpData.ticketId,
+        Data_Evento: 'Sábado, 12 de Dezembro de 2026',
+        Cerimonia: '09h30 - Sé Catedral de Maputo',
+        Copo_de_Agua: '14h00 - Orquídea Eventos, Matola Rio',
+        Data_Confirmacao: new Date().toLocaleString('pt-PT'),
+        Destinatario: TARGET_NOTIFICATION_EMAIL
+      })
+    });
+    const formSubmitJson = await formSubmitRes.json().catch(() => ({}));
+    deliveryDetails.formSubmit = formSubmitJson;
+    console.log(`✉️ [FormSubmit] Envio para ${TARGET_NOTIFICATION_EMAIL}:`, formSubmitJson);
+    mailSent = true;
+  } catch (err: any) {
+    console.warn(`⚠️ [FormSubmit] Aviso: ${err.message}`);
+  }
+
+  // 2. Dispatch via Resend API if API Key is configured in environment
+  if (process.env.RESEND_API_KEY) {
+    try {
+      const resendRes = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          from: 'Casamento Dionísio & Benedita 2026 <onboarding@resend.dev>',
+          to: [TARGET_NOTIFICATION_EMAIL],
+          subject,
+          html,
+          text
+        })
+      });
+      const resendJson = await resendRes.json();
+      deliveryDetails.resend = resendJson;
+      console.log(`✉️ [Resend] Envio para ${TARGET_NOTIFICATION_EMAIL}:`, resendJson);
+      mailSent = true;
+    } catch (err: any) {
+      console.warn(`⚠️ [Resend] Erro ao despachar: ${err.message}`);
+    }
+  }
+
+  // 3. Dispatch via SMTP / Gmail Transporter if configured
   try {
     const info = await mailTransporter.sendMail({
       from: '"Assessoria Dionísio & Benedita 2026" <assessoria.dionisio.benedita@gmail.com>',
@@ -466,12 +529,14 @@ async function sendRsvpEmailNotification(rsvpData: {
       text,
       html
     });
-    console.log(`✉️ Email de confirmação despachado com sucesso para ${TARGET_NOTIFICATION_EMAIL}:`, info.messageId || 'OK');
-    return { success: true, messageId: info.messageId };
+    deliveryDetails.nodemailer = info.messageId || 'sent';
+    console.log(`✉️ [Nodemailer] Email despachado para ${TARGET_NOTIFICATION_EMAIL}:`, info.messageId || 'OK');
+    mailSent = true;
   } catch (err: any) {
-    console.warn(`⚠️ Aviso ao enviar email: ${err.message}. A confirmação foi salva na base de dados.`);
-    return { success: false, error: err.message };
+    console.warn(`⚠️ [Nodemailer] Aviso: ${err.message}`);
   }
+
+  return { success: mailSent, details: deliveryDetails };
 }
 
 // POST /api/rsvps - Confirm Presence with Blockchain Hash Verification and Email Direction

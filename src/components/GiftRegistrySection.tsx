@@ -149,7 +149,7 @@ export default function GiftRegistrySection() {
               <Heart className="w-4 h-4 fill-[#c69c4e]/30" />
             </div>
             <p className="font-cinzel text-xs sm:text-sm font-bold text-[#162842] italic">
-              &ldquo;Cada presente/ valor será recebido com enorme gratidão e carinho.&rdquo;
+              &ldquo;Cada presente será recebido com enorme gratidão e carinho.&rdquo;
             </p>
             <p className="font-montserrat text-[11px] text-[#c69c4e] uppercase tracking-widest font-bold mt-1.5">
               Dionísio & Benedita

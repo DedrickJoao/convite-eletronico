@@ -14,7 +14,6 @@ import GiftRegistrySection from './components/GiftRegistrySection';
 import FloatingMusicPlayer from './components/FloatingMusicPlayer';
 import ShareModal from './components/ShareModal';
 import WeddingTrailerModal from './components/WeddingTrailerModal';
-import AdminDashboardModal from './components/AdminDashboardModal';
 import Footer from './components/Footer';
 import { trackActivity, trackLocation } from './services/api';
 
@@ -25,7 +24,6 @@ export default function App() {
   const [ticketId, setTicketId] = useState<string>('DB-2026-VIP-889');
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isTrailerModalOpen, setIsTrailerModalOpen] = useState(false);
-  const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
 
   useEffect(() => {
     // Parse guest parameter from URL if provided (e.g. ?guest=Família+Sousa)
@@ -153,7 +151,6 @@ export default function App() {
         <Footer
           onReopenEnvelope={handleReopenEnvelope}
           onOpenRsvp={handleOpenRsvp}
-          onOpenAdmin={() => setIsAdminModalOpen(true)}
         />
 
         {/* Floating Sound Controller (Mute / Unmute Shania Twain - From This Moment On) */}
@@ -170,12 +167,6 @@ export default function App() {
           isOpen={isTrailerModalOpen}
           onClose={() => setIsTrailerModalOpen(false)}
           onOpenRsvp={handleOpenRsvp}
-        />
-
-        {/* Painel dos Noivos - Gestão MongoDB & Blockchain Modal */}
-        <AdminDashboardModal
-          isOpen={isAdminModalOpen}
-          onClose={() => setIsAdminModalOpen(false)}
         />
       </div>
     </div>

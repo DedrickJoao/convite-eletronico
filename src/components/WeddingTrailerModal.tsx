@@ -74,7 +74,7 @@ const TRAILER_SCENES: TrailerScene[] = [
     title: "Reserve Seu Lugar na Primeira Fila",
     highlightText: "Sua Presença é Indispensável",
     subtext: "Esta celebração só será completa com o seu sorriso, seu brinde e sua bênção.",
-    locationOrDate: "Confirmação Obrigatória até 15 de Outubro",
+    locationOrDate: "Confirmação Obrigatória até 18 de Novembro",
     image: "https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=1200&q=80",
     durationSec: 7
   }

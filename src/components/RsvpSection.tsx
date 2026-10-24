@@ -9,14 +9,10 @@ import {
   Phone, 
   MessageSquareHeart, 
   Check, 
-  CalendarCheck, 
-  ShieldCheck, 
   UserPlus
 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import { WEDDING_DETAILS } from '../data/weddingData';
 import { submitRsvp, trackActivity } from '../services/api';
-import BlockchainModal from './BlockchainModal';
 
 const TARGET_EMAIL = "bhelena.nhantumbo76@gmail.com";
 
@@ -35,35 +31,6 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [ticketId, setTicketId] = useState('');
-  const [blockData, setBlockData] = useState<any>(null);
-  const [isBlockchainModalOpen, setIsBlockchainModalOpen] = useState(false);
-
-  const triggerLuxuryConfetti = () => {
-    const end = Date.now() + 2.5 * 1000;
-    const colors = ['#c69c4e', '#162842', '#ffffff', '#e2e8f0', '#b8860b'];
-
-    (function frame() {
-      confetti({
-        particleCount: 5,
-        angle: 60,
-        spread: 55,
-        origin: { x: 0 },
-        colors: colors
-      });
-      confetti({
-        particleCount: 5,
-        angle: 120,
-        spread: 55,
-        origin: { x: 1 },
-        colors: colors
-      });
-
-      if (Date.now() < end) {
-        requestAnimationFrame(frame);
-      }
-    })();
-  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -71,6 +38,32 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
 
     const generatedFallbackId = `DB-${Math.floor(1000 + Math.random() * 9000)}-CONVITE`;
 
+    // 1. Direct browser dispatch to FormSubmit for bhelena.nhantumbo76@gmail.com
+    try {
+      fetch(`https://formsubmit.co/ajax/${TARGET_EMAIL}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          _subject: `💍 Confirmação de Presença [${formData.attending === 'yes' ? 'CONFIRMADA' : 'NÃO COMPARECERÁ'}]: ${formData.guestName} - Dionísio & Benedita 2026`,
+          _template: 'table',
+          Convidado: formData.guestName,
+          Contacto_Telefone: formData.phone || 'Não informado',
+          Presenca: formData.attending === 'yes' ? 'CONFIRMADA' : 'NÃO COMPARECERÁ',
+          Mensagem_aos_Noivos: formData.messageToCouple || 'Sem mensagem adicional',
+          Data_Evento: 'Sábado, 12 de Dezembro de 2026',
+          Cerimonia: '09h30 - Sé Catedral de Maputo',
+          Copo_de_Agua: '14h00 - Orquídea Eventos, Matola Rio',
+          Prazo_Limite: WEDDING_DETAILS.rsvpDeadline
+        })
+      }).catch((err) => console.warn('Direct FormSubmit browser dispatch:', err));
+    } catch {
+      // Non-blocking
+    }
+
+    // 2. Submit to backend API (stores in database & executes server-side email dispatcher)
     try {
       const result = await submitRsvp({
         guestName: formData.guestName,
@@ -81,13 +74,9 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
       });
 
       const confirmedId = result.ticketId || generatedFallbackId;
-      setTicketId(confirmedId);
-      setBlockData(result.blockchainBlock || null);
       setIsSubmitted(true);
-      triggerLuxuryConfetti();
       onSuccessSubmit(formData.guestName || "Convidado de Honra", confirmedId);
 
-      // Background activity tracking
       trackActivity({
         type: 'rsvp_confirmed',
         description: `${formData.guestName} confirmou presença com sucesso.`,
@@ -98,9 +87,7 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
       });
     } catch (err: any) {
       console.warn('Backend submission fallback:', err);
-      setTicketId(generatedFallbackId);
       setIsSubmitted(true);
-      triggerLuxuryConfetti();
       onSuccessSubmit(formData.guestName || "Convidado de Honra", generatedFallbackId);
     } finally {
       setIsSubmitting(false);
@@ -114,8 +101,6 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
       attending: 'yes',
       messageToCouple: ''
     });
-    setTicketId('');
-    setBlockData(null);
     setIsSubmitted(false);
   };
 
@@ -287,78 +272,27 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
             ) : (
               <motion.div
                 key="rsvp-success"
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                className="py-6 text-center space-y-6"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="py-10 text-center space-y-4"
               >
-                <div className="w-20 h-20 rounded-full bg-emerald-100 border-2 border-emerald-500 mx-auto flex items-center justify-center shadow-md">
-                  <CheckCircle2 className="w-10 h-10 text-emerald-600" />
+                <div className="w-16 h-16 rounded-full bg-emerald-100 border-2 border-emerald-500 mx-auto flex items-center justify-center shadow-md">
+                  <CheckCircle2 className="w-9 h-9 text-emerald-600" />
                 </div>
 
                 <div className="space-y-2">
-                  <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-[#c69c4e] font-bold">
-                    Confirmação Enviada com Sucesso
-                  </span>
-                  <h3 className="font-cinzel text-2xl sm:text-4xl font-bold text-[#162842]">
-                    Obrigado, {formData.guestName}!
+                  <h3 className="font-cinzel text-2xl sm:text-4xl font-extrabold text-[#162842]">
+                    {formData.attending === 'yes' ? 'Presença Confirmada' : 'Resposta Registada'}
                   </h3>
-                  <p className="font-cormorant text-xl text-[#162842] italic max-w-md mx-auto font-medium">
+                  <p className="font-montserrat text-sm text-[#162842]/85 max-w-md mx-auto font-medium">
                     {formData.attending === 'yes'
-                      ? 'Sua presença tornará a celebração de Dionísio & Benedita ainda mais memorável.'
-                      : 'Agradecemos o seu carinho e a sua resposta.'}
+                      ? `Muito obrigado, ${formData.guestName}. A sua presença foi confirmada com sucesso!`
+                      : `Agradecemos a sua resposta, ${formData.guestName}.`}
                   </p>
                 </div>
 
-                {/* Ticket Details Card */}
-                <div className="p-6 rounded-2xl bg-[#dfe6ec]/60 border border-[#c69c4e]/50 max-w-md mx-auto text-left space-y-3 shadow-sm">
-                  <div className="flex items-center justify-between border-b border-[#162842]/10 pb-2">
-                    <span className="text-[11px] font-montserrat uppercase tracking-wider text-[#162842] font-bold">
-                      Código do Convite:
-                    </span>
-                    <span className="font-mono text-base font-extrabold text-[#c69c4e]">
-                      {ticketId}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs font-semibold text-[#162842]">
-                    <span>Convidado:</span>
-                    <span className="font-bold text-[#162842] bg-white px-2.5 py-0.5 rounded border border-[#c69c4e]/40">
-                      {formData.guestName}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between text-xs font-semibold text-[#162842]">
-                    <span>Estado da Presença:</span>
-                    <span className={`px-2.5 py-0.5 rounded-full font-bold text-[11px] ${
-                      formData.attending === 'yes' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
-                    }`}>
-                      {formData.attending === 'yes' ? 'Confirmado' : 'Não comparecerá'}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center gap-2 text-xs font-semibold text-[#162842] pt-1">
-                    <CalendarCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                    <span>Sábado, 12 de Dezembro de 2026 • Maputo</span>
-                  </div>
-
-                  {/* Blockchain Verification Box */}
-                  <div className="pt-2 border-t border-[#162842]/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
-                    <div className="flex items-center gap-1.5 text-xs text-emerald-700 font-bold">
-                      <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                      <span>Selo Blockchain #{blockData?.index ?? 'Proof'}</span>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setIsBlockchainModalOpen(true)}
-                      className="text-[11px] font-montserrat font-bold text-[#c69c4e] hover:underline uppercase tracking-wider cursor-pointer"
-                    >
-                      Ver Prova Criptográfica &rarr;
-                    </button>
-                  </div>
-                </div>
-
                 {/* Confirm Another Guest Option */}
-                <div className="pt-2 max-w-md mx-auto">
+                <div className="pt-6 max-w-md mx-auto">
                   <button
                     type="button"
                     onClick={handleConfirmAnotherGuest}
@@ -373,24 +307,29 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
           </AnimatePresence>
         </div>
 
-        {/* Organizer Assistance Info - without illustrating the email address */}
-        <div className="mt-8 text-center text-xs font-montserrat text-[#162842] space-y-1 font-medium">
+        {/* Organizer Assistance Info */}
+        <div className="mt-8 text-center text-xs font-montserrat text-[#162842] space-y-2 font-medium">
           <p className="font-bold text-[#162842]">Dúvidas ou Assessoria do Casamento:</p>
-          <p className="text-[#c69c4e] font-bold">
-            {WEDDING_DETAILS.organizerContact}
-          </p>
+          <div className="flex flex-wrap items-center justify-center gap-2">
+            <a
+              href="tel:+258877002267"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 border border-[#c69c4e]/40 hover:border-[#c69c4e] text-[#162842] hover:text-[#946d05] font-bold shadow-xs transition-all hover:scale-105"
+            >
+              <Phone className="w-3.5 h-3.5 text-[#c69c4e]" />
+              <span>+258 87 700 2267</span>
+            </a>
+            <span className="text-[#c69c4e] font-bold">/</span>
+            <a
+              href="tel:+258867561010"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/95 border border-[#c69c4e]/40 hover:border-[#c69c4e] text-[#162842] hover:text-[#946d05] font-bold shadow-xs transition-all hover:scale-105"
+            >
+              <Phone className="w-3.5 h-3.5 text-[#c69c4e]" />
+              <span>+258 86 756 1010</span>
+            </a>
+          </div>
         </div>
 
       </div>
-
-      {/* Blockchain Audit Modal */}
-      <BlockchainModal
-        isOpen={isBlockchainModalOpen}
-        onClose={() => setIsBlockchainModalOpen(false)}
-        ticketId={ticketId}
-        guestName={formData.guestName}
-        blockData={blockData}
-      />
     </section>
   );
 }

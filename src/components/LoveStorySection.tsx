@@ -20,9 +20,6 @@ export default function LoveStorySection() {
 
       {/* Mensagem luminosa posicionada na parte inferior para jamais cobrir os olhos do casal */}
       <div className="relative z-10 w-full max-w-4xl mx-auto px-4 sm:px-10 pb-6 sm:pb-12 flex flex-col items-center justify-end pointer-events-none mt-auto text-center">
-        <h2 className="font-cinzel text-lg sm:text-2xl md:text-3xl text-[#f5d78e] font-bold uppercase tracking-[0.2em] mb-3 drop-shadow-[0_0_12px_rgba(245,215,142,0.7)] drop-shadow-[0_2px_10px_rgba(0,0,0,0.95)]">
-          Conheça a Nossa História de Amor
-        </h2>
         <div className="font-cormorant text-lg sm:text-2xl md:text-3xl text-white font-medium italic leading-relaxed sm:leading-snug max-w-2xl sm:max-w-3xl drop-shadow-[0_2px_16px_rgba(255,255,255,0.45)] drop-shadow-[0_4px_24px_rgba(0,0,0,0.95)] space-y-1 sm:space-y-1.5">
           <p>&ldquo;Tudo começa em tenra idade;</p>
           <p>Naquele instante nasceu uma cumplicidade que desafiou o tempo;</p>
