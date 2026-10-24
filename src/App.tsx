@@ -9,11 +9,14 @@ import LoveStorySection from './components/LoveStorySection';
 import EventDetailsSection from './components/EventDetailsSection';
 import CopoDeAguaSection from './components/CopoDeAguaSection';
 import RsvpSection from './components/RsvpSection';
+import GuestbookSection from './components/GuestbookSection';
 import GiftRegistrySection from './components/GiftRegistrySection';
 import FloatingMusicPlayer from './components/FloatingMusicPlayer';
 import ShareModal from './components/ShareModal';
 import WeddingTrailerModal from './components/WeddingTrailerModal';
+import AdminDashboardModal from './components/AdminDashboardModal';
 import Footer from './components/Footer';
+import { trackActivity, trackLocation } from './services/api';
 
 export default function App() {
   const [isEnvelopeOpened, setIsEnvelopeOpened] = useState(false);
@@ -22,6 +25,7 @@ export default function App() {
   const [ticketId, setTicketId] = useState<string>('DB-2026-VIP-889');
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
   const [isTrailerModalOpen, setIsTrailerModalOpen] = useState(false);
+  const [isAdminModalOpen, setIsAdminModalOpen] = useState(false);
 
   useEffect(() => {
     // Parse guest parameter from URL if provided (e.g. ?guest=Família+Sousa)
@@ -34,9 +38,25 @@ export default function App() {
     } catch {
       // ignore
     }
+
+    // Initial background telemetry for visitor activity and geographic ping
+    trackActivity({
+      type: 'page_view',
+      description: 'Convidado acessou ao aplicativo de convite.'
+    });
+
+    trackLocation({
+      city: 'Maputo',
+      country: 'Moçambique',
+      source: 'app_initial_session'
+    });
   }, []);
 
   const handleOpenRsvp = () => {
+    trackActivity({
+      type: 'scroll_to_rsvp',
+      description: 'Convidado navegou para o formulário de confirmação de presença.'
+    });
     const el = document.getElementById('rsvp');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
@@ -46,6 +66,22 @@ export default function App() {
   const handleRsvpSuccess = (name: string, newTicketId: string) => {
     setGuestName(name);
     setTicketId(newTicketId);
+  };
+
+  const handleOpenEnvelope = () => {
+    setIsEnvelopeOpened(true);
+    trackActivity({
+      type: 'envelope_opened',
+      description: 'Convidado abriu o selo de cera dourado do envelope digital.'
+    });
+  };
+
+  const handleEnterInvitation = () => {
+    setHasEnteredInvitation(true);
+    trackActivity({
+      type: 'invitation_entered',
+      description: 'Convidado iniciou a navegação pelo convite oficial.'
+    });
   };
 
   const handleReopenEnvelope = () => {
@@ -60,14 +96,14 @@ export default function App() {
       {!isEnvelopeOpened && (
         <EnvelopeIntro
           guestName={guestName}
-          onOpen={() => setIsEnvelopeOpened(true)}
+          onOpen={handleOpenEnvelope}
         />
       )}
 
       {/* 2. Página de Transição com Monograma dos Noivos, Citação Bíblica e Botão 'VER CONVITE' */}
       {isEnvelopeOpened && !hasEnteredInvitation && (
         <WelcomeScreen
-          onEnterInvitation={() => setHasEnteredInvitation(true)}
+          onEnterInvitation={handleEnterInvitation}
         />
       )}
 
@@ -106,6 +142,9 @@ export default function App() {
             onSuccessSubmit={handleRsvpSuccess}
           />
 
+          {/* Live Guestbook: Mural de Mensagens & Votos (MongoDB) */}
+          <GuestbookSection />
+
           {/* Gift Registry & Instant Mobile / Bank Transfer */}
           <GiftRegistrySection />
         </main>
@@ -114,6 +153,7 @@ export default function App() {
         <Footer
           onReopenEnvelope={handleReopenEnvelope}
           onOpenRsvp={handleOpenRsvp}
+          onOpenAdmin={() => setIsAdminModalOpen(true)}
         />
 
         {/* Floating Sound Controller (Mute / Unmute Shania Twain - From This Moment On) */}
@@ -130,6 +170,12 @@ export default function App() {
           isOpen={isTrailerModalOpen}
           onClose={() => setIsTrailerModalOpen(false)}
           onOpenRsvp={handleOpenRsvp}
+        />
+
+        {/* Painel dos Noivos - Gestão MongoDB & Blockchain Modal */}
+        <AdminDashboardModal
+          isOpen={isAdminModalOpen}
+          onClose={() => setIsAdminModalOpen(false)}
         />
       </div>
     </div>

@@ -1,8 +1,9 @@
 import { motion } from 'motion/react';
 import { Church, Scroll, Clock, MapPin, Navigation, Sparkles } from 'lucide-react';
+import { WEDDING_DETAILS } from '../data/weddingData';
 
 export default function EventDetailsSection() {
-  const seCatedralMapUrl = "https://www.google.com/maps/search/?api=1&query=S%C3%A9+Catedral+de+Maputo";
+  const seCatedralMapUrl = WEDDING_DETAILS.googleMapsUrl;
 
   return (
     <section 

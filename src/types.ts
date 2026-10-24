@@ -23,12 +23,15 @@ export interface RsvpData {
   email?: string;
   phone: string;
   attending: 'yes' | 'no';
-  plusOneCount: number;
+  totalGuests?: number;
+  accompanyingNames?: string;
+  plusOneCount?: number;
   dietaryRestrictions?: string;
   specialSongRequest?: string;
   messageToCouple: string;
   confirmedAt?: string;
   ticketId?: string;
+  notificationTarget?: string;
 }
 
 export interface GiftOption {

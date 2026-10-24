@@ -1,0 +1,238 @@
+{
+  "rsvps": [
+    {
+      "ticketId": "DB-7879-CONVITE",
+      "guestName": "Família Silva",
+      "phone": "+258 84 999 1234",
+      "attending": "yes",
+      "messageToCouple": "Muitas felicidades ao lindo casal!",
+      "createdAt": "2026-10-23T22:18:38.711Z",
+      "ip": "127.0.0.1",
+      "userAgent": "curl/7.88.1",
+      "blockchainProof": {
+        "blockIndex": 1,
+        "blockHash": "00763a25c7f075dc0f989c15d706bf7014625dd9a7fd3a9a1ce2e23b25a993cb",
+        "previousHash": "141a12700f6eff8936eff43debb917d5e7ccbf904513563026a81f7e30ff3cb4",
+        "timestamp": "2026-10-23T22:18:38.711Z",
+        "validator": "DIONISIO_BENEDITA_SMART_TICKET_VALIDATOR_V1",
+        "verificationUrl": "/api/blockchain/verify/DB-7879-CONVITE"
+      }
+    },
+    {
+      "ticketId": "DB-5762-CONVITE",
+      "guestName": "Família Silva",
+      "phone": "+258841234567",
+      "email": "silva@exemplo.com",
+      "totalGuests": 3,
+      "accompanyingNames": "Carlos, Maria e Tiago",
+      "attending": "yes",
+      "messageToCouple": "Que Deus derrame infinitas bênçãos sobre este matrimónio!",
+      "notificationTarget": "bhelena.nhantumbo76@gmail.com",
+      "emailNotificationStatus": "directed_to_bhelena.nhantumbo76@gmail.com",
+      "createdAt": "2026-10-24T12:29:04.940Z",
+      "ip": "127.0.0.1",
+      "userAgent": "curl/7.88.1",
+      "blockchainProof": {
+        "blockIndex": 2,
+        "blockHash": "007f47dc87f92a36edc755ba742422db2c33ffafd0e36af75122f527c6d044cd",
+        "previousHash": "00763a25c7f075dc0f989c15d706bf7014625dd9a7fd3a9a1ce2e23b25a993cb",
+        "timestamp": "2026-10-24T12:29:04.940Z",
+        "validator": "DIONISIO_BENEDITA_SMART_TICKET_VALIDATOR_V1",
+        "verificationUrl": "/api/blockchain/verify/DB-5762-CONVITE"
+      }
+    },
+    {
+      "ticketId": "DB-7358-CONVITE",
+      "guestName": "Amélia Macamo",
+      "phone": "+258 84 999 8877",
+      "attending": "yes",
+      "messageToCouple": "Que Deus abençoe para sempre este lindo amor!",
+      "notificationTarget": "bhelena.nhantumbo76@gmail.com",
+      "emailNotificationStatus": "directed_to_bhelena.nhantumbo76@gmail.com",
+      "createdAt": "2026-10-24T12:41:40.003Z",
+      "ip": "127.0.0.1",
+      "userAgent": "curl/7.88.1",
+      "blockchainProof": {
+        "blockIndex": 3,
+        "blockHash": "009eaa1b572eb80b12811cc66ceb4b0a4dc73145d0b60b626f47410081a41bf7",
+        "previousHash": "007f47dc87f92a36edc755ba742422db2c33ffafd0e36af75122f527c6d044cd",
+        "timestamp": "2026-10-24T12:41:40.003Z",
+        "validator": "DIONISIO_BENEDITA_SMART_TICKET_VALIDATOR_V1",
+        "verificationUrl": "/api/blockchain/verify/DB-7358-CONVITE"
+      }
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg-1792845700005",
+      "guestName": "Amélia Macamo",
+      "message": "Que Deus abençoe para sempre este lindo amor!",
+      "ticketId": "DB-7358-CONVITE",
+      "createdAt": "2026-10-24T12:41:40.003Z",
+      "likes": 1,
+      "status": "approved"
+    },
+    {
+      "id": "msg-1792844944941",
+      "guestName": "Família Silva",
+      "message": "Que Deus derrame infinitas bênçãos sobre este matrimónio!",
+      "ticketId": "DB-5762-CONVITE",
+      "createdAt": "2026-10-24T12:29:04.940Z",
+      "likes": 1,
+      "status": "approved"
+    },
+    {
+      "id": "msg-1792793918712",
+      "guestName": "Família Silva",
+      "message": "Muitas felicidades ao lindo casal!",
+      "ticketId": "DB-7879-CONVITE",
+      "createdAt": "2026-10-23T22:18:38.711Z",
+      "likes": 1,
+      "status": "approved"
+    },
+    {
+      "id": "msg-seed-1",
+      "guestName": "Família Nhanide",
+      "message": "Que Deus abençoe ricamente a união de Dionísio & Benedita. Que falte tudo menos Deus no vosso lar!",
+      "createdAt": "2026-10-23T22:18:31.315Z",
+      "likes": 12,
+      "status": "approved"
+    },
+    {
+      "id": "msg-seed-2",
+      "guestName": "Adelina & Belarmino Jovo",
+      "message": "Com imenso amor e bênção de pais. Que este amor floresça para sempre!",
+      "createdAt": "2026-10-23T22:18:31.315Z",
+      "likes": 18,
+      "status": "approved"
+    }
+  ],
+  "activities": [
+    {
+      "id": "act-1792845700012",
+      "type": "rsvp_submitted",
+      "description": "Amélia Macamo confirmou presença na celebração.",
+      "metadata": {
+        "ticketId": "DB-7358-CONVITE",
+        "attending": "yes",
+        "targetEmail": "bhelena.nhantumbo76@gmail.com"
+      },
+      "ip": "127.0.0.1",
+      "userAgent": "curl/7.88.1",
+      "createdAt": "2026-10-24T12:41:40.003Z"
+    },
+    {
+      "id": "act-1792844944941",
+      "type": "rsvp_submitted",
+      "description": "Família Silva confirmou presença (3 pessoas) e direcionou confirmação ao e-mail bhelena.nhantumbo76@gmail.com.",
+      "metadata": {
+        "ticketId": "DB-5762-CONVITE",
+        "attending": "yes",
+        "totalGuests": 3,
+        "targetEmail": "bhelena.nhantumbo76@gmail.com"
+      },
+      "ip": "127.0.0.1",
+      "userAgent": "curl/7.88.1",
+      "createdAt": "2026-10-24T12:29:04.940Z"
+    },
+    {
+      "id": "act-1792793918712",
+      "type": "rsvp_submitted",
+      "description": "Família Silva confirmou presença com alegria.",
+      "metadata": {
+        "ticketId": "DB-7879-CONVITE",
+        "attending": "yes"
+      },
+      "ip": "127.0.0.1",
+      "userAgent": "curl/7.88.1",
+      "createdAt": "2026-10-23T22:18:38.711Z"
+    }
+  ],
+  "locations": [
+    {
+      "id": "loc-1792793933050",
+      "ticketId": null,
+      "latitude": null,
+      "longitude": null,
+      "city": "Maputo",
+      "country": "Moçambique",
+      "accuracy": null,
+      "source": "browser_test",
+      "ip": "127.0.0.1",
+      "createdAt": "2026-10-23T22:18:53.050Z"
+    }
+  ],
+  "blockchain": [
+    {
+      "index": 0,
+      "timestamp": "2026-10-23T12:00:00.000Z",
+      "data": {
+        "event": "GENESIS_WEDDING_BLOCK",
+        "title": "Casamento Dionísio & Benedita 2026",
+        "motto": "Que falte tudo menos Deus...",
+        "network": "DIONISIO-BENEDITA-PRIVATE-CONSORTIUM-LEDGER",
+        "genesisValidator": "Sé Catedral de Maputo & Matola Rio"
+      },
+      "previousHash": "0000000000000000000000000000000000000000000000000000000000000000",
+      "hash": "141a12700f6eff8936eff43debb917d5e7ccbf904513563026a81f7e30ff3cb4",
+      "nonce": 121226,
+      "validator": "GENESIS_AUTHORITY"
+    },
+    {
+      "index": 1,
+      "timestamp": "2026-10-23T22:18:38.711Z",
+      "data": {
+        "type": "RSVP_CONFIRMATION",
+        "ticketId": "DB-7879-CONVITE",
+        "guestName": "Família Silva",
+        "phone": "+258***",
+        "attending": "yes",
+        "hasMessage": true,
+        "confirmedAt": "2026-10-23T22:18:38.711Z"
+      },
+      "previousHash": "141a12700f6eff8936eff43debb917d5e7ccbf904513563026a81f7e30ff3cb4",
+      "hash": "00763a25c7f075dc0f989c15d706bf7014625dd9a7fd3a9a1ce2e23b25a993cb",
+      "nonce": 33,
+      "validator": "DIONISIO_BENEDITA_SMART_TICKET_VALIDATOR_V1"
+    },
+    {
+      "index": 2,
+      "timestamp": "2026-10-24T12:29:04.940Z",
+      "data": {
+        "type": "RSVP_CONFIRMATION",
+        "ticketId": "DB-5762-CONVITE",
+        "guestName": "Família Silva",
+        "phone": "+258***",
+        "email": "sil***@***",
+        "totalGuests": 3,
+        "accompanyingNames": "Carlos, Maria e Tiago",
+        "attending": "yes",
+        "notificationEmail": "bhelena.nhantumbo76@gmail.com",
+        "hasMessage": true,
+        "confirmedAt": "2026-10-24T12:29:04.940Z"
+      },
+      "previousHash": "00763a25c7f075dc0f989c15d706bf7014625dd9a7fd3a9a1ce2e23b25a993cb",
+      "hash": "007f47dc87f92a36edc755ba742422db2c33ffafd0e36af75122f527c6d044cd",
+      "nonce": 87,
+      "validator": "DIONISIO_BENEDITA_SMART_TICKET_VALIDATOR_V1"
+    },
+    {
+      "index": 3,
+      "timestamp": "2026-10-24T12:41:40.003Z",
+      "data": {
+        "type": "RSVP_CONFIRMATION",
+        "ticketId": "DB-7358-CONVITE",
+        "guestName": "Amélia Macamo",
+        "phone": "+258***",
+        "attending": "yes",
+        "notificationEmail": "bhelena.nhantumbo76@gmail.com",
+        "hasMessage": true,
+        "confirmedAt": "2026-10-24T12:41:40.003Z"
+      },
+      "previousHash": "007f47dc87f92a36edc755ba742422db2c33ffafd0e36af75122f527c6d044cd",
+      "hash": "009eaa1b572eb80b12811cc66ceb4b0a4dc73145d0b60b626f47410081a41bf7",
+      "nonce": 86,
+      "validator": "DIONISIO_BENEDITA_SMART_TICKET_VALIDATOR_V1"
+    }
+  ]
+}

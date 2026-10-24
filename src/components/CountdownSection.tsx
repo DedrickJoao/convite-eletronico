@@ -55,17 +55,6 @@ export default function CountdownSection() {
           </span>
         </motion.div>
 
-        {/* Date and Spiritual Subtitle */}
-        <motion.p
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.7 }}
-          className="font-montserrat text-xs sm:text-base text-[#162842]/85 font-medium max-w-xl mx-auto mb-6 sm:mb-8 px-2"
-        >
-          Sábado, 12 de Dezembro de 2026 • Sé Catedral de Maputo & Matola Rio
-        </motion.p>
-
         {/* Ornate Divider with Heart */}
         <div className="flex items-center justify-center gap-3 w-48 sm:w-72 mb-8 sm:mb-10 text-[#c69c4e]">
           <div className="h-[1.5px] flex-1 bg-gradient-to-r from-transparent via-[#c69c4e] to-[#c69c4e]" />
@@ -118,9 +107,6 @@ export default function CountdownSection() {
           transition={{ delay: 0.5, duration: 0.8 }}
           className="mt-8 sm:mt-10 flex flex-col items-center gap-2 text-[#162842]"
         >
-          <span className="font-montserrat text-[10px] sm:text-[11px] uppercase tracking-[0.25em] text-[#162842]/85 font-bold">
-            Conheça a Nossa História de Amor
-          </span>
           <a
             href="#historia"
             aria-label="Ir para Nossa História"

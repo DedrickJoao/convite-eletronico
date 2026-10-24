@@ -1,8 +1,9 @@
 import { motion } from 'motion/react';
 import { GlassWater, MapPin, Navigation, Clock, Sparkles } from 'lucide-react';
+import { WEDDING_DETAILS } from '../data/weddingData';
 
 export default function CopoDeAguaSection() {
-  const orquideaMapUrl = "https://www.google.com/maps/search/?api=1&query=Orqu%C3%ADdea+Eventos+Matola+Rio";
+  const orquideaMapUrl = WEDDING_DETAILS.receptionGoogleMapsUrl;
 
   return (
     <section 
@@ -36,16 +37,16 @@ export default function CopoDeAguaSection() {
             Copo de Água
           </h3>
 
-          {/* Status Badge: Por Confirmar */}
+          {/* Status Badge: Horário 14h00 */}
           <div className="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-[#162842] text-white border border-[#c69c4e] shadow-md mb-6">
             <Clock className="w-4 h-4 text-[#c69c4e]" />
             <span className="font-montserrat text-xs sm:text-sm font-bold uppercase tracking-widest text-[#c69c4e]">
-              Horário: Por Confirmar
+              Horário: 14h00
             </span>
           </div>
 
           {/* Location Information */}
-          <div className="max-w-md mx-auto my-4 p-5 rounded-2xl bg-[#dfe6ec]/40 border border-[#c69c4e]/30 space-y-2">
+          <div className="max-w-md mx-auto my-4 p-5 rounded-2xl bg-[#dfe6ec]/40 border border-[#c69c4e]/30 space-y-2 mb-8">
             <div className="flex items-center justify-center gap-2 text-[#c69c4e]">
               <MapPin className="w-5 h-5 shrink-0" />
               <span className="font-montserrat text-xs uppercase tracking-widest font-bold text-[#162842]">
@@ -62,11 +63,7 @@ export default function CopoDeAguaSection() {
             </p>
           </div>
 
-          <p className="font-cormorant text-base sm:text-lg italic text-[#162842]/85 max-w-lg mx-auto mt-4 mb-8">
-            Em breve disponibilizaremos os detalhes definitivos de horário e protocolo de entrada para o nosso brinde festivo.
-          </p>
-
-          {/* Dedicated Map Button */}
+          {/* Dedicated Map Button with Navigation */}
           <div className="flex justify-center">
             <a
               href={orquideaMapUrl}

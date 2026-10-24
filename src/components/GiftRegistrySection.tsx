@@ -7,8 +7,6 @@ import {
   Store, 
   MapPin, 
   Navigation,
-  Smartphone, 
-  ExternalLink, 
   Heart
 } from 'lucide-react';
 import { WEDDING_DETAILS } from '../data/weddingData';
@@ -28,7 +26,7 @@ export default function GiftRegistrySection() {
     storeName: "Casa das Loiças",
     address: "Avenida Karl Marx, próxima às bombas Petromoc",
     city: "Maputo, Moçambique",
-    googleMapsUrl: "https://www.google.com/maps/search/?api=1&query=Casa+das+Loi%C3%A7as+Avenida+Karl+Marx+Maputo",
+    googleMapsUrl: "https://www.google.com/maps/dir/?api=1&destination=Casa+das+Loi%C3%A7as%2C+Avenida+Karl+Marx%2C+Maputo&dir_action=navigate",
     emolaNumber: "877002266"
   };
 
@@ -91,24 +89,22 @@ export default function GiftRegistrySection() {
             </p>
           </div>
 
-          {/* 2 Clear, Balanced Cards: Localização da Loja & Dados Bancários */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-8">
-            
-            {/* Opção 1: Localização da Loja */}
-            <div className="rounded-2xl bg-[#f4f7fa] p-5 sm:p-6 border border-[#c69c4e]/40 shadow-sm flex flex-col justify-between hover:border-[#c69c4e] transition-colors">
+          {/* Localização da Loja */}
+          <div className="max-w-md mx-auto mb-8">
+            <div className="rounded-2xl bg-[#f4f7fa] p-6 sm:p-7 border border-[#c69c4e]/40 shadow-sm flex flex-col justify-between hover:border-[#c69c4e] transition-colors">
               <div>
-                <div className="flex items-center gap-2 mb-2 text-[#c69c4e]">
+                <div className="flex items-center gap-2 mb-2.5 text-[#c69c4e]">
                   <Store className="w-5 h-5" />
-                  <span className="font-montserrat text-[11px] font-bold uppercase tracking-wider text-[#162842]">
+                  <span className="font-montserrat text-xs font-bold uppercase tracking-wider text-[#162842]">
                     Localização da Loja
                   </span>
                 </div>
 
-                <h3 className="font-cinzel text-lg sm:text-xl font-bold text-[#162842] mb-1.5">
+                <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#162842] mb-2">
                   {giftStore.storeName}
                 </h3>
 
-                <div className="flex items-start gap-2 text-[#162842]/90 text-xs sm:text-sm mb-4">
+                <div className="flex items-start gap-2.5 text-[#162842]/90 text-sm mb-5">
                   <MapPin className="w-4 h-4 text-[#c69c4e] shrink-0 mt-0.5" />
                   <p className="font-medium">
                     {giftStore.address}
@@ -116,88 +112,35 @@ export default function GiftRegistrySection() {
                 </div>
               </div>
 
-              <div className="space-y-2 pt-3 border-t border-[#dfe6ec]">
+              <div className="space-y-2.5 pt-4 border-t border-[#dfe6ec]">
                 <a
                   href={giftStore.googleMapsUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full py-2.5 px-3 rounded-xl gold-button text-xs font-montserrat font-bold shadow-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                  className="w-full py-3 px-4 rounded-xl gold-button text-xs sm:text-sm font-montserrat font-bold shadow-md flex items-center justify-center gap-2 transition-all cursor-pointer"
                 >
-                  <Navigation className="w-3.5 h-3.5" />
+                  <Navigation className="w-4 h-4" />
                   <span>Localização no mapa</span>
                 </a>
 
                 <button
                   onClick={() => copyToClipboard(`${giftStore.storeName} - ${giftStore.address}`, 'store')}
-                  className="w-full py-2 px-3 rounded-xl bg-white hover:bg-slate-50 border border-[#c69c4e]/40 text-xs font-montserrat font-bold text-[#162842] flex items-center justify-center gap-1.5 transition-colors shadow-xs cursor-pointer"
+                  className="w-full py-2.5 px-4 rounded-xl bg-white hover:bg-slate-50 border border-[#c69c4e]/40 text-xs sm:text-sm font-montserrat font-bold text-[#162842] flex items-center justify-center gap-2 transition-colors shadow-xs cursor-pointer"
                 >
                   {copiedType === 'store' ? (
                     <>
-                      <Check className="w-3.5 h-3.5 text-emerald-600" />
+                      <Check className="w-4 h-4 text-emerald-600" />
                       <span className="text-emerald-700">Endereço Copiado!</span>
                     </>
                   ) : (
                     <>
-                      <Copy className="w-3.5 h-3.5 text-[#c69c4e]" />
+                      <Copy className="w-4 h-4 text-[#c69c4e]" />
                       <span>Copiar Endereço</span>
                     </>
                   )}
                 </button>
               </div>
             </div>
-
-            {/* Opção 2: Dados Bancários - E-Mola */}
-            <div className="rounded-2xl bg-[#f4f7fa] p-5 sm:p-6 border border-[#c69c4e]/40 shadow-sm flex flex-col justify-between hover:border-[#c69c4e] transition-colors">
-              <div>
-                <div className="flex items-center gap-2 mb-2 text-[#c69c4e]">
-                  <Smartphone className="w-5 h-5" />
-                  <span className="font-montserrat text-[11px] font-bold uppercase tracking-wider text-[#162842]">
-                    Dados Bancários
-                  </span>
-                </div>
-
-                <h3 className="font-cinzel text-lg sm:text-xl font-bold text-[#162842] mb-1.5">
-                  E-Mola (Moçambique)
-                </h3>
-
-                <div className="p-3 rounded-xl bg-white border border-[#c69c4e]/30 text-center mb-4">
-                  <span className="text-[10px] font-montserrat uppercase tracking-wider text-[#162842]/70 font-semibold block mb-0.5">
-                    Número E-Mola
-                  </span>
-                  <span className="font-mono text-xl sm:text-2xl font-black text-[#162842] tracking-wider block">
-                    877002266
-                  </span>
-                </div>
-              </div>
-
-              <div className="space-y-2 pt-3 border-t border-[#dfe6ec]">
-                <button
-                  onClick={() => copyToClipboard('877002266', 'emola')}
-                  className="w-full py-2.5 px-3 rounded-xl gold-button text-xs font-montserrat font-bold shadow-sm flex items-center justify-center gap-1.5 transition-all cursor-pointer"
-                >
-                  {copiedType === 'emola' ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-900" />
-                      <span className="text-emerald-950 font-black">877002266 Copiado!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>Copiar Número (877002266)</span>
-                    </>
-                  )}
-                </button>
-
-                <a
-                  href="tel:877002266"
-                  className="w-full py-2 px-3 rounded-xl bg-white hover:bg-slate-50 border border-[#c69c4e]/40 text-xs font-montserrat font-bold text-[#162842] flex items-center justify-center gap-1.5 transition-colors shadow-xs cursor-pointer"
-                >
-                  <Smartphone className="w-3.5 h-3.5 text-[#c69c4e]" />
-                  <span>Transferir / Ligar</span>
-                </a>
-              </div>
-            </div>
-
           </div>
 
           {/* Agradecimento Final Enquadrado */}

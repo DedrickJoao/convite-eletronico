@@ -4,9 +4,10 @@ import { WEDDING_DETAILS } from '../data/weddingData';
 interface FooterProps {
   onReopenEnvelope: () => void;
   onOpenRsvp: () => void;
+  onOpenAdmin?: () => void;
 }
 
-export default function Footer({ onReopenEnvelope, onOpenRsvp }: FooterProps) {
+export default function Footer({ onReopenEnvelope, onOpenRsvp, onOpenAdmin }: FooterProps) {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -50,6 +51,14 @@ export default function Footer({ onReopenEnvelope, onOpenRsvp }: FooterProps) {
           >
             Reabrir Envelope
           </button>
+          {onOpenAdmin && (
+            <button
+              onClick={onOpenAdmin}
+              className="px-5 py-2.5 rounded-full bg-[#162842] text-[#f5d78e] border border-[#c69c4e] hover:bg-[#0c1626] font-bold transition-colors shadow-sm cursor-pointer"
+            >
+              Painel dos Noivos (MongoDB)
+            </button>
+          )}
           <button
             onClick={scrollToTop}
             className="p-2.5 rounded-full bg-white border border-[#c69c4e]/50 hover:border-[#c69c4e] text-[#162842] hover:text-[#c69c4e] transition-colors shadow-sm cursor-pointer"

@@ -1,9 +1,24 @@
 import { useState, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { Heart, CheckCircle2, Send, Sparkles, User, Phone, Users, MessageSquareHeart, Check, CalendarCheck, MessageCircle } from 'lucide-react';
+import { 
+  Heart, 
+  CheckCircle2, 
+  Send, 
+  Sparkles, 
+  User, 
+  Phone, 
+  MessageSquareHeart, 
+  Check, 
+  CalendarCheck, 
+  ShieldCheck, 
+  UserPlus
+} from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { WEDDING_DETAILS } from '../data/weddingData';
-import { RsvpData } from '../types';
+import { submitRsvp, trackActivity } from '../services/api';
+import BlockchainModal from './BlockchainModal';
+
+const TARGET_EMAIL = "bhelena.nhantumbo76@gmail.com";
 
 interface RsvpSectionProps {
   onSuccessSubmit: (guestName: string, ticketId: string) => void;
@@ -11,17 +26,18 @@ interface RsvpSectionProps {
 }
 
 export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: RsvpSectionProps) {
-  const [formData, setFormData] = useState<RsvpData>({
+  const [formData, setFormData] = useState({
     guestName: initialGuestName,
     phone: '',
-    attending: 'yes',
-    plusOneCount: 0,
+    attending: 'yes' as 'yes' | 'no',
     messageToCouple: ''
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [ticketId, setTicketId] = useState('');
+  const [blockData, setBlockData] = useState<any>(null);
+  const [isBlockchainModalOpen, setIsBlockchainModalOpen] = useState(false);
 
   const triggerLuxuryConfetti = () => {
     const end = Date.now() + 2.5 * 1000;
@@ -49,33 +65,58 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
     })();
   };
 
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    const generatedId = `DB-${Math.floor(1000 + Math.random() * 9000)}-CONVITE`;
+    const generatedFallbackId = `DB-${Math.floor(1000 + Math.random() * 9000)}-CONVITE`;
 
-    setTimeout(() => {
-      setIsSubmitting(false);
+    try {
+      const result = await submitRsvp({
+        guestName: formData.guestName,
+        phone: formData.phone,
+        attending: formData.attending,
+        messageToCouple: formData.messageToCouple,
+        notificationTarget: TARGET_EMAIL
+      });
+
+      const confirmedId = result.ticketId || generatedFallbackId;
+      setTicketId(confirmedId);
+      setBlockData(result.blockchainBlock || null);
       setIsSubmitted(true);
-      setTicketId(generatedId);
       triggerLuxuryConfetti();
-      onSuccessSubmit(formData.guestName || "Convidado de Honra", generatedId);
-    }, 900);
+      onSuccessSubmit(formData.guestName || "Convidado de Honra", confirmedId);
+
+      // Background activity tracking
+      trackActivity({
+        type: 'rsvp_confirmed',
+        description: `${formData.guestName} confirmou presença com sucesso.`,
+        metadata: { 
+          ticketId: confirmedId, 
+          attending: formData.attending
+        }
+      });
+    } catch (err: any) {
+      console.warn('Backend submission fallback:', err);
+      setTicketId(generatedFallbackId);
+      setIsSubmitted(true);
+      triggerLuxuryConfetti();
+      onSuccessSubmit(formData.guestName || "Convidado de Honra", generatedFallbackId);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
-  const handleWhatsAppSend = () => {
-    const statusText = formData.attending === 'yes' ? 'SIM, confirmo com alegria!' : 'Não poderei comparecer.';
-    const text = encodeURIComponent(
-      `*Confirmação de Presença - Casamento Dionísio & Benedita 2026*\n\n` +
-      `👤 *Convidado:* ${formData.guestName || 'Convidado de Honra'}\n` +
-      `📱 *Contacto:* ${formData.phone || 'N/D'}\n` +
-      `✨ *Presença:* ${statusText}\n` +
-      `👥 *Acompanhantes:* ${formData.plusOneCount}\n` +
-      (formData.messageToCouple ? `💌 *Mensagem:* ${formData.messageToCouple}\n\n` : '\n') +
-      `_Que falte tudo menos Deus..._`
-    );
-    window.open(`https://api.whatsapp.com/send?phone=258841234567&text=${text}`, '_blank');
+  const handleConfirmAnotherGuest = () => {
+    setFormData({
+      guestName: '',
+      phone: '',
+      attending: 'yes',
+      messageToCouple: ''
+    });
+    setTicketId('');
+    setBlockData(null);
+    setIsSubmitted(false);
   };
 
   return (
@@ -83,7 +124,6 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
       id="rsvp" 
       className="relative py-24 px-4 sm:px-6 lg:px-8 overflow-hidden bg-gradient-to-b from-[#ebf1f6] via-[#e5eef7] to-[#f4f7fa] border-b border-[#c69c4e]/35 shadow-inner"
     >
-      
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[radial-gradient(circle,rgba(198,156,78,0.15)_0%,transparent_70%)] pointer-events-none blur-3xl" />
       <div className="absolute bottom-10 right-10 w-72 h-72 bg-[radial-gradient(circle,rgba(22,40,66,0.08)_0%,transparent_70%)] pointer-events-none blur-2xl" />
@@ -91,7 +131,7 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
       <div className="max-w-5xl mx-auto relative z-10">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <div className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-[#c69c4e]/50 bg-white/80 mb-4 shadow-sm">
             <Heart className="w-3.5 h-3.5 text-[#c69c4e] fill-[#c69c4e]" />
             <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-[#162842] font-bold">
@@ -108,235 +148,249 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
           </p>
         </div>
 
-        {/* RSVP Interactive Form Container */}
-        <div className="max-w-3xl mx-auto rounded-3xl bg-white/95 backdrop-blur-md p-6 sm:p-10 border-2 border-[#c69c4e]/50 shadow-2xl relative overflow-hidden">
-            
-            <AnimatePresence mode="wait">
-              {!isSubmitted ? (
-                <motion.form
-                  key="rsvp-form"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  onSubmit={handleSubmit}
-                  className="space-y-6"
-                >
-                  <div className="border-b border-[#dfe6ec] pb-4 mb-2">
-                    <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#162842] flex items-center gap-2">
-                      <Sparkles className="w-5 h-5 text-[#c69c4e]" />
-                      <span>Formulário de Confirmação</span>
-                    </h3>
-                    <p className="font-montserrat text-xs text-[#162842]/80 mt-1 font-medium">
-                      Preencha os campos abaixo para garantir seu lugar no grande dia.
-                    </p>
-                  </div>
+        {/* RSVP Form Container */}
+        <div className="max-w-2xl mx-auto rounded-3xl bg-white/95 backdrop-blur-md p-6 sm:p-10 border-2 border-[#c69c4e]/50 shadow-2xl relative overflow-hidden">
+          
+          <AnimatePresence mode="wait">
+            {!isSubmitted ? (
+              <motion.form
+                key="rsvp-form"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                onSubmit={handleSubmit}
+                className="space-y-6"
+              >
+                <div className="border-b border-[#dfe6ec] pb-4 mb-2">
+                  <h3 className="font-cinzel text-xl sm:text-2xl font-bold text-[#162842] flex items-center gap-2">
+                    <Sparkles className="w-5 h-5 text-[#c69c4e]" />
+                    <span>Formulário de Confirmação Oficial</span>
+                  </h3>
+                  <p className="font-montserrat text-xs text-[#162842]/80 mt-1 font-medium">
+                    Preencha os seus dados para confirmar a sua honrosa presença no nosso grande dia.
+                  </p>
+                </div>
 
-                  {/* Attendance Selector */}
-                  <div className="space-y-2">
-                    <label className="block text-xs font-montserrat uppercase tracking-wider text-[#162842] font-bold">
-                      Você comparecerá a esta noite inesquecível? *
-                    </label>
-                    <div className="grid grid-cols-2 gap-4">
-                      <button
-                        type="button"
-                        onClick={() => setFormData({ ...formData, attending: 'yes' })}
-                        className={`p-3.5 rounded-xl border text-xs sm:text-sm font-montserrat font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                          formData.attending === 'yes'
-                            ? 'bg-[#162842] text-[#c69c4e] border-[#c69c4e] shadow-md'
-                            : 'bg-[#dfe6ec]/50 border-[#162842]/20 text-[#162842] hover:bg-[#dfe6ec]'
-                        }`}
-                      >
-                        <Check className="w-4 h-4 text-[#c69c4e]" />
-                        <span>Sim, com muita alegria!</span>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => setFormData({ ...formData, attending: 'no' })}
-                        className={`p-3.5 rounded-xl border text-xs sm:text-sm font-montserrat font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
-                          formData.attending === 'no'
-                            ? 'bg-rose-100 border-rose-400 text-rose-800 shadow-md'
-                            : 'bg-[#dfe6ec]/50 border-[#162842]/20 text-[#162842] hover:bg-[#dfe6ec]'
-                        }`}
-                      >
-                        <span>Não poderei comparecer</span>
-                      </button>
-                    </div>
-                  </div>
-
-                  {/* Name */}
-                  <div className="space-y-1.5">
-                    <label className="block text-xs font-montserrat font-bold text-[#162842]">
-                      Nome Completo *
-                    </label>
-                    <div className="relative">
-                      <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#c69c4e]" />
-                      <input
-                        type="text"
-                        required
-                        value={formData.guestName}
-                        onChange={(e) => setFormData({ ...formData, guestName: e.target.value })}
-                        placeholder="Ex: Família Silva ou Seu Nome"
-                        className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-semibold focus:outline-none transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Phone & Acompanhantes */}
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="block text-xs font-montserrat font-bold text-[#162842]">
-                        WhatsApp / Telefone *
-                      </label>
-                      <div className="relative">
-                        <Phone className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#c69c4e]" />
-                        <input
-                          type="tel"
-                          required
-                          value={formData.phone}
-                          onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                          placeholder="+258 84 123 4567"
-                          className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-semibold focus:outline-none transition-colors"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <div className="flex items-center justify-between">
-                        <label className="block text-xs font-montserrat font-bold text-[#162842]">
-                          Número de Convidados *
-                        </label>
-                        <span className="text-[10px] text-[#c69c4e] font-montserrat font-bold uppercase tracking-wider">
-                          Máx. 2 pessoas
-                        </span>
-                      </div>
-                      <div className="relative">
-                        <Users className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#c69c4e]" />
-                        <select
-                          value={formData.plusOneCount}
-                          onChange={(e) => setFormData({ ...formData, plusOneCount: Math.min(1, Number(e.target.value)) })}
-                          className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-semibold focus:outline-none transition-colors"
-                        >
-                          <option value={0}>1 Pessoa (Apenas eu)</option>
-                          <option value={1}>2 Pessoas (Eu + 1 Acompanhante - Máximo)</option>
-                        </select>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Message to Couple */}
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between">
-                      <label className="block text-xs font-montserrat font-bold text-[#162842]">
-                        Mensagem de Felicitações & Carinho aos Noivos
-                      </label>
-                      <span className="text-[10px] text-[#c69c4e] font-montserrat font-semibold">
-                        Opcional
-                      </span>
-                    </div>
-                    <div className="relative">
-                      <MessageSquareHeart className="w-4 h-4 absolute left-3.5 top-3 text-[#c69c4e]" />
-                      <textarea
-                        rows={4}
-                        value={formData.messageToCouple}
-                        onChange={(e) => setFormData({ ...formData, messageToCouple: e.target.value })}
-                        placeholder="Deixe os seus votos de amor, bênçãos e felicitações para Dionísio & Benedita..."
-                        className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-medium focus:outline-none transition-colors resize-none"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Action Buttons */}
-                  <div className="space-y-3 pt-2">
+                {/* Attendance Selector */}
+                <div className="space-y-2">
+                  <label className="block text-xs font-montserrat uppercase tracking-wider text-[#162842] font-bold">
+                    Você comparecerá a esta celebração inesquecível? *
+                  </label>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                     <button
-                      id="rsvp-submit-btn"
-                      type="submit"
-                      disabled={isSubmitting}
-                      className="w-full py-4 rounded-2xl gold-button font-montserrat text-xs sm:text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2 cursor-pointer shadow-[0_10px_25px_rgba(198,156,78,0.35)]"
+                      type="button"
+                      onClick={() => setFormData({ ...formData, attending: 'yes' })}
+                      className={`p-3.5 rounded-xl border text-xs sm:text-sm font-montserrat font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                        formData.attending === 'yes'
+                          ? 'bg-[#162842] text-[#c69c4e] border-[#c69c4e] shadow-md'
+                          : 'bg-[#dfe6ec]/50 border-[#162842]/20 text-[#162842] hover:bg-[#dfe6ec]'
+                      }`}
                     >
-                      {isSubmitting ? (
-                        <>
-                          <Sparkles className="w-5 h-5 animate-spin" />
-                          <span>Confirmando Presença...</span>
-                        </>
-                      ) : (
-                        <>
-                          <Send className="w-4 h-4" />
-                          <span>Enviar Confirmação</span>
-                        </>
-                      )}
+                      <Check className="w-4 h-4 text-[#c69c4e]" />
+                      <span>Sim, com muita alegria!</span>
                     </button>
 
                     <button
                       type="button"
-                      onClick={handleWhatsAppSend}
-                      className="w-full py-3.5 rounded-2xl bg-[#25D366]/15 hover:bg-[#25D366]/25 border border-[#25D366]/60 font-montserrat text-xs sm:text-sm font-bold text-[#162842] flex items-center justify-center gap-2 transition-all cursor-pointer shadow-sm"
+                      onClick={() => setFormData({ ...formData, attending: 'no' })}
+                      className={`p-3.5 rounded-xl border text-xs sm:text-sm font-montserrat font-bold transition-all flex items-center justify-center gap-2 cursor-pointer ${
+                        formData.attending === 'no'
+                          ? 'bg-rose-100 border-rose-400 text-rose-800 shadow-md'
+                          : 'bg-[#dfe6ec]/50 border-[#162842]/20 text-[#162842] hover:bg-[#dfe6ec]'
+                      }`}
                     >
-                      <MessageCircle className="w-4 h-4 text-[#25D366] fill-[#25D366]" />
-                      <span>Enviar Confirmação Direta pelo WhatsApp</span>
+                      <span>Não poderei comparecer</span>
                     </button>
                   </div>
-                </motion.form>
-              ) : (
-                <motion.div
-                  key="rsvp-success"
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="py-8 text-center space-y-6"
-                >
-                  <div className="w-20 h-20 rounded-full bg-emerald-100 border-2 border-emerald-500 mx-auto flex items-center justify-center shadow-md">
-                    <CheckCircle2 className="w-10 h-10 text-emerald-600" />
-                  </div>
+                </div>
 
-                  <div className="space-y-2">
-                    <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-[#c69c4e] font-bold">
-                      Presença Confirmada
+                {/* Name */}
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-montserrat font-bold text-[#162842]">
+                    Nome Completo do Convidado *
+                  </label>
+                  <div className="relative">
+                    <User className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#c69c4e]" />
+                    <input
+                      type="text"
+                      required
+                      value={formData.guestName}
+                      onChange={(e) => setFormData({ ...formData, guestName: e.target.value })}
+                      placeholder="Ex: Dra. Ana Paula ou Senhor Carlos Silva"
+                      className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-3 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-semibold focus:outline-none transition-colors"
+                    />
+                  </div>
+                </div>
+
+                {/* Phone / Contact */}
+                <div className="space-y-1.5">
+                  <label className="block text-xs font-montserrat font-bold text-[#162842]">
+                    Telefone / WhatsApp *
+                  </label>
+                  <div className="relative">
+                    <Phone className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-[#c69c4e]" />
+                    <input
+                      type="tel"
+                      required
+                      value={formData.phone}
+                      onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                      placeholder="+258 84 123 4567"
+                      className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-3 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-semibold focus:outline-none transition-colors"
+                    />
+                  </div>
+                </div>
+
+                {/* Message to Couple */}
+                <div className="space-y-1.5">
+                  <div className="flex items-center justify-between">
+                    <label className="block text-xs font-montserrat font-bold text-[#162842]">
+                      Mensagem de Felicitações aos Noivos
+                    </label>
+                    <span className="text-[10px] text-[#c69c4e] font-montserrat font-semibold">
+                      Opcional
                     </span>
-                    <h3 className="font-cinzel text-2xl sm:text-4xl font-bold text-[#162842]">
-                      Obrigado, {formData.guestName}!
-                    </h3>
-                    <p className="font-cormorant text-xl text-[#162842] italic max-w-md mx-auto font-medium">
-                      Sua presença tornará a celebração de Dionísio & Benedita ainda mais memorável.
-                    </p>
+                  </div>
+                  <div className="relative">
+                    <MessageSquareHeart className="w-4 h-4 absolute left-3.5 top-3 text-[#c69c4e]" />
+                    <textarea
+                      rows={3}
+                      value={formData.messageToCouple}
+                      onChange={(e) => setFormData({ ...formData, messageToCouple: e.target.value })}
+                      placeholder="Deixe os seus votos de amor, bênçãos e felicitações para Dionísio & Benedita..."
+                      className="w-full bg-[#dfe6ec]/40 border border-[#162842]/20 focus:border-[#c69c4e] rounded-xl py-2.5 pl-10 pr-4 text-xs sm:text-sm text-[#162842] font-medium focus:outline-none transition-colors resize-none"
+                    />
+                  </div>
+                </div>
+
+                {/* Submit Action Button */}
+                <div className="pt-2">
+                  <button
+                    id="rsvp-submit-btn"
+                    type="submit"
+                    disabled={isSubmitting}
+                    className="w-full py-4 rounded-2xl gold-button font-montserrat text-xs sm:text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2 cursor-pointer shadow-[0_10px_25px_rgba(198,156,78,0.35)] hover:shadow-[0_12px_28px_rgba(198,156,78,0.45)] transition-all"
+                  >
+                    {isSubmitting ? (
+                      <>
+                        <Sparkles className="w-5 h-5 animate-spin" />
+                        <span>A Enviar Confirmação...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        <span>Enviar Confirmação de Presença</span>
+                      </>
+                    )}
+                  </button>
+                </div>
+              </motion.form>
+            ) : (
+              <motion.div
+                key="rsvp-success"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                className="py-6 text-center space-y-6"
+              >
+                <div className="w-20 h-20 rounded-full bg-emerald-100 border-2 border-emerald-500 mx-auto flex items-center justify-center shadow-md">
+                  <CheckCircle2 className="w-10 h-10 text-emerald-600" />
+                </div>
+
+                <div className="space-y-2">
+                  <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-[#c69c4e] font-bold">
+                    Confirmação Enviada com Sucesso
+                  </span>
+                  <h3 className="font-cinzel text-2xl sm:text-4xl font-bold text-[#162842]">
+                    Obrigado, {formData.guestName}!
+                  </h3>
+                  <p className="font-cormorant text-xl text-[#162842] italic max-w-md mx-auto font-medium">
+                    {formData.attending === 'yes'
+                      ? 'Sua presença tornará a celebração de Dionísio & Benedita ainda mais memorável.'
+                      : 'Agradecemos o seu carinho e a sua resposta.'}
+                  </p>
+                </div>
+
+                {/* Ticket Details Card */}
+                <div className="p-6 rounded-2xl bg-[#dfe6ec]/60 border border-[#c69c4e]/50 max-w-md mx-auto text-left space-y-3 shadow-sm">
+                  <div className="flex items-center justify-between border-b border-[#162842]/10 pb-2">
+                    <span className="text-[11px] font-montserrat uppercase tracking-wider text-[#162842] font-bold">
+                      Código do Convite:
+                    </span>
+                    <span className="font-mono text-base font-extrabold text-[#c69c4e]">
+                      {ticketId}
+                    </span>
                   </div>
 
-                  {/* Confirmed Ticket Badge */}
-                  <div className="p-4 rounded-2xl bg-[#dfe6ec]/60 border border-[#c69c4e]/50 max-w-md mx-auto text-left space-y-2 shadow-sm">
-                    <div className="flex items-center justify-between">
-                      <span className="text-[11px] font-montserrat uppercase tracking-wider text-[#162842] font-bold">
-                        Código de Entrada:
-                      </span>
-                      <span className="font-mono text-sm font-bold text-[#c69c4e]">
-                        {ticketId}
-                      </span>
-                    </div>
-                    <div className="flex items-center gap-2 text-xs font-semibold text-[#162842]">
-                      <CalendarCheck className="w-4 h-4 text-emerald-600 shrink-0" />
-                      <span>Data: 12 de Dezembro de 2026 • 16:00 HRS • Maputo</span>
-                    </div>
+                  <div className="flex items-center justify-between text-xs font-semibold text-[#162842]">
+                    <span>Convidado:</span>
+                    <span className="font-bold text-[#162842] bg-white px-2.5 py-0.5 rounded border border-[#c69c4e]/40">
+                      {formData.guestName}
+                    </span>
                   </div>
 
-                  <div className="pt-2">
+                  <div className="flex items-center justify-between text-xs font-semibold text-[#162842]">
+                    <span>Estado da Presença:</span>
+                    <span className={`px-2.5 py-0.5 rounded-full font-bold text-[11px] ${
+                      formData.attending === 'yes' ? 'bg-emerald-100 text-emerald-800' : 'bg-rose-100 text-rose-800'
+                    }`}>
+                      {formData.attending === 'yes' ? 'Confirmado' : 'Não comparecerá'}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-2 text-xs font-semibold text-[#162842] pt-1">
+                    <CalendarCheck className="w-4 h-4 text-emerald-600 shrink-0" />
+                    <span>Sábado, 12 de Dezembro de 2026 • Maputo</span>
+                  </div>
+
+                  {/* Blockchain Verification Box */}
+                  <div className="pt-2 border-t border-[#162842]/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+                    <div className="flex items-center gap-1.5 text-xs text-emerald-700 font-bold">
+                      <ShieldCheck className="w-4 h-4 text-emerald-600" />
+                      <span>Selo Blockchain #{blockData?.index ?? 'Proof'}</span>
+                    </div>
                     <button
-                      onClick={handleWhatsAppSend}
-                      className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#25D366] text-white font-montserrat text-xs font-bold shadow-md hover:bg-[#20bd5a] transition-all cursor-pointer"
+                      type="button"
+                      onClick={() => setIsBlockchainModalOpen(true)}
+                      className="text-[11px] font-montserrat font-bold text-[#c69c4e] hover:underline uppercase tracking-wider cursor-pointer"
                     >
-                      <MessageCircle className="w-4 h-4 fill-white" />
-                      <span>Notificar os Noivos no WhatsApp</span>
+                      Ver Prova Criptográfica &rarr;
                     </button>
                   </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+                </div>
 
-          {/* Organizer Assistance Info */}
-          <div className="mt-8 text-center text-xs font-montserrat text-[#162842] space-y-1 font-medium">
-            <p className="font-bold text-[#162842]">Dúvidas ou Assessoria do Casamento:</p>
-            <p className="text-[#c69c4e] font-bold">{WEDDING_DETAILS.organizerContact} • {WEDDING_DETAILS.organizerEmail}</p>
-          </div>
-
+                {/* Confirm Another Guest Option */}
+                <div className="pt-2 max-w-md mx-auto">
+                  <button
+                    type="button"
+                    onClick={handleConfirmAnotherGuest}
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-white hover:bg-slate-50 border border-[#c69c4e]/60 text-[#162842] font-montserrat text-xs font-bold transition-all cursor-pointer shadow-sm"
+                  >
+                    <UserPlus className="w-4 h-4 text-[#c69c4e]" />
+                    <span>Confirmar Presença para Mais um Convidado</span>
+                  </button>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
-      </section>
+
+        {/* Organizer Assistance Info - without illustrating the email address */}
+        <div className="mt-8 text-center text-xs font-montserrat text-[#162842] space-y-1 font-medium">
+          <p className="font-bold text-[#162842]">Dúvidas ou Assessoria do Casamento:</p>
+          <p className="text-[#c69c4e] font-bold">
+            {WEDDING_DETAILS.organizerContact}
+          </p>
+        </div>
+
+      </div>
+
+      {/* Blockchain Audit Modal */}
+      <BlockchainModal
+        isOpen={isBlockchainModalOpen}
+        onClose={() => setIsBlockchainModalOpen(false)}
+        ticketId={ticketId}
+        guestName={formData.guestName}
+        blockData={blockData}
+      />
+    </section>
   );
 }
