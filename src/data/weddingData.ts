@@ -6,7 +6,7 @@ export const WEDDING_DETAILS = {
   monogram: "D & B",
   hashtag: "#DionisioEBenedita2026",
   tagline: "O Grande Casamento de 2026",
-  subTagline: "Que falte tudo menos Deus...",
+  subTagline: "",
   impactPhrase: "Dois corações unidos pelo amor e pelo propósito divino. É com imensa honra e alegria que convidamos você para celebrar o nosso matrimónio na majestosa cidade de Maputo, Moçambique.",
   dateText: "Sábado, 12 de Dezembro de 2026",
   targetDate: "2026-12-12T09:30:00+02:00",
@@ -35,7 +35,7 @@ export const WEDDING_DETAILS = {
     "bhelena.nhantumbo76@gmail.com",
     "joaodedrick@gmail.com"
   ],
-  rsvpDeadline: "18 de Novembro de 2026",
+  rsvpDeadline: "7 de Novembro de 2026",
   bankingDetails: {
     iban: "",
     swift: "",

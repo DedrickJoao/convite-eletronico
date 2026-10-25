@@ -3,10 +3,12 @@ import { motion } from 'motion/react';
 import { Heart, ArrowDown } from 'lucide-react';
 import { WEDDING_DETAILS } from '../data/weddingData';
 
+// Target: 12 de Dezembro de 2026 às 09:30:00 no fuso horário de Maputo (UTC+2 -> 07:30:00 UTC)
+const WEDDING_TARGET_UTC = Date.UTC(2026, 11, 12, 7, 30, 0);
+
 function getTimeRemaining() {
-  const target = new Date(WEDDING_DETAILS.targetDate).getTime();
   const now = Date.now();
-  const difference = target - now;
+  const difference = WEDDING_TARGET_UTC - now;
 
   if (difference > 0) {
     const days = Math.floor(difference / (1000 * 60 * 60 * 24));
@@ -42,18 +44,10 @@ export default function CountdownSection() {
 
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center">
         
-        {/* Subtle Decorative Badge */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="inline-flex items-center px-5 sm:px-6 py-1.5 rounded-full border border-[#c69c4e]/40 bg-white/90 shadow-sm mb-4"
-        >
-          <span className="font-montserrat text-xs uppercase tracking-[0.25em] text-[#162842] font-bold text-center">
-            O Grande Dia se Aproxima
-          </span>
-        </motion.div>
+        {/* Section Heading */}
+        <h2 className="font-cinzel text-2xl sm:text-4xl font-extrabold text-[#162842] mb-3 sm:mb-4 tracking-wide">
+          O Grande Dia se Aproxima
+        </h2>
 
         {/* Ornate Divider with Heart */}
         <div className="flex items-center justify-center gap-3 w-48 sm:w-72 mb-8 sm:mb-10 text-[#c69c4e]">
@@ -94,9 +88,11 @@ export default function CountdownSection() {
             ))}
           </div>
 
-          <p className="mt-4 sm:mt-6 font-alex text-xl sm:text-3xl text-[#c69c4e] font-bold">
-            "Que falte tudo, menos Deus..."
-          </p>
+          <div className="mt-5 pt-4 border-t border-[#c69c4e]/20 text-center font-montserrat text-xs text-[#162842]/85 font-semibold">
+            <span>Sábado, 12 de Dezembro de 2026 às 09h30</span>
+            <span className="mx-2 text-[#c69c4e]">•</span>
+            <span>Sé Catedral de Maputo</span>
+          </div>
         </motion.div>
 
         {/* Scroll Indicator toward Love Story */}

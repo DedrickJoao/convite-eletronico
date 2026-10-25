@@ -25,21 +25,6 @@ export default function HeroSection({ guestName }: HeroSectionProps) {
       <div className="absolute inset-0 bg-gradient-to-b from-[#0c1626]/20 via-[#0c1626]/40 to-[#0c1626]/85 pointer-events-none" />
 
       <div className="relative z-10 max-w-4xl mx-auto flex flex-col items-center w-full mt-auto">
-        
-        {/* ========================================================= */}
-        {/* Dizer Único: Que falte tudo menos Deus                   */}
-        {/* ========================================================= */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          className="relative w-full max-w-xl mx-auto p-4 sm:p-6 text-center select-none"
-        >
-          <p className="font-montserrat text-sm sm:text-base md:text-lg uppercase tracking-[0.22em] sm:tracking-[0.28em] text-white font-extrabold drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)] drop-shadow-[0_0_12px_rgba(255,255,255,0.4)] px-4">
-            Que falte tudo menos Deus...
-          </p>
-        </motion.div>
-
         {/* Scroll Down Indicator */}
         <motion.div
           initial={{ opacity: 0 }}

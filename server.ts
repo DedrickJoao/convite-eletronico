@@ -57,7 +57,7 @@ function loadLocalStore(): LocalStore {
       {
         id: 'msg-seed-1',
         guestName: 'Família Nhancale',
-        message: 'Que Deus abençoe ricamente a união de Dionísio & Benedita. Que falte tudo menos Deus no vosso lar!',
+        message: 'Que Deus abençoe ricamente a união de Dionísio & Benedita com muito amor, paz e prosperidade!',
         createdAt: new Date().toISOString(),
         likes: 12,
         status: 'approved'
@@ -110,7 +110,7 @@ function createGenesisBlock(): BlockchainBlock {
   const data = {
     event: 'GENESIS_WEDDING_BLOCK',
     title: 'Casamento Dionísio & Benedita 2026',
-    motto: 'Que falte tudo menos Deus...',
+    motto: 'União e Bênção Matrimonial 2026',
     network: 'DIONISIO-BENEDITA-PRIVATE-CONSORTIUM-LEDGER',
     genesisValidator: 'Sé Catedral de Maputo & Matola Rio'
   };
@@ -438,7 +438,7 @@ async function sendRsvpEmailNotification(rsvpData: {
           ` : ''}
         </div>
         <div class="footer">
-          <strong>"Que falte tudo menos Deus..."</strong><br>
+          <strong>Dionísio & Benedita 2026</strong><br>
           Esta confirmação foi registada na Base de Dados e selada criptograficamente na Blockchain privada do casamento.
         </div>
       </div>
@@ -459,7 +459,7 @@ async function sendRsvpEmailNotification(rsvpData: {
     ${rsvpData.messageToCouple ? `Mensagem: "${rsvpData.messageToCouple}"\n` : ''}
     Selo Blockchain: ${rsvpData.blockchainHash}
     --------------------------------------------------
-    "Que falte tudo menos Deus..."
+    Casamento Dionísio & Benedita 2026
   `;
 
   let mailSent = false;

@@ -30,10 +30,6 @@ export default function Footer({ onReopenEnvelope, onOpenRsvp }: FooterProps) {
           <h3 className="font-cinzel text-2xl sm:text-3xl font-black text-[#162842] tracking-widest">
             {WEDDING_DETAILS.groom} & {WEDDING_DETAILS.bride}
           </h3>
-          
-          <p className="font-alex text-2xl sm:text-3xl text-[#c69c4e] font-bold mt-1">
-            Que falte tudo menos Deus... Para todo o sempre.
-          </p>
         </div>
 
         {/* Date and Hashtag */}
