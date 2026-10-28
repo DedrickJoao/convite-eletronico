@@ -85,36 +85,46 @@ export default function EnvelopeIntro({ onOpen, guestName = '' }: EnvelopeIntroP
             {/* - 100% contido sobre a área do envelope tanto em mobile como desktop    */}
             {/* ======================================================================= */}
             {profile && (
-              <div className="absolute bottom-[20%] sm:bottom-[20.5%] md:bottom-[21%] left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center w-[88%] max-w-[340px] px-2">
-                <motion.div
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.15 }}
-                  className="flex flex-col items-center justify-center text-center space-y-1 sm:space-y-1.5"
-                >
-                  {/* 1. Subtítulo em caligrafia dourada clássica */}
-                  <span className="font-alex text-2xl sm:text-3xl text-[#a37a1f] font-normal tracking-wide drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]">
-                    Especialmente para
-                  </span>
+              <>
+                {/* 1. Bloco Superior: Especialmente para, Nome do Convidado e Validade mais para cima */}
+                <div className="absolute bottom-[27.5%] sm:bottom-[28%] md:bottom-[28.5%] left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center w-[88%] max-w-[340px] px-2">
+                  <motion.div
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.15 }}
+                    className="flex flex-col items-center justify-center text-center space-y-0.5 sm:space-y-1"
+                  >
+                    {/* Subtítulo em caligrafia dourada clássica */}
+                    <span className="font-alex text-2xl sm:text-3xl text-[#a37a1f] font-normal tracking-wide drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]">
+                      Especialmente para
+                    </span>
 
-                  {/* 2. NOME DO CONVIDADO em dourado nobre */}
-                  <h2 className="font-cinzel text-lg sm:text-xl md:text-2xl font-black text-[#8a6508] tracking-wider text-center leading-tight drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]">
-                    {profile.guestName}
-                  </h2>
+                    {/* NOME DO CONVIDADO em dourado nobre */}
+                    <h2 className="font-cinzel text-lg sm:text-xl md:text-2xl font-black text-[#8a6508] tracking-wider text-center leading-tight drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]">
+                      {profile.guestName}
+                    </h2>
 
-                  {/* 3. QUANTIDADE DE PESSOAS AUTORIZADAS / VALIDADE em dourado */}
-                  <p className="font-montserrat text-[11px] sm:text-xs md:text-[12px] font-black text-[#946d05] tracking-[0.16em] uppercase pt-1">
-                    {profile.validityText}
-                  </p>
-
-                  {/* 4. OBSERVAÇÕES ESPECIAIS (NÃO EXTENSIVO A CRIANÇAS) em PRETO */}
-                  {profile.specialNotes && (
-                    <p className="font-montserrat text-[9.5px] sm:text-[10.5px] font-black uppercase tracking-[0.22em] text-[#111827] pt-0.5">
-                      [{profile.specialNotes}]
+                    {/* QUANTIDADE DE PESSOAS AUTORIZADAS / VALIDADE em dourado */}
+                    <p className="font-montserrat text-[11px] sm:text-xs md:text-[12px] font-black text-[#946d05] tracking-[0.16em] uppercase pt-0.5">
+                      {profile.validityText}
                     </p>
-                  )}
-                </motion.div>
-              </div>
+                  </motion.div>
+                </div>
+
+                {/* 2. Bloco Inferior: NÃO EXTENSIVO A CRIANÇAS mantido na posição atual */}
+                {profile.specialNotes && (
+                  <div className="absolute bottom-[20%] sm:bottom-[20.2%] md:bottom-[20.5%] left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center w-[88%] max-w-[340px] px-2">
+                    <motion.p
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      transition={{ duration: 0.8, delay: 0.2 }}
+                      className="font-montserrat text-[9.5px] sm:text-[10.5px] font-black uppercase tracking-[0.22em] text-[#111827]"
+                    >
+                      [{profile.specialNotes}]
+                    </motion.p>
+                  </div>
+                )}
+              </>
             )}
           </motion.div>
         </div>
