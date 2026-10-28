@@ -62,51 +62,7 @@
       }
     }
   ],
-  "messages": [
-    {
-      "id": "msg-1792845700005",
-      "guestName": "Amélia Macamo",
-      "message": "Que Deus abençoe para sempre este lindo amor!",
-      "ticketId": "DB-7358-CONVITE",
-      "createdAt": "2026-10-24T12:41:40.003Z",
-      "likes": 1,
-      "status": "approved"
-    },
-    {
-      "id": "msg-1792844944941",
-      "guestName": "Família Silva",
-      "message": "Que Deus derrame infinitas bênçãos sobre este matrimónio!",
-      "ticketId": "DB-5762-CONVITE",
-      "createdAt": "2026-10-24T12:29:04.940Z",
-      "likes": 1,
-      "status": "approved"
-    },
-    {
-      "id": "msg-1792793918712",
-      "guestName": "Família Silva",
-      "message": "Muitas felicidades ao lindo casal!",
-      "ticketId": "DB-7879-CONVITE",
-      "createdAt": "2026-10-23T22:18:38.711Z",
-      "likes": 1,
-      "status": "approved"
-    },
-    {
-      "id": "msg-seed-1",
-      "guestName": "Família Nhancale",
-      "message": "Que Deus abençoe ricamente a união de Dionísio & Benedita com muito amor, paz e prosperidade!",
-      "createdAt": "2026-10-23T22:18:31.315Z",
-      "likes": 12,
-      "status": "approved"
-    },
-    {
-      "id": "msg-seed-2",
-      "guestName": "Adelina & Belarmino Jovo",
-      "message": "Com imenso amor e bênção de pais. Que este amor floresça para sempre!",
-      "createdAt": "2026-10-23T22:18:31.315Z",
-      "likes": 18,
-      "status": "approved"
-    }
-  ],
+  "messages": [],
   "activities": [
     {
       "id": "act-1792863410859",

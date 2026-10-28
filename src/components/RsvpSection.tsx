@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from 'react';
+import { useState, useEffect, type FormEvent } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { 
   Heart, 
@@ -31,6 +31,12 @@ export default function RsvpSection({ onSuccessSubmit, initialGuestName = '' }: 
     attending: 'yes' as 'yes' | 'no',
     messageToCouple: ''
   });
+
+  useEffect(() => {
+    if (initialGuestName && !formData.guestName) {
+      setFormData(prev => ({ ...prev, guestName: initialGuestName }));
+    }
+  }, [initialGuestName]);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);

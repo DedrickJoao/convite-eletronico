@@ -53,24 +53,7 @@ function loadLocalStore(): LocalStore {
   }
   return {
     rsvps: [],
-    messages: [
-      {
-        id: 'msg-seed-1',
-        guestName: 'Família Nhancale',
-        message: 'Que Deus abençoe ricamente a união de Dionísio & Benedita com muito amor, paz e prosperidade!',
-        createdAt: new Date().toISOString(),
-        likes: 12,
-        status: 'approved'
-      },
-      {
-        id: 'msg-seed-2',
-        guestName: 'Adelina & Belarmino Jovo',
-        message: 'Com imenso amor e bênção de pais. Que este amor floresça para sempre!',
-        createdAt: new Date().toISOString(),
-        likes: 18,
-        status: 'approved'
-      }
-    ],
+    messages: [], // Cleared: ready to receive real messages from wedding guests
     activities: [],
     locations: [],
     blockchain: []
@@ -231,11 +214,17 @@ async function initMongo() {
       await mongoDb.collection('blockchain_ledger').insertOne({ ...genesis });
     }
 
-    // Sync seed messages if empty
-    const msgCount = await mongoDb.collection('messages').countDocuments();
-    if (msgCount === 0 && memoryStore.messages.length > 0) {
-      await mongoDb.collection('messages').insertMany(memoryStore.messages);
-    }
+    // Clear any automatic seed/test messages from MongoDB so mural is clean for real messages
+    await mongoDb.collection('messages').deleteMany({
+      $or: [
+        { id: { $regex: '^msg-seed' } },
+        { id: 'msg-seed-1' },
+        { id: 'msg-seed-2' },
+        { guestName: 'Família Nhancale' },
+        { guestName: 'Família Silva' },
+        { guestName: 'Amélia Macamo' }
+      ]
+    });
   } catch (err: any) {
     console.warn(`⚠️ MongoDB connection warning: ${err.message}. Using resilient persistent fallback.`);
     isMongoConnected = false;
@@ -936,13 +925,55 @@ async function startServer() {
 
   const isProduction = process.env.NODE_ENV === 'production';
 
+  let viteInstance: any = null;
+
   if (!isProduction) {
     const { createServer: createViteServer } = await import('vite');
-    const vite = await createViteServer({
+    viteInstance = await createViteServer({
       server: { middlewareMode: true },
       appType: 'spa',
     });
-    app.use(vite.middlewares);
+  }
+
+  // Dynamic OpenGraph link preview injector for WhatsApp, Telegram & social scrapers
+  app.get(['/', '/index.html'], async (req, res, next) => {
+    const rawName = (req.query.name || req.query.guest || req.query.convidado || req.query.para) as string;
+    if (!rawName) return next();
+
+    try {
+      const guestName = decodeURIComponent(rawName).replace(/\+/g, ' ').trim();
+      const htmlPath = isProduction 
+        ? path.resolve(__dirname, 'dist', 'index.html') 
+        : path.resolve(__dirname, 'index.html');
+
+      if (!fs.existsSync(htmlPath)) return next();
+
+      let html = fs.readFileSync(htmlPath, 'utf-8');
+      if (!isProduction && viteInstance?.transformIndexHtml) {
+        html = await viteInstance.transformIndexHtml(req.originalUrl, html);
+      }
+
+      const lower = guestName.toLowerCase();
+      const isCouple = lower.includes(' e ') || lower.includes('&') || lower.includes('esposa') || lower.includes('esposo') || lower.includes('casal');
+      const validityText = isCouple ? 'Válido para 2 pessoas' : 'Válido para 1 pessoa';
+
+      const ogTitle = `Convite de Casamento • ${guestName} (${validityText})`;
+      const ogDesc = `Dionísio & Benedita têm a honra de convidar ${guestName} para o seu matrimónio em Maputo. ${validityText} (Não extensivo a crianças). Sábado, 12 de Dezembro de 2026.`;
+
+      html = html.replace(/<title>.*?<\/title>/i, `<title>${ogTitle}</title>`);
+      html = html.replace(/<meta property="og:title" content=".*?" \/>/i, `<meta property="og:title" content="${ogTitle}" />`);
+      html = html.replace(/<meta property="og:description" content=".*?" \/>/i, `<meta property="og:description" content="${ogDesc}" />`);
+      html = html.replace(/<meta name="description" content=".*?" \/>/i, `<meta name="description" content="${ogDesc}" />`);
+
+      res.setHeader('Content-Type', 'text/html; charset=utf-8');
+      return res.send(html);
+    } catch {
+      return next();
+    }
+  });
+
+  if (!isProduction && viteInstance) {
+    app.use(viteInstance.middlewares);
     console.log('⚡ Vite dev middleware attached to Express server');
   } else {
     const distPath = path.resolve(__dirname, 'dist');

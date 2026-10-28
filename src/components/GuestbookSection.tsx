@@ -127,7 +127,7 @@ export default function GuestbookSection() {
                 {sentSuccess && (
                   <>
                     <CheckCircle className="w-4 h-4 text-emerald-600" />
-                    <span>Mensagem gravada com sucesso no MongoDB!</span>
+                    <span>Mensagem gravada com sucesso no Mural dos Noivos!</span>
                   </>
                 )}
               </div>
@@ -156,9 +156,15 @@ export default function GuestbookSection() {
         {/* Messages Feed */}
         <div className="space-y-4">
           {messages.length === 0 ? (
-            <div className="text-center py-10 rounded-2xl bg-white/60 border border-slate-200">
-              <p className="font-cormorant text-lg text-slate-500 italic">
-                Seja o primeiro a deixar uma mensagem de bênção aos noivos!
+            <div className="text-center py-12 px-6 rounded-3xl bg-white/70 border-2 border-dashed border-[#c69c4e]/40 shadow-sm max-w-lg mx-auto">
+              <div className="w-12 h-12 rounded-full bg-[#162842] flex items-center justify-center mx-auto mb-3 shadow-md">
+                <MessageSquareHeart className="w-6 h-6 text-[#f5d78e]" />
+              </div>
+              <h4 className="font-cinzel text-base sm:text-lg font-bold text-[#162842] mb-1">
+                Mural Aberto para Votos e Bênçãos
+              </h4>
+              <p className="font-cormorant text-base sm:text-lg text-[#162842]/85 italic">
+                O mural está pronto para receber as palavras dos convidados. Seja o primeiro a deixar uma mensagem de carinho aos noivos!
               </p>
             </div>
           ) : (
