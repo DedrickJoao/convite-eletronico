@@ -85,12 +85,12 @@ export default function EnvelopeIntro({ onOpen, guestName = '' }: EnvelopeIntroP
             {/* - 100% contido sobre a área do envelope tanto em mobile como desktop    */}
             {/* ======================================================================= */}
             {profile && (
-              <div className="absolute bottom-[23.5%] sm:bottom-[24%] md:bottom-[24.5%] left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center w-[88%] max-w-[340px] px-2">
+              <div className="absolute bottom-[20%] sm:bottom-[20.5%] md:bottom-[21%] left-1/2 -translate-x-1/2 z-20 pointer-events-none text-center w-[88%] max-w-[340px] px-2">
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8, delay: 0.15 }}
-                  className="flex flex-col items-center justify-center text-center space-y-0.5 sm:space-y-1"
+                  className="flex flex-col items-center justify-center text-center space-y-1 sm:space-y-1.5"
                 >
                   {/* 1. Subtítulo em caligrafia dourada clássica */}
                   <span className="font-alex text-2xl sm:text-3xl text-[#a37a1f] font-normal tracking-wide drop-shadow-[0_1px_1px_rgba(255,255,255,0.9)]">
