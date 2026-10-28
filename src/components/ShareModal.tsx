@@ -378,56 +378,55 @@ export default function ShareModal({ isOpen, onClose, isAdmin = false, onSelectG
                 </div>
               </div>
 
-              {/* Plaqueta com Nome sobre as plantas */}
+              {/* Informação do Convidado diretamente sobre o envelope */}
               {(() => {
                 const profile = getGuestProfile(customName || 'Nome do Convidado / Casal');
                 return (
-                  <div className="bg-[#faf8f5] rounded-xl py-2.5 px-4 border-2 border-[#c69c4e] max-w-sm mx-auto shadow-lg w-full">
-                    <span className="font-alex text-xl text-[#997316] block">
+                  <div className="py-2 px-3 max-w-sm mx-auto text-center w-full">
+                    <span className="font-alex text-2xl text-[#f5d78e] block drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
                       Especialmente para
                     </span>
-                    <h4 className="font-cinzel text-sm sm:text-base font-black text-[#162842] mt-0.5">
+                    <h4 className="font-cinzel text-base sm:text-lg font-black text-white mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
                       {profile?.guestName || (customName.trim() ? customName.trim() : 'Nome do Convidado / Casal')}
                     </h4>
                     
                     {/* Badges: Tipo de Convite & Nr de Pessoas */}
                     <div className="flex flex-wrap items-center justify-center gap-1.5 my-1">
-                      <span className={`px-2 py-0.5 rounded-full text-[9px] font-montserrat font-extrabold uppercase ${
-                        profile?.type === 'Casal' ? 'bg-[#c69c4e]/20 text-[#8a6508] border border-[#c69c4e]/60' : 'bg-[#162842]/10 text-[#162842]'
-                      }`}>
+                      <span className="px-2.5 py-0.5 rounded-full text-[9px] font-montserrat font-extrabold uppercase bg-black/40 border border-[#c69c4e]/70 text-[#f5d78e]">
                         {profile?.type === 'Casal' ? 'TIPO: CASAL' : 'TIPO: INDIVIDUAL'}
                       </span>
-                      <span className="px-2 py-0.5 rounded-full text-[9px] font-montserrat font-black uppercase bg-[#162842] text-[#f5d78e]">
+                      <span className="px-2.5 py-0.5 rounded-full text-[9px] font-montserrat font-black uppercase bg-[#c69c4e] text-[#162842]">
                         {profile?.allowedCount || 1} {profile?.allowedCount === 2 ? 'PESSOAS' : 'PESSOA'}
                       </span>
                     </div>
 
-                    <div className="text-[9.5px] font-montserrat font-black text-[#162842] uppercase tracking-wider my-0.5">
+                    <div className="text-[10px] font-montserrat font-black text-[#faf8f5] uppercase tracking-wider my-0.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
                       {profile?.validityText || 'CONVITE VÁLIDO PARA 1 PESSOA.'}
                     </div>
 
                     {profile?.specialNotes && (
-                      <span className="font-montserrat text-[8px] uppercase tracking-wider text-[#8c2d2d] font-black block mt-0.5">
+                      <span className="font-montserrat text-[8.5px] uppercase tracking-wider text-[#ff7070] font-black block mt-0.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
                         [{profile.specialNotes}]
                       </span>
                     )}
                     {profile?.restrictions && (
-                      <span className="font-montserrat text-[7.5px] uppercase tracking-wider text-[#162842]/70 font-semibold block mt-0.5">
+                      <span className="font-montserrat text-[7.5px] uppercase tracking-wider text-white/80 font-bold block mt-0.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
                         {profile.restrictions}
                       </span>
                     )}
-                    <div className="w-12 h-0.5 bg-gradient-to-r from-transparent via-[#c69c4e] to-transparent mx-auto my-1" />
-                    
-                    <button
-                      onClick={() => {
-                        if (onSelectGuest) {
-                          onSelectGuest(customName.trim() || 'Belinha e Lucas');
-                        }
-                      }}
-                      className="px-3 py-1 rounded-full bg-[#162842] hover:bg-[#0c1626] text-[#f5d78e] font-montserrat text-[10px] font-bold uppercase tracking-wider transition-colors cursor-pointer"
-                    >
-                      👁️ Testar no Envelope Agora
-                    </button>
+
+                    <div className="mt-2.5">
+                      <button
+                        onClick={() => {
+                          if (onSelectGuest) {
+                            onSelectGuest(customName.trim() || 'Belinha e Lucas');
+                          }
+                        }}
+                        className="px-3.5 py-1.5 rounded-full bg-[#c69c4e] hover:bg-[#b58b3d] text-[#162842] font-montserrat text-[10px] font-bold uppercase tracking-wider shadow-md transition-colors cursor-pointer"
+                      >
+                        👁️ Testar no Envelope Agora
+                      </button>
+                    </div>
                   </div>
                 );
               })()}

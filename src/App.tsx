@@ -201,7 +201,6 @@ export default function App() {
         <EnvelopeIntro
           guestName={guestName}
           onOpen={handleOpenEnvelope}
-          onSelectGuest={handleSelectGuest}
         />
       )}
 
