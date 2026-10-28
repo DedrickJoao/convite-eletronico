@@ -383,35 +383,23 @@ export default function ShareModal({ isOpen, onClose, isAdmin = false, onSelectG
                 const profile = getGuestProfile(customName || 'Nome do Convidado / Casal');
                 return (
                   <div className="py-2 px-3 max-w-sm mx-auto text-center w-full">
-                    <span className="font-alex text-2xl text-[#f5d78e] block drop-shadow-[0_2px_4px_rgba(0,0,0,0.8)]">
+                    {/* Subtítulo & Nome */}
+                    <span className="font-alex text-2xl text-[#a37a1f] block">
                       Especialmente para
                     </span>
-                    <h4 className="font-cinzel text-base sm:text-lg font-black text-white mt-0.5 drop-shadow-[0_2px_6px_rgba(0,0,0,0.9)]">
+                    <h4 className="font-cinzel text-base sm:text-lg font-black text-[#8a6508] mt-0.5">
                       {profile?.guestName || (customName.trim() ? customName.trim() : 'Nome do Convidado / Casal')}
                     </h4>
-                    
-                    {/* Badges: Tipo de Convite & Nr de Pessoas */}
-                    <div className="flex flex-wrap items-center justify-center gap-1.5 my-1">
-                      <span className="px-2.5 py-0.5 rounded-full text-[9px] font-montserrat font-extrabold uppercase bg-black/40 border border-[#c69c4e]/70 text-[#f5d78e]">
-                        {profile?.type === 'Casal' ? 'TIPO: CASAL' : 'TIPO: INDIVIDUAL'}
-                      </span>
-                      <span className="px-2.5 py-0.5 rounded-full text-[9px] font-montserrat font-black uppercase bg-[#c69c4e] text-[#162842]">
-                        {profile?.allowedCount || 1} {profile?.allowedCount === 2 ? 'PESSOAS' : 'PESSOA'}
-                      </span>
-                    </div>
 
-                    <div className="text-[10px] font-montserrat font-black text-[#faf8f5] uppercase tracking-wider my-0.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+                    {/* Validade */}
+                    <div className="text-[10.5px] font-montserrat font-black text-[#946d05] uppercase tracking-wider my-1">
                       {profile?.validityText || 'CONVITE VÁLIDO PARA 1 PESSOA.'}
                     </div>
 
+                    {/* Observações */}
                     {profile?.specialNotes && (
-                      <span className="font-montserrat text-[8.5px] uppercase tracking-wider text-[#ff7070] font-black block mt-0.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
+                      <span className="font-montserrat text-[9px] uppercase tracking-wider text-[#111827] font-black block mt-0.5">
                         [{profile.specialNotes}]
-                      </span>
-                    )}
-                    {profile?.restrictions && (
-                      <span className="font-montserrat text-[7.5px] uppercase tracking-wider text-white/80 font-bold block mt-0.5 drop-shadow-[0_1px_3px_rgba(0,0,0,0.9)]">
-                        {profile.restrictions}
                       </span>
                     )}
 
@@ -422,7 +410,7 @@ export default function ShareModal({ isOpen, onClose, isAdmin = false, onSelectG
                             onSelectGuest(customName.trim() || 'Belinha e Lucas');
                           }
                         }}
-                        className="px-3.5 py-1.5 rounded-full bg-[#c69c4e] hover:bg-[#b58b3d] text-[#162842] font-montserrat text-[10px] font-bold uppercase tracking-wider shadow-md transition-colors cursor-pointer"
+                        className="px-3.5 py-1.5 rounded-full bg-[#111827] hover:bg-black text-white font-montserrat text-[10px] font-bold uppercase tracking-wider shadow-md transition-colors cursor-pointer"
                       >
                         👁️ Testar no Envelope Agora
                       </button>
